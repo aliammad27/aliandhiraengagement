@@ -60,6 +60,7 @@ function InviteContent() {
         partySize: Number(formData.partySize),
         dietaryRestrictions: formData.dietaryRestrictions,
         specialRequests: formData.specialRequests,
+        respondedAt: new Date(),
       });
       setSubmitted(true);
     } catch (error) {
