@@ -141,118 +141,87 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
             You are cordially invited
           </motion.p>
 
-          {/* Envelope */}
-          <div className="relative" style={{ width: 340, height: 240 }}>
+          {/* Envelope + card — card is a sibling so its transforms are independent */}
+          <div className="relative flex items-center justify-center" style={{ width: 280, height: 200 }}>
             <SparkleCanvas active={phase === 'opening'} />
 
+            {/* Card — sits behind envelope when closed, rises above when opening */}
             <motion.div
-              animate={phase === 'closed' ? { y: [0, -7, 0] } : { y: -14, scale: 1.02 }}
+              initial={{ y: 0 }}
+              animate={phase === 'opening' ? { y: -260 } : { y: 0 }}
+              transition={{ delay: 0.45, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-x-0 mx-auto overflow-hidden flex flex-col shadow-2xl"
+              style={{
+                width: 260, bottom: 4,
+                height: 300,
+                background: 'linear-gradient(175deg, #fffdf8 0%, #fdf6e8 100%)',
+                border: '1px solid rgba(184,155,110,0.3)',
+                zIndex: phase === 'opening' ? 60 : 15,
+              }}
+            >
+              <div className="absolute inset-[5px] pointer-events-none" style={{ border: '1px solid rgba(184,155,110,0.45)' }} />
+              <div className="absolute inset-[9px] pointer-events-none" style={{ border: '0.5px solid rgba(212,181,122,0.25)' }} />
+              <div className="absolute top-1 left-1"><Corner /></div>
+              <div className="absolute top-1 right-1"><Corner flip /></div>
+              <div className="absolute bottom-1 left-1" style={{ transform: 'scaleY(-1)' }}><Corner /></div>
+              <div className="absolute bottom-1 right-1" style={{ transform: 'scale(-1,-1)' }}><Corner /></div>
+
+              <div className="flex flex-col items-center pt-9 px-4">
+                <p className="text-center mb-1"
+                  style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#9a7340', fontSize: 14 }}>
+                  بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+                </p>
+              </div>
+              <div className="px-6 my-2"><OrnamentDivider /></div>
+              <div className="mx-5 overflow-hidden flex-1" style={{ borderRadius: 2 }}>
+                <img src="/photos/together-young.jpg" alt="Ali & Hira"
+                  className="w-full h-full object-cover object-top" />
+              </div>
+              <div className="px-6 my-2"><OrnamentDivider /></div>
+              <div className="flex flex-col items-center pb-6">
+                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
+                <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
+                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
+              </div>
+            </motion.div>
+
+            {/* Envelope — bobs independently, no compound transforms affecting card */}
+            <motion.div
+              animate={phase === 'closed' ? { y: [0, -6, 0] } : { y: -10 }}
               transition={phase === 'closed'
                 ? { duration: 3.5, repeat: Infinity, ease: 'easeInOut' }
                 : { duration: 0.5 }}
-              className="relative w-full h-full"
-              style={{ perspective: 1200 }}
+              className="absolute inset-0"
             >
-              {/* Invitation card */}
-              <motion.div
-                initial={{ y: 0 }}
-                animate={phase === 'opening' ? { y: -290, scale: 1.05 } : { y: 0 }}
-                transition={{ delay: 0.48, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-                className={`absolute left-1/2 -translate-x-1/2 bottom-3 shadow-2xl overflow-hidden flex flex-col ${phase === 'opening' ? 'z-[60]' : 'z-[15]'}`}
-                style={{
-                  width: 310, height: 320,
-                  background: 'linear-gradient(175deg, #fffdf8 0%, #fdf6e8 100%)',
-                  border: '1px solid rgba(184,155,110,0.3)',
-                }}
-              >
-                {/* Ornate outer border */}
-                <div className="absolute inset-[5px] pointer-events-none" style={{ border: '1px solid rgba(184,155,110,0.5)' }} />
-                <div className="absolute inset-[9px] pointer-events-none" style={{ border: '0.5px solid rgba(212,181,122,0.3)' }} />
-
-                {/* Card corner flourishes */}
-                <div className="absolute top-2 left-2"><Corner /></div>
-                <div className="absolute top-2 right-2"><Corner flip /></div>
-                <div className="absolute bottom-2 left-2" style={{ transform: 'scaleY(-1)' }}><Corner /></div>
-                <div className="absolute bottom-2 right-2" style={{ transform: 'scale(-1,-1)' }}><Corner /></div>
-
-                {/* Bismillah on card */}
-                <div className="flex flex-col items-center pt-10 px-4">
-                  <p className="text-center text-lg mb-1"
-                    style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#9a7340', fontSize: 16 }}
-                  >
-                    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-                  </p>
-                </div>
-
-                {/* Divider */}
-                <div className="px-8 my-2"><OrnamentDivider /></div>
-
-                {/* Photo */}
-                <div className="mx-6 overflow-hidden flex-1" style={{ borderRadius: 2 }}>
-                  <img src="/photos/together-young.jpg" alt="Ali & Hira"
-                    className="w-full h-full object-cover object-top" />
-                </div>
-
-                {/* Divider */}
-                <div className="px-8 my-2"><OrnamentDivider /></div>
-
-                {/* Names */}
-                <div className="flex flex-col items-center pb-8">
-                  <p className="font-display text-3xl text-charcoal leading-none"
-                    style={{ fontFamily: 'var(--font-cormorant), serif' }}>
-                    {groom}
-                  </p>
-                  <p className="font-script text-xl text-gold my-1"
-                    style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>
-                    and
-                  </p>
-                  <p className="font-display text-3xl text-charcoal leading-none"
-                    style={{ fontFamily: 'var(--font-cormorant), serif' }}>
-                    {bride}
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Envelope body */}
               <div className="absolute inset-0 rounded-sm shadow-xl z-0"
                 style={{ background: 'linear-gradient(160deg, #ede3d4, #e0d4be)', border: '1px solid rgba(184,155,110,0.3)' }} />
-              {/* Left flap */}
               <div className="absolute inset-0 z-20"
                 style={{ clipPath: 'polygon(0 0, 0 100%, 50% 58%)', background: 'linear-gradient(135deg, #e5d9c8, #d8ccb8)' }} />
-              {/* Right flap */}
               <div className="absolute inset-0 z-20"
                 style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 58%)', background: 'linear-gradient(225deg, #ece2d0, #ddd0bc)' }} />
-              {/* Bottom flap */}
               <div className="absolute inset-0 z-30"
                 style={{ clipPath: 'polygon(0 100%, 100% 100%, 50% 58%)', background: 'linear-gradient(0deg, #d8ccb8, #e8dcca)' }} />
-              {/* Top flap */}
               <motion.div
                 initial={{ rotateX: 0 }}
                 animate={phase === 'opening' ? { rotateX: -178 } : { rotateX: 0 }}
-                transition={{ duration: 0.7, ease: 'easeInOut' }}
+                transition={{ duration: 0.65, ease: 'easeInOut' }}
                 className="absolute inset-x-0 top-0 z-40"
                 style={{ height: '58%', transformOrigin: 'top center', transformStyle: 'preserve-3d',
                   clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
                   background: 'linear-gradient(180deg, #e8dcca, #d8ccb8)' }}
               />
-
-              {/* Wax seal — bigger, more ornate */}
+              {/* Wax seal */}
               <motion.div
                 animate={phase === 'opening' ? { scale: 0, opacity: 0 } : { scale: 1, opacity: 1 }}
                 transition={{ duration: 0.2 }}
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex items-center justify-center"
-                style={{ width: 88, height: 88 }}
+                style={{ width: 80, height: 80 }}
               >
-                {/* Outer ring */}
                 <div className="absolute inset-0 rounded-full"
-                  style={{ background: 'radial-gradient(circle at 35% 28%, #d4b57a, #8a6230)', boxShadow: '0 4px 20px rgba(138,98,48,0.5), inset 0 1px 2px rgba(255,240,200,0.4)' }} />
-                {/* Inner ring detail */}
-                <div className="absolute inset-[7px] rounded-full"
-                  style={{ border: '1px solid rgba(255,230,160,0.4)' }} />
-                <div className="absolute inset-[11px] rounded-full"
-                  style={{ border: '0.5px solid rgba(255,220,130,0.25)' }} />
-                {/* Monogram */}
-                <span className="relative z-10 text-2xl"
+                  style={{ background: 'radial-gradient(circle at 35% 28%, #d4b57a, #8a6230)', boxShadow: '0 4px 18px rgba(138,98,48,0.5), inset 0 1px 2px rgba(255,240,200,0.4)' }} />
+                <div className="absolute inset-[7px] rounded-full" style={{ border: '1px solid rgba(255,230,160,0.4)' }} />
+                <div className="absolute inset-[11px] rounded-full" style={{ border: '0.5px solid rgba(255,220,130,0.25)' }} />
+                <span className="relative z-10 text-xl"
                   style={{ fontFamily: 'var(--font-script), cursive', color: 'rgba(255,248,220,0.95)', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
                   {initials}
                 </span>
