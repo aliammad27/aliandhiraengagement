@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import toast, { Toaster } from 'react-hot-toast';
+import InvitationHero from '@/components/InvitationHero';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -124,12 +125,17 @@ function InviteContent() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory text-charcoal py-16 sm:py-24 px-6">
-      <Toaster position="top-center" toastOptions={{ style: { background: '#2c2a28', color: '#faf7f2' } }} />
+    <div className="min-h-screen bg-ivory text-charcoal">
+      <Toaster position="top-center" toastOptions={{ style: { background: ‘#2c2a28’, color: ‘#faf7f2’ } }} />
 
-      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-12">
-        <p className="eyebrow text-gold mb-5">You’re Invited</p>
-        <h1 className="font-display text-5xl sm:text-6xl mb-4">Dear {guest.name}</h1>
+      {/* Full baroque invitation header */}
+      <div className="max-w-xl mx-auto shadow-xl mb-10">
+        <InvitationHero groom="Ali" bride="Hira" />
+      </div>
+
+      <div className="px-6 pb-16">
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-10">
+        <h1 className="font-display text-4xl sm:text-5xl mb-3">Dear {guest.name}</h1>
         <div className="flex items-center justify-center gap-4 text-charcoal-soft">
           <span className="hairline w-12" />
           <span className="font-script text-2xl text-gold">join us</span>
@@ -216,6 +222,7 @@ function InviteContent() {
           {submitting ? 'Sending…' : 'Send Response'}
         </button>
       </motion.form>
+      </div>
     </div>
   );
 }

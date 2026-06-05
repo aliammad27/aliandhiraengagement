@@ -178,10 +178,16 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
                   className="w-full h-full object-cover object-top" />
               </div>
               <div className="px-6 my-2"><OrnamentDivider /></div>
-              <div className="flex flex-col items-center pb-6">
+              <div className="flex flex-col items-center pb-5">
                 <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
                 <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
                 <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
+                <div className="flex items-center gap-1 mt-2 px-6 w-full">
+                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
+                  <span style={{ color: '#b89b6e', fontSize: 8 }}>✦</span>
+                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
+                </div>
+                <p className="mt-2 text-base text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.12em' }}>11.28.2026</p>
               </div>
             </motion.div>
 
