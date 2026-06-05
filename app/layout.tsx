@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Cormorant_Garamond, Great_Vibes, Amiri } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,13 +7,26 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
 });
 
+const greatVibes = Great_Vibes({
+  variable: "--font-script",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const amiri = Amiri({
+  variable: "--font-arabic",
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+});
+
 export const metadata: Metadata = {
-  title: "Our Engagement",
+  title: "Ali & Hira",
   description: "Join us as we celebrate our engagement",
 };
 
@@ -25,9 +38,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${cormorant.variable} ${greatVibes.variable} ${amiri.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

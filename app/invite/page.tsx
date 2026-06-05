@@ -1,85 +1,82 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { getGuestByToken, recordRSVP, getGuestRSVP } from '@/lib/database';
+import Link from 'next/link';
+import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function InvitePage() {
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+function InviteContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
   const [guest, setGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    rsvpStatus: 'pending',
+    rsvpStatus: '',
     partySize: 1,
     dietaryRestrictions: '',
     specialRequests: '',
   });
 
   useEffect(() => {
-    const fetchGuest = async () => {
-      if (!token) {
-        toast.error('Invalid invitation link');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const data = await getGuestByToken(token);
-        if (!data) {
-          toast.error('Invitation not found');
-        } else {
-          setGuest(data);
-        }
-      } catch (error) {
-        console.error('Error fetching guest:', error);
-        toast.error('Error loading invitation');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGuest();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    getGuestByToken(token)
+      .then((data) => setGuest(data || null))
+      .catch((e) => console.error('Error fetching guest:', e))
+      .finally(() => setLoading(false));
   }, [token]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!guest) {
-      toast.error('Guest information not found');
+    if (!guest) return;
+    if (!formData.rsvpStatus) {
+      toast.error('Please let us know if you can attend');
       return;
     }
 
+    setSubmitting(true);
     try {
       await recordRSVP({
         guestId: guest.id,
-        eventId: 'main', // Default event
+        eventId: 'main',
         status: formData.rsvpStatus as 'accepted' | 'declined',
-        partySize: parseInt(formData.partySize.toString()),
+        partySize: Number(formData.partySize),
         dietaryRestrictions: formData.dietaryRestrictions,
         specialRequests: formData.specialRequests,
       });
-
       setSubmitted(true);
-      toast.success('Thank you for your RSVP!');
     } catch (error) {
       console.error('Error submitting RSVP:', error);
-      toast.error('Error submitting RSVP. Please try again.');
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-ivory">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-12 h-12 border-4 border-rose-200 border-t-rose-500 rounded-full"
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
+          className="w-10 h-10 border border-gold/30 border-t-gold rounded-full"
         />
       </div>
     );
@@ -87,14 +84,12 @@ export default function InvitePage() {
 
   if (!guest) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-rose-50 to-rose-100">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-white p-8 rounded-lg shadow-lg max-w-md text-center"
-        >
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Invalid Invitation</h1>
-          <p className="text-gray-600">We couldn't find your invitation. Please check the link and try again.</p>
+      <div className="flex items-center justify-center min-h-screen bg-ivory px-6 text-center">
+        <motion.div variants={fadeUp} initial="hidden" animate="visible">
+          <p className="eyebrow text-gold mb-4">Invitation</p>
+          <h1 className="font-display text-4xl mb-4">We couldn’t find your invitation</h1>
+          <p className="text-charcoal-soft font-light">Please double-check the link you were sent.</p>
+          <Link href="/" className="inline-block mt-8 eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
         </motion.div>
       </div>
     );
@@ -102,147 +97,136 @@ export default function InvitePage() {
 
   if (submitted) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-rose-50 to-rose-100">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white p-8 rounded-lg shadow-lg max-w-md text-center"
-        >
+      <div className="flex items-center justify-center min-h-screen bg-ivory px-6 text-center">
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-md">
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 0.6 }}
-            className="text-6xl mb-4"
+            initial={{ scale: 0 }} animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
+            className="font-script text-7xl text-gold mb-6"
           >
-            ✅
+            {formData.rsvpStatus === 'accepted' ? 'Thank you' : 'With love'}
           </motion.div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">Thank You!</h1>
-          <p className="text-gray-600 mb-6">
-            We've received your RSVP and can't wait to celebrate with you!
+          <h1 className="font-display text-3xl mb-4">
+            {formData.rsvpStatus === 'accepted'
+              ? 'We can’t wait to celebrate with you'
+              : 'You’ll be dearly missed'}
+          </h1>
+          <p className="text-charcoal-soft font-light mb-10">
+            {formData.rsvpStatus === 'accepted'
+              ? 'Your response has been received. We’ll be in touch with all the details soon.'
+              : 'Thank you for letting us know. You’ll be with us in spirit.'}
           </p>
-          <a
-            href="/"
-            className="inline-block bg-rose-500 text-white px-6 py-2 rounded-lg hover:bg-rose-600 transition"
-          >
-            Back to Home
-          </a>
+          <Link href="/" className="eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-rose-50 py-12 px-4">
-      <Toaster />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl mx-auto"
-      >
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <motion.h1 className="text-4xl font-bold text-center text-rose-600 mb-2">
-            You're Invited! 💍
-          </motion.h1>
-          <motion.p className="text-center text-gray-600 mb-8">
-            Hi {guest.name}, we'd love to celebrate with you!
-          </motion.p>
+    <div className="min-h-screen bg-ivory text-charcoal py-16 sm:py-24 px-6">
+      <Toaster position="top-center" toastOptions={{ style: { background: '#2c2a28', color: '#faf7f2' } }} />
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* RSVP Status */}
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-3">
-                Will you be joining us?
-              </label>
-              <div className="space-y-3">
-                <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-rose-500 transition"
-                  style={{borderColor: formData.rsvpStatus === 'accepted' ? '#f43f5e' : ''}}
-                >
-                  <input
-                    type="radio"
-                    name="rsvp"
-                    value="accepted"
-                    checked={formData.rsvpStatus === 'accepted'}
-                    onChange={(e) => setFormData({ ...formData, rsvpStatus: e.target.value })}
-                    className="w-4 h-4"
-                  />
-                  <span className="ml-3 font-semibold">Yes, I'm coming! 🎉</span>
-                </label>
-                <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-rose-500 transition"
-                  style={{borderColor: formData.rsvpStatus === 'declined' ? '#f43f5e' : ''}}
-                >
-                  <input
-                    type="radio"
-                    name="rsvp"
-                    value="declined"
-                    checked={formData.rsvpStatus === 'declined'}
-                    onChange={(e) => setFormData({ ...formData, rsvpStatus: e.target.value })}
-                    className="w-4 h-4"
-                  />
-                  <span className="ml-3 font-semibold">Sorry, can't make it 😢</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Party Size (only show if accepted) */}
-            {formData.rsvpStatus === 'accepted' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <label className="block text-lg font-semibold text-gray-800 mb-3">
-                  How many guests?
-                </label>
-                <select
-                  value={formData.partySize}
-                  onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
-                  className="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-rose-500"
-                >
-                  {[1, 2, 3, 4, 5, 6].map(num => (
-                    <option key={num} value={num}>{num} {num === 1 ? 'guest' : 'guests'}</option>
-                  ))}
-                </select>
-              </motion.div>
-            )}
-
-            {/* Dietary Restrictions */}
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-3">
-                Dietary Restrictions (optional)
-              </label>
-              <input
-                type="text"
-                placeholder="e.g., vegetarian, gluten-free, allergies..."
-                value={formData.dietaryRestrictions}
-                onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
-                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-rose-500"
-              />
-            </div>
-
-            {/* Special Requests */}
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-3">
-                Special Requests (optional)
-              </label>
-              <textarea
-                placeholder="Anything else you'd like us to know?"
-                value={formData.specialRequests}
-                onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-rose-500 resize-none"
-                rows={4}
-              />
-            </div>
-
-            {/* Submit Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              className="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white py-3 rounded-lg font-bold text-lg hover:shadow-lg transition"
-            >
-              Submit RSVP
-            </motion.button>
-          </form>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-12">
+        <p className="eyebrow text-gold mb-5">You’re Invited</p>
+        <h1 className="font-display text-5xl sm:text-6xl mb-4">Dear {guest.name}</h1>
+        <div className="flex items-center justify-center gap-4 text-charcoal-soft">
+          <span className="hairline w-12" />
+          <span className="font-script text-2xl text-gold">join us</span>
+          <span className="hairline w-12" />
         </div>
       </motion.div>
+
+      <motion.form
+        variants={fadeUp} initial="hidden" animate="visible" custom={1}
+        onSubmit={handleSubmit}
+        className="max-w-xl mx-auto bg-white/60 border border-charcoal/10 rounded-sm p-8 sm:p-12 space-y-10"
+      >
+        {/* Attendance */}
+        <div>
+          <label className="block font-display text-2xl mb-5 text-center">Will you be joining us?</label>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { value: 'accepted', label: 'Joyfully Accept' },
+              { value: 'declined', label: 'Regretfully Decline' },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setFormData({ ...formData, rsvpStatus: opt.value })}
+                className={`py-4 px-3 rounded-sm border text-sm tracking-wide transition-all duration-300 ${
+                  formData.rsvpStatus === opt.value
+                    ? 'border-gold bg-gold/10 text-charcoal'
+                    : 'border-charcoal/15 text-charcoal-soft hover:border-gold/50'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {formData.rsvpStatus === 'accepted' && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+            className="space-y-8 overflow-hidden"
+          >
+            <div>
+              <label className="eyebrow text-charcoal-soft block mb-3">Number of Guests</label>
+              <select
+                value={formData.partySize}
+                onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
+                className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors"
+              >
+                {[1, 2, 3, 4, 5, 6].map((n) => (
+                  <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="eyebrow text-charcoal-soft block mb-3">Dietary Notes</label>
+              <input
+                type="text"
+                placeholder="Allergies, preferences…"
+                value={formData.dietaryRestrictions}
+                onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
+                className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors placeholder:text-charcoal-soft/50"
+              />
+            </div>
+          </motion.div>
+        )}
+
+        <div>
+          <label className="eyebrow text-charcoal-soft block mb-3">A Note to the Couple <span className="lowercase tracking-normal">(optional)</span></label>
+          <textarea
+            placeholder="Share your wishes…"
+            value={formData.specialRequests}
+            onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+            rows={3}
+            className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors resize-none placeholder:text-charcoal-soft/50"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full bg-charcoal text-ivory rounded-full py-4 text-sm tracking-wide hover:bg-sage-deep transition-colors duration-500 disabled:opacity-50"
+        >
+          {submitting ? 'Sending…' : 'Send Response'}
+        </button>
+      </motion.form>
     </div>
+  );
+}
+
+export default function InvitePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-ivory">
+        <div className="w-10 h-10 border border-gold/30 border-t-gold rounded-full animate-spin" />
+      </div>
+    }>
+      <InviteContent />
+    </Suspense>
   );
 }
