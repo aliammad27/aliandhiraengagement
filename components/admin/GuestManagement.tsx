@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { addGuest, bulkAddGuests, updateGuest, deleteGuest, generateInvitationToken } from '@/lib/database';
+import { addGuest, bulkAddGuests, deleteGuest, generateInvitationToken } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import toast from 'react-hot-toast';
 

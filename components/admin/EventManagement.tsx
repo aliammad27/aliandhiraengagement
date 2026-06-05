@@ -45,7 +45,7 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
         description: formData.description,
         date: new Date(formData.date),
         location: formData.location,
-        type: formData.type as any,
+        type: formData.type as EngagementEvent['type'],
         guestList: guests.map(g => g.id),
       });
       toast.success('Event created successfully');

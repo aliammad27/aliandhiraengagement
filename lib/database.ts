@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  getDoc,
   query,
   where,
   QueryConstraint,
@@ -31,15 +32,18 @@ export async function getGuests() {
 
 export async function getGuestById(id: string) {
   const docRef = doc(db, 'guests', id);
-  const snapshot = await getDocs(query(collection(db, 'guests'), where('id', '==', id)));
-  return snapshot.docs[0]?.data() as Guest | undefined;
+  const snapshot = await getDoc(docRef);
+  if (!snapshot.exists()) return undefined;
+  return { ...snapshot.data(), id: snapshot.id } as Guest;
 }
 
 export async function getGuestByToken(token: string) {
   const snapshot = await getDocs(
     query(collection(db, 'guests'), where('invitationToken', '==', token))
   );
-  return snapshot.docs[0]?.data() as Guest | undefined;
+  const docSnap = snapshot.docs[0];
+  if (!docSnap) return undefined;
+  return { ...docSnap.data(), id: docSnap.id } as Guest;
 }
 
 export async function updateGuest(id: string, updates: Partial<Guest>) {
@@ -102,7 +106,9 @@ export async function getGuestRSVP(guestId: string, eventId: string) {
       where('eventId', '==', eventId)
     )
   );
-  return snapshot.docs[0]?.data() as RSVPResponse | undefined;
+  const docSnap = snapshot.docs[0];
+  if (!docSnap) return undefined;
+  return { ...docSnap.data(), id: docSnap.id } as RSVPResponse;
 }
 
 // Event Management
@@ -131,7 +137,9 @@ export async function updateEvent(id: string, updates: Partial<EngagementEvent>)
 // Engagement Config
 export async function getEngagementConfig() {
   const snapshot = await getDocs(collection(db, 'config'));
-  return snapshot.docs[0]?.data() as EngagementConfig | undefined;
+  const docSnap = snapshot.docs[0];
+  if (!docSnap) return undefined;
+  return { ...docSnap.data(), id: docSnap.id } as EngagementConfig;
 }
 
 export async function updateEngagementConfig(config: Partial<EngagementConfig>) {
