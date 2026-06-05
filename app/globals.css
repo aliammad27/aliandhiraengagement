@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  /* Editorial-minimalist palette */
+  --ivory: #faf7f2;
+  --cream: #f3ede3;
+  --charcoal: #2c2a28;
+  --charcoal-soft: #57534e;
+  --sage: #8a9a7b;
+  --sage-deep: #6b7a5d;
+  --gold: #b89b6e;
+  --gold-soft: #d8c6a8;
+  --blush: #e4d3cb;
+
+  --background: var(--ivory);
+  --foreground: var(--charcoal);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-soft: var(--charcoal-soft);
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-blush: var(--blush);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-cormorant);
+  --font-script: var(--font-script);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant display headings */
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+/* Refined letter-spaced eyebrow text */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* Thin decorative divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+/* Arabic calligraphy font */
+.font-arabic {
+  font-family: var(--font-arabic), serif;
+  direction: rtl;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--charcoal);
+}
+
+/* Gold shimmer sweep on couple names */
+@keyframes shimmer-sweep {
+  0%   { background-position: -250% center; }
+  100% { background-position: 250% center; }
+}
+
+.shimmer-name {
+  background: linear-gradient(
+    105deg,
+    var(--charcoal) 35%,
+    var(--gold)     48%,
+    #f0deb4         53%,
+    var(--gold)     58%,
+    var(--charcoal) 70%
+  );
+  background-size: 250% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-sweep 5s linear infinite;
+}
+
+/* Sparkle pop keyframe (used by EnvelopeIntro burst) */
+@keyframes sparkle-pop {
+  0%   { transform: translate(-50%, -50%) scale(0) rotate(0deg);   opacity: 1; }
+  60%  { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2) rotate(var(--rot)); opacity: 0; }
+}
