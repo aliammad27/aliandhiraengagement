@@ -89,7 +89,7 @@ function InviteContent() {
       <div className="flex items-center justify-center min-h-screen bg-ivory px-6 text-center">
         <motion.div variants={fadeUp} initial="hidden" animate="visible">
           <p className="eyebrow text-gold mb-4">Invitation</p>
-          <h1 className="font-display text-4xl mb-4">We couldn’t find your invitation</h1>
+          <h1 className="font-display text-4xl mb-4">We couldn't find your invitation</h1>
           <p className="text-charcoal-soft font-light">Please double-check the link you were sent.</p>
           <Link href="/" className="inline-block mt-8 eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
         </motion.div>
@@ -106,17 +106,17 @@ function InviteContent() {
             transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
             className="font-script text-7xl text-gold mb-6"
           >
-            {formData.rsvpStatus === ‘accepted’ ? ‘Thank you’ : ‘With love’}
+            {formData.rsvpStatus === 'accepted' ? 'Thank you' : 'With love'}
           </motion.div>
           <h1 className="font-display text-3xl mb-4">
-            {formData.rsvpStatus === ‘accepted’
-              ? "We can’t wait to celebrate with you"
-              : "You’ll be dearly missed"}
+            {formData.rsvpStatus === 'accepted'
+              ? "We can't wait to celebrate with you"
+              : "You'll be dearly missed"}
           </h1>
           <p className="text-charcoal-soft font-light mb-10">
-            {formData.rsvpStatus === ‘accepted’
-              ? "Your response has been received. We’ll be in touch with all the details soon."
-              : "Thank you for letting us know. You’ll be with us in spirit."}
+            {formData.rsvpStatus === 'accepted'
+              ? "Your response has been received. We'll be in touch with all the details soon."
+              : "Thank you for letting us know. You'll be with us in spirit."}
           </p>
           <Link href="/" className="eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
         </motion.div>
@@ -126,7 +126,7 @@ function InviteContent() {
 
   return (
     <div className="min-h-screen bg-ivory text-charcoal">
-      <Toaster position="top-center" toastOptions={{ style: { background: ‘#2c2a28’, color: ‘#faf7f2’ } }} />
+      <Toaster position="top-center" toastOptions={{ style: { background: '#2c2a28', color: '#faf7f2' } }} />
 
       {/* Full baroque invitation header */}
       <div className="max-w-xl mx-auto shadow-xl mb-10">
