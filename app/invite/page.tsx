@@ -2,18 +2,18 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import toast, { Toaster } from 'react-hot-toast';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, delay: i * 0.12, ease: 'easeOut' },
+    transition: { duration: 0.9, delay: i * 0.12, ease: 'easeOut' as const },
   }),
 };
 

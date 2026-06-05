@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getEngagementConfig } from '@/lib/database';
@@ -10,12 +10,12 @@ import FloatingPetals from '@/components/FloatingPetals';
 import CursorSparkle from '@/components/CursorSparkle';
 import ThenAndNow from '@/components/ThenAndNow';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 1, delay: i * 0.15, ease: 'easeOut' },
+    transition: { duration: 1, delay: i * 0.15, ease: 'easeOut' as const },
   }),
 };
 
