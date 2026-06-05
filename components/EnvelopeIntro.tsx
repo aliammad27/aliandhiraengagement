@@ -148,12 +148,12 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
             {/* Card — sits behind envelope when closed, rises above when opening */}
             <motion.div
               initial={{ y: 0 }}
-              animate={phase === 'opening' ? { y: -260 } : { y: 0 }}
+              animate={phase === 'opening' ? { y: -330 } : { y: 0 }}
               transition={{ delay: 0.45, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-x-0 mx-auto overflow-hidden flex flex-col shadow-2xl"
               style={{
-                width: 260, bottom: 4,
-                height: 300,
+                width: 270, bottom: 4,
+                height: 390,
                 background: 'linear-gradient(175deg, #fffdf8 0%, #fdf6e8 100%)',
                 border: '1px solid rgba(184,155,110,0.3)',
                 zIndex: phase === 'opening' ? 60 : 15,
