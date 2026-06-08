@@ -137,7 +137,7 @@ export default function InvitationHero({ groom, bride }: Props) {
       >
         <p className="eyebrow text-gold mb-1">Save the Date</p>
         <p className="text-3xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.1em' }}>
-          09.19.2027
+          09.19.26
         </p>
       </motion.div>
     </motion.div>

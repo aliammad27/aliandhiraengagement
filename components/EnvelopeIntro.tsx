@@ -187,7 +187,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
                   <span style={{ color: '#b89b6e', fontSize: 8 }}>✦</span>
                   <div style={{ flex: 1, height: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
                 </div>
-                <p className="mt-2 text-base text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.12em' }}>09.19.2027</p>
+                <p className="mt-2 text-base text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.12em' }}>09.19.26</p>
               </div>
             </motion.div>
 
