@@ -26,7 +26,7 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  title: "Ali & Hira",
+  title: "Hira & Ali",
   description: "Join us as we celebrate our engagement",
 };
 

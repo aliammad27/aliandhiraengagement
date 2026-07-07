@@ -46,14 +46,14 @@ export default function ThenAndNow() {
           <div className="aspect-[4/5] overflow-hidden">
             <img
               src="/photos/together-young.jpg"
-              alt="Ali & Hira"
+              alt="Hira & Ali"
               className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
           {/* Caption overlay */}
           <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-charcoal/70 to-transparent p-8">
-            <p className="font-script text-ivory text-4xl leading-none mb-1">Ali & Hira</p>
+            <p className="font-script text-ivory text-4xl leading-none mb-1">Hira & Ali</p>
             <p className="eyebrow text-ivory/70 text-[0.6rem]">Before we even knew</p>
           </div>
 

@@ -86,7 +86,7 @@ export default function InvitationHero({ groom, bride }: Props) {
           <div className="absolute inset-[7px] rounded-full border border-white/25" />
           <div className="absolute inset-[12px] rounded-full border border-white/15" />
           <span style={{ fontFamily: 'var(--font-script), cursive', color: 'rgba(255,248,220,0.95)', fontSize: 20, textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
-            {groom[0]}&{bride[0]}
+            {bride[0]}&{groom[0]}
           </span>
         </motion.div>
 
@@ -116,9 +116,9 @@ export default function InvitationHero({ groom, bride }: Props) {
         transition={{ delay: 1, duration: 0.9 }}
         className="flex flex-col items-center mb-5"
       >
-        <p className="text-4xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
-        <p className="text-2xl my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
         <p className="text-4xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
+        <p className="text-2xl my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
+        <p className="text-4xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
       </motion.div>
 
       {/* Gold divider */}

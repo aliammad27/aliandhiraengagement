@@ -173,7 +173,7 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview</h3>
             <div className="space-y-3">
               <p className="text-sm text-gray-600">
-                <strong>Display Name:</strong> {formData.groomName || 'Groom'} & {formData.brideName || 'Bride'}
+                <strong>Display Name:</strong> {formData.brideName || 'Bride'} & {formData.groomName || 'Groom'}
               </p>
               <p className="text-sm text-gray-600">
                 <strong>Engagement Date:</strong> {formData.engagementDate

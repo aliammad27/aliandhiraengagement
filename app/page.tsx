@@ -59,7 +59,7 @@ export default function Home() {
         className="fixed top-0 inset-x-0 z-50 backdrop-blur-sm bg-ivory/70 border-b border-charcoal/5"
       >
         <div className="max-w-6xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
-          <span className="font-script text-2xl text-charcoal">{groom} &amp; {bride}</span>
+          <span className="font-script text-2xl text-charcoal">{bride} &amp; {groom}</span>
           <div className="flex items-center gap-8 text-sm">
             <a href="#story" className="hidden sm:inline hover:text-gold transition-colors">Our Story</a>
             <a href="#details" className="hidden sm:inline hover:text-gold transition-colors">Details</a>
@@ -97,9 +97,9 @@ export default function Home() {
           variants={fadeUp} initial="hidden" animate="visible" custom={1}
           className="font-display leading-[0.95]"
         >
-          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name">{groom}</span>
+          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name">{bride}</span>
           <span className="block font-script text-gold text-4xl sm:text-6xl my-3 sm:my-4">and</span>
-          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name" style={{ animationDelay: '1.2s' }}>{bride}</span>
+          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name" style={{ animationDelay: '1.2s' }}>{groom}</span>
         </motion.h1>
 
         <motion.p
@@ -203,7 +203,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-16 px-6 text-center bg-charcoal text-ivory/70">
-        <p className="font-script text-3xl text-ivory mb-3">{groom} &amp; {bride}</p>
+        <p className="font-script text-3xl text-ivory mb-3">{bride} &amp; {groom}</p>
         <p className="eyebrow text-ivory/40">Forever begins now</p>
         <Link href="/admin" className="inline-block mt-8 text-xs text-ivory/30 hover:text-gold transition-colors">
           Manage

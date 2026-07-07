@@ -75,7 +75,7 @@ export default function AdminPage() {
             💍 Engagement Management Dashboard
           </h1>
           <p className="text-gray-600 mt-1">
-            {config?.coupleNames?.groom || 'Your'} & {config?.coupleNames?.bride || 'Name'}
+            {config?.coupleNames?.bride || 'Name'} & {config?.coupleNames?.groom || 'Your'}
           </p>
         </div>
       </motion.header>

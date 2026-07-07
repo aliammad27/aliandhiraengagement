@@ -96,7 +96,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
     setTimeout(() => setPhase('done'), 2800);
   };
 
-  const initials = `${groom?.[0] || 'A'}&${bride?.[0] || 'H'}`;
+  const initials = `${bride?.[0] || 'H'}&${groom?.[0] || 'A'}`;
 
   return (
     <AnimatePresence>
@@ -174,14 +174,14 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
               </div>
               <div className="px-6 my-2"><OrnamentDivider /></div>
               <div className="mx-5 overflow-hidden flex-1" style={{ borderRadius: 2 }}>
-                <img src="/photos/together-young.jpg" alt="Ali & Hira"
+                <img src="/photos/together-young.jpg" alt="Hira & Ali"
                   className="w-full h-full object-cover object-top" />
               </div>
               <div className="px-6 my-2"><OrnamentDivider /></div>
               <div className="flex flex-col items-center pb-5">
-                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
-                <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
                 <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
+                <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
+                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
                 <div className="flex items-center gap-1 mt-2 px-6 w-full">
                   <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
                   <span style={{ color: '#b89b6e', fontSize: 8 }}>✦</span>
