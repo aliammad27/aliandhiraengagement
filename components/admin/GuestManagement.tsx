@@ -99,17 +99,17 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
       {/* Add Guest Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Add Guests</h2>
+      <div className="border border-charcoal/10 bg-white p-6 sm:p-8">
+        <h2 className="font-display text-2xl">Add guests</h2>
 
-        <div className="space-y-4">
+        <div className="mt-5 space-y-4">
           {/* Single Guest Form */}
           <div>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
-              className="px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition"
+              className="min-h-11 border border-navy bg-navy px-5 text-xs font-medium uppercase text-ivory transition-colors hover:bg-navy-soft"
             >
-              {showAddForm ? 'Cancel' : '➕ Add Single Guest'}
+              {showAddForm ? 'Cancel' : 'Add single guest'}
             </button>
 
             {showAddForm && (
@@ -117,33 +117,33 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 onSubmit={handleAddGuest}
-                className="mt-4 p-4 bg-gray-50 rounded-lg space-y-4"
+                className="mt-4 space-y-4 border border-charcoal/10 bg-cream/50 p-4"
               >
                 <input
                   type="text"
-                  placeholder="Guest Name"
+                  placeholder="Guest name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
                 />
                 <input
                   type="email"
                   placeholder="Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
                 />
                 <input
                   type="tel"
                   placeholder="Phone (optional)"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
                 />
                 <select
                   value={formData.partySize}
                   onChange={(e) => setFormData({ ...formData, partySize: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors focus:border-navy"
                 >
                   {[1, 2, 3, 4, 5, 6].map(n => (
                     <option key={n} value={n}>{n} guest{n > 1 ? 's' : ''}</option>
@@ -152,9 +152,9 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-600 transition disabled:opacity-50"
+                  className="min-h-11 w-full bg-navy text-xs font-medium uppercase text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {loading ? 'Adding...' : 'Add Guest'}
+                  {loading ? 'Adding...' : 'Add guest'}
                 </button>
               </motion.form>
             )}
@@ -162,40 +162,40 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
 
           {/* Bulk Add */}
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Bulk Add Guests</h3>
-            <p className="text-sm text-gray-600 mb-2">Format: Name,Email,Phone,PartySize (one per line)</p>
+            <h3 className="text-xs font-medium uppercase text-charcoal-soft">Bulk add guests</h3>
+            <p className="mt-2 text-sm text-charcoal-soft">Format: Name,Email,Phone,PartySize (one per line)</p>
             <textarea
               value={csvInput}
               onChange={(e) => setCsvInput(e.target.value)}
               placeholder="John Doe,john@example.com,555-1234,1&#10;Jane Smith,jane@example.com,,2"
-              className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+              className="mt-3 w-full resize-none border border-charcoal/20 bg-transparent p-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
               rows={4}
             />
             <button
               onClick={handleBulkAdd}
               disabled={loading}
-              className="mt-2 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+              className="mt-3 min-h-11 w-full border border-navy text-xs font-medium uppercase text-navy transition-colors hover:bg-navy hover:text-ivory disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? 'Adding...' : 'Add Multiple Guests'}
+              {loading ? 'Adding...' : 'Add multiple guests'}
             </button>
           </div>
         </div>
       </div>
 
       {/* Guests List */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Guest List ({guests.length})</h2>
+      <div className="overflow-hidden border border-charcoal/10 bg-white">
+        <div className="p-6 sm:p-8">
+          <h2 className="font-display text-2xl">Guest list ({guests.length})</h2>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-100 border-b">
+            <thead className="border-y border-charcoal/10">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Name</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Email</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Party Size</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-charcoal-soft">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-charcoal-soft">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-charcoal-soft">Party size</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-charcoal-soft">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -205,23 +205,23 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="border-b hover:bg-gray-50"
+                  className="border-b border-charcoal/10 hover:bg-cream/40"
                 >
-                  <td className="px-6 py-4 text-sm text-gray-900">{guest.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{guest.email}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{guest.partySize}</td>
-                  <td className="px-6 py-4 text-sm space-x-2">
+                  <td className="px-6 py-4 text-sm">{guest.name}</td>
+                  <td className="px-6 py-4 text-sm text-charcoal-soft">{guest.email}</td>
+                  <td className="px-6 py-4 text-sm text-charcoal-soft">{guest.partySize}</td>
+                  <td className="space-x-4 px-6 py-4 text-sm">
                     <button
                       onClick={() => copyInviteLink(guest.invitationToken)}
-                      className="text-blue-600 hover:text-blue-900 font-semibold"
+                      className="font-medium text-navy hover:text-gold"
                     >
-                      📧 Invite
+                      Invite
                     </button>
                     <button
                       onClick={() => handleDeleteGuest(guest.id)}
-                      className="text-red-600 hover:text-red-900 font-semibold"
+                      className="font-medium text-charcoal-soft hover:text-red-700"
                     >
-                      🗑️ Delete
+                      Delete
                     </button>
                   </td>
                 </motion.tr>

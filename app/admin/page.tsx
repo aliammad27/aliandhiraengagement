@@ -50,58 +50,57 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center bg-ivory">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-12 h-12 border-4 border-rose-200 border-t-rose-500 rounded-full"
+          transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
+          className="h-8 w-8 rounded-full border border-gold/30 border-t-gold"
         />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Toaster />
+    <div className="min-h-screen bg-ivory text-charcoal">
+      <Toaster toastOptions={{ style: { background: '#0a2038', borderRadius: '4px', color: '#f8f5ef' } }} />
 
       {/* Header */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white shadow"
+        className="border-b border-charcoal/10 bg-navy text-ivory"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">
-            💍 Engagement Management Dashboard
+        <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
+          <p className="text-xs font-medium uppercase text-gold">Engagement management</p>
+          <h1 className="mt-3 font-display text-3xl sm:text-4xl">
+            {config?.coupleNames?.bride || 'Hira'} <span className="text-gold">&amp;</span>{' '}
+            {config?.coupleNames?.groom || 'Ali'}
           </h1>
-          <p className="text-gray-600 mt-1">
-            {config?.coupleNames?.bride || 'Name'} & {config?.coupleNames?.groom || 'Your'}
-          </p>
         </div>
       </motion.header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
         {/* Tabs */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="flex space-x-4 mb-8 overflow-x-auto pb-4"
+          className="mb-8 flex gap-2 overflow-x-auto pb-1"
         >
           {(['overview', 'guests', 'events', 'rsvps', 'settings'] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 rounded-lg font-semibold whitespace-nowrap transition ${
+              className={`min-h-10 whitespace-nowrap px-5 py-2 text-xs font-medium uppercase transition-colors ${
                 activeTab === tab
-                  ? 'bg-rose-500 text-white'
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-rose-500'
+                  ? 'bg-navy text-ivory'
+                  : 'border border-charcoal/15 text-charcoal-soft hover:border-navy hover:text-navy'
               }`}
             >
-              {tab === 'overview' && '📊 Overview'}
-              {tab === 'guests' && '👥 Guests'}
-              {tab === 'events' && '🎉 Events'}
-              {tab === 'rsvps' && '✅ RSVPs'}
-              {tab === 'settings' && '⚙️ Settings'}
+              {tab === 'overview' && 'Overview'}
+              {tab === 'guests' && 'Guests'}
+              {tab === 'events' && 'Events'}
+              {tab === 'rsvps' && 'RSVPs'}
+              {tab === 'settings' && 'Settings'}
             </button>
           ))}
         </motion.div>
@@ -116,63 +115,56 @@ export default function AdminPage() {
               exit={{ opacity: 0 }}
               className="space-y-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {[
-                  { label: 'Total Guests', value: guests.length, icon: '👥', color: 'bg-blue-500' },
-                  { label: 'Accepted', value: acceptedCount, icon: '✅', color: 'bg-green-500' },
-                  { label: 'Declined', value: declinedCount, icon: '❌', color: 'bg-red-500' },
-                  { label: 'Pending', value: pendingCount, icon: '⏳', color: 'bg-yellow-500' },
+                  { label: 'Total guests', value: guests.length },
+                  { label: 'Accepted', value: acceptedCount },
+                  { label: 'Declined', value: declinedCount },
+                  { label: 'Pending', value: pendingCount },
                 ].map((stat, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="bg-white rounded-lg shadow p-6"
+                    className="border border-charcoal/10 bg-white px-5 py-6"
                   >
-                    <div className="flex items-center">
-                      <div className={`${stat.color} text-white p-4 rounded-lg mr-4 text-2xl`}>
-                        {stat.icon}
-                      </div>
-                      <div>
-                        <p className="text-gray-600 text-sm">{stat.label}</p>
-                        <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-                      </div>
-                    </div>
+                    <p className="text-xs font-medium uppercase text-charcoal-soft">{stat.label}</p>
+                    <p className="mt-2 font-display text-4xl">{stat.value}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="border border-charcoal/10 bg-white p-6 sm:p-8">
+                <h2 className="font-display text-2xl">Quick actions</h2>
+                <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <button
                     onClick={() => setActiveTab('guests')}
-                    className="p-4 bg-blue-50 border-2 border-blue-200 rounded-lg hover:bg-blue-100 transition"
+                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-bold text-blue-900">Add Guests</h3>
-                    <p className="text-sm text-blue-700">Invite more people to celebrate</p>
+                    <h3 className="font-display text-lg">Add guests</h3>
+                    <p className="mt-1 text-sm text-charcoal-soft">Invite more people to celebrate</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('events')}
-                    className="p-4 bg-purple-50 border-2 border-purple-200 rounded-lg hover:bg-purple-100 transition"
+                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-bold text-purple-900">Manage Events</h3>
-                    <p className="text-sm text-purple-700">Create and organize events</p>
+                    <h3 className="font-display text-lg">Manage events</h3>
+                    <p className="mt-1 text-sm text-charcoal-soft">Create and organize events</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('rsvps')}
-                    className="p-4 bg-green-50 border-2 border-green-200 rounded-lg hover:bg-green-100 transition"
+                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-bold text-green-900">View RSVPs</h3>
-                    <p className="text-sm text-green-700">Check responses from guests</p>
+                    <h3 className="font-display text-lg">View RSVPs</h3>
+                    <p className="mt-1 text-sm text-charcoal-soft">Check responses from guests</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('settings')}
-                    className="p-4 bg-rose-50 border-2 border-rose-200 rounded-lg hover:bg-rose-100 transition"
+                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-bold text-rose-900">Update Profile</h3>
-                    <p className="text-sm text-rose-700">Edit engagement details</p>
+                    <h3 className="font-display text-lg">Update profile</h3>
+                    <p className="mt-1 text-sm text-charcoal-soft">Edit engagement details</p>
                   </button>
                 </div>
               </div>
