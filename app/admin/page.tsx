@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getGuests, getEvents, getRSVPs, getEngagementConfig } from '@/lib/database';
 import { Guest, EngagementEvent, RSVPResponse, EngagementConfig } from '@/lib/types';
@@ -13,6 +14,7 @@ import toast, { Toaster } from 'react-hot-toast';
 type Tab = 'overview' | 'guests' | 'events' | 'rsvps' | 'settings';
 
 export default function AdminPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [guests, setGuests] = useState<Guest[]>([]);
   const [events, setEvents] = useState<EngagementEvent[]>([]);
@@ -48,6 +50,11 @@ export default function AdminPage() {
   const declinedCount = rsvps.filter(r => r.status === 'declined').length;
   const pendingCount = guests.length - rsvps.length;
 
+  const handleLogout = async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    router.push('/admin/login');
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ivory">
@@ -70,12 +77,20 @@ export default function AdminPage() {
         animate={{ y: 0, opacity: 1 }}
         className="border-b border-charcoal/10 bg-navy text-ivory"
       >
-        <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
-          <p className="text-xs font-medium uppercase text-gold">Engagement management</p>
-          <h1 className="mt-3 font-display text-3xl sm:text-4xl">
-            {config?.coupleNames?.bride || 'Hira'} <span className="text-gold">&amp;</span>{' '}
-            {config?.coupleNames?.groom || 'Ali'}
-          </h1>
+        <div className="mx-auto flex max-w-6xl items-start justify-between gap-4 px-5 py-8 sm:px-8">
+          <div>
+            <p className="text-xs font-medium uppercase text-gold">Engagement management</p>
+            <h1 className="mt-3 font-display text-3xl sm:text-4xl">
+              {config?.coupleNames?.bride || 'Hira'} <span className="text-gold">&amp;</span>{' '}
+              {config?.coupleNames?.groom || 'Ali'}
+            </h1>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="mt-1 min-h-9 whitespace-nowrap border border-ivory/25 px-4 text-xs font-medium uppercase text-ivory/70 transition-colors hover:border-gold hover:text-gold"
+          >
+            Log out
+          </button>
         </div>
       </motion.header>
 
