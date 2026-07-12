@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { getEngagementConfig } from '@/lib/database';
 import { EngagementConfig } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
-import ThenAndNow from '@/components/ThenAndNow';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -36,7 +35,7 @@ export default function Home() {
 
   const groom = config?.coupleNames?.groom || 'Ali';
   const bride = config?.coupleNames?.bride || 'Hira';
-  const eventDate = 'October 17, 2025';
+  const eventDate = 'October 17, 2026';
   const photos = config?.photos?.filter(Boolean) || [];
 
   return (
@@ -49,9 +48,6 @@ export default function Home() {
             H<span className="text-gold">&amp;</span>A
           </a>
           <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
-            <a href="#story" className="hidden text-navy/70 transition-colors hover:text-navy sm:inline">
-              Our story
-            </a>
             <a href="#details" className="hidden text-navy/70 transition-colors hover:text-navy sm:inline">
               The date
             </a>
@@ -92,13 +88,13 @@ export default function Home() {
             With love and gratitude, we invite you to celebrate our engagement.
           </p>
 
-          <time dateTime="2025-10-17" aria-label={eventDate} className="mt-7 block w-full max-w-[300px]">
+          <time dateTime="2026-10-17" aria-label={eventDate} className="mt-7 block w-full max-w-[300px]">
             <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-navy/20 py-3">
-              <span className="font-display text-xl text-navy/80">Friday</span>
+              <span className="font-display text-xl text-navy/80">Saturday</span>
               <span className="border-x border-navy/15 font-display text-4xl text-gold">17</span>
               <span className="font-display text-xl text-navy/80">October</span>
             </span>
-            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2025 · In sha Allah</span>
+            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2026 · In sha'Allah</span>
           </time>
 
           <div className="mt-7 text-center">
@@ -114,8 +110,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <ThenAndNow />
 
       {photos.length > 0 && (
         <section className="border-y border-charcoal/10 bg-cream px-5 py-16 sm:px-8">
@@ -160,7 +154,7 @@ export default function Home() {
             custom={1}
             className="mt-5 font-display text-5xl font-normal sm:text-7xl"
           >
-            October 17, 2025
+            October 17, 2026
           </motion.h2>
 
           <motion.div
@@ -173,7 +167,7 @@ export default function Home() {
           >
             <div>
               <p className="text-xs uppercase text-charcoal-soft">Day</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">Friday</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">Saturday</p>
             </div>
             <div className="border-x border-charcoal/15">
               <p className="text-xs uppercase text-charcoal-soft">Date</p>
@@ -181,7 +175,7 @@ export default function Home() {
             </div>
             <div>
               <p className="text-xs uppercase text-charcoal-soft">Year</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">2025</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">2026</p>
             </div>
           </motion.div>
 
@@ -193,7 +187,7 @@ export default function Home() {
             custom={3}
             className="mx-auto max-w-lg text-base leading-7 text-charcoal-soft"
           >
-            We would be honoured to celebrate with you, in sha Allah. Your personal invitation includes the full event details and RSVP.
+            We would be honoured to celebrate with you, in sha'Allah. Your personal invitation includes the full event details and RSVP.
           </motion.p>
 
           <motion.div
@@ -216,7 +210,7 @@ export default function Home() {
 
       <footer className="border-t border-white/10 bg-navy px-5 py-12 text-center text-ivory">
         <p className="font-display text-3xl">{bride} <span className="text-gold">&amp;</span> {groom}</p>
-        <p className="mt-3 text-xs text-ivory/50">10.17.25</p>
+        <p className="mt-3 text-xs text-ivory/50">10.17.26</p>
         <Link href="/admin" className="mt-7 inline-block text-xs text-ivory/30 transition-colors hover:text-ivory/60">
           Manage invitations
         </Link>

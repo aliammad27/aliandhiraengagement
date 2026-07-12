@@ -45,8 +45,6 @@ function InviteContent() {
   const [formData, setFormData] = useState({
     rsvpStatus: '',
     partySize: 1,
-    dietaryRestrictions: '',
-    specialRequests: '',
   });
 
   useEffect(() => {
@@ -77,8 +75,6 @@ function InviteContent() {
         eventId: 'main',
         status: formData.rsvpStatus as 'accepted' | 'declined',
         partySize: Number(formData.partySize),
-        dietaryRestrictions: formData.dietaryRestrictions,
-        specialRequests: formData.specialRequests,
         respondedAt: new Date(),
       });
       setSubmitted(true);
@@ -211,55 +207,25 @@ function InviteContent() {
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="space-y-8 overflow-hidden"
+              className="overflow-hidden"
             >
-              <div>
-                <label htmlFor="party-size" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
-                  Number of guests
-                </label>
-                <select
-                  id="party-size"
-                  value={formData.partySize}
-                  onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors focus:border-navy"
-                >
-                  {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
-                    <option key={number} value={number}>
-                      {number} {number === 1 ? 'guest' : 'guests'}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="dietary-notes" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
-                  Dietary notes
-                </label>
-                <input
-                  id="dietary-notes"
-                  type="text"
-                  placeholder="Allergies or dietary preferences"
-                  value={formData.dietaryRestrictions}
-                  onChange={(event) => setFormData({ ...formData, dietaryRestrictions: event.target.value })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
-                />
-              </div>
+              <label htmlFor="party-size" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
+                Number of guests
+              </label>
+              <select
+                id="party-size"
+                value={formData.partySize}
+                onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
+                className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors focus:border-navy"
+              >
+                {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
+                  <option key={number} value={number}>
+                    {number} {number === 1 ? 'guest' : 'guests'}
+                  </option>
+                ))}
+              </select>
             </motion.div>
           )}
-
-          <div>
-            <label htmlFor="guest-note" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
-              Note to the couple <span className="normal-case">(optional)</span>
-            </label>
-            <textarea
-              id="guest-note"
-              placeholder="Share your wishes"
-              value={formData.specialRequests}
-              onChange={(event) => setFormData({ ...formData, specialRequests: event.target.value })}
-              rows={3}
-              className="w-full resize-none border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
-            />
-          </div>
 
           <button
             type="submit"

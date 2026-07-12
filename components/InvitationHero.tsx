@@ -14,13 +14,13 @@ export default function InvitationHero({ groom, bride }: Props) {
         {bride} <span className="text-gold">&amp;</span> {groom}
       </h1>
 
-      <time dateTime="2025-10-17" aria-label="Friday, October 17, 2025" className="mx-auto mt-7 block max-w-[300px]">
+      <time dateTime="2026-10-17" aria-label="Saturday, October 17, 2026" className="mx-auto mt-7 block max-w-[300px]">
         <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-3">
-          <span className="font-display text-lg text-ivory/75">Friday</span>
+          <span className="font-display text-lg text-ivory/75">Saturday</span>
           <span className="border-x border-gold/30 font-display text-3xl text-gold-soft">17</span>
           <span className="font-display text-lg text-ivory/75">October</span>
         </span>
-        <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2025 · In sha Allah</span>
+        <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2026 · In sha'Allah</span>
       </time>
 
       <div className="mt-7 text-center">
