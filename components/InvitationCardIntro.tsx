@@ -76,7 +76,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                   </p>
                   <span className="my-5 h-px w-16 bg-gold/65" aria-hidden="true" />
                   <p className="font-display text-xl text-charcoal">October 17, 2026</p>
-                  <p className="mt-2 text-[0.65rem] text-charcoal-soft">In sha'Allah</p>
+                  <p className="mt-2 text-[0.65rem] text-charcoal-soft">Insha'Allah</p>
                 </div>
               </motion.div>
 

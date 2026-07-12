@@ -20,7 +20,7 @@ export default function InvitationHero({ groom, bride }: Props) {
           <span className="border-x border-gold/30 font-display text-3xl text-gold-soft">17</span>
           <span className="font-display text-lg text-ivory/75">October</span>
         </span>
-        <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2026 · In sha'Allah</span>
+        <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2026 · Insha'Allah</span>
       </time>
 
       <div className="mt-7 text-center">

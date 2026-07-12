@@ -94,7 +94,7 @@ export default function Home() {
               <span className="border-x border-navy/15 font-display text-4xl text-gold">17</span>
               <span className="font-display text-xl text-navy/80">October</span>
             </span>
-            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2026 · In sha'Allah</span>
+            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2026 · Insha'Allah</span>
           </time>
 
           <div className="mt-7 text-center">
@@ -187,7 +187,7 @@ export default function Home() {
             custom={3}
             className="mx-auto max-w-lg text-base leading-7 text-charcoal-soft"
           >
-            We would be honoured to celebrate with you, in sha'Allah. Your personal invitation includes the full event details and RSVP.
+            We would be honoured to celebrate with you, insha'Allah. Your personal invitation includes the full event details and RSVP.
           </motion.p>
 
           <motion.div
