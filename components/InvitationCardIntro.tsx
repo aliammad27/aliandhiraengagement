@@ -84,14 +84,14 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 initial={false}
                 animate={{ rotateY: opening ? -116 : 0 }}
                 transition={{ duration: reduceMotion ? 0.1 : 1.05, ease: [0.65, 0, 0.35, 1] }}
-                className="absolute inset-y-0 left-0 z-20 w-1/2 origin-left border-y border-l border-r border-gold/60 border-r-gold/20 bg-navy [transform-style:preserve-3d]"
+                className="absolute inset-y-0 left-0 z-20 w-1/2 origin-left border-y border-l border-gold/60 bg-navy [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
               <motion.div
                 initial={false}
                 animate={{ rotateY: opening ? 116 : 0 }}
                 transition={{ duration: reduceMotion ? 0.1 : 1.05, ease: [0.65, 0, 0.35, 1] }}
-                className="absolute inset-y-0 right-0 z-20 w-1/2 origin-right border-y border-l border-r border-gold/60 border-l-gold/20 bg-navy [transform-style:preserve-3d]"
+                className="absolute inset-y-0 right-0 z-20 w-1/2 origin-right border-y border-r border-gold/60 bg-navy [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
 
@@ -102,26 +102,6 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center text-center text-ivory"
               >
                 <div className="absolute inset-3 border border-gold/45" />
-
-                <svg
-                  viewBox="0 0 300 400"
-                  preserveAspectRatio="none"
-                  className="absolute inset-0 h-full w-full"
-                  aria-hidden="true"
-                >
-                  <line x1="14" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.55)" strokeWidth="1" />
-                  <line x1="286" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.55)" strokeWidth="1" />
-                  {[0.25, 0.4, 0.55, 0.7, 0.85].map((t) => {
-                    const x = 14 + 136 * t;
-                    const y = 14 + 218 * t;
-                    return (
-                      <g key={t}>
-                        <circle cx={x} cy={y} r="2.2" fill="rgba(183,154,94,0.55)" />
-                        <circle cx={300 - x} cy={y} r="2.2" fill="rgba(183,154,94,0.55)" />
-                      </g>
-                    );
-                  })}
-                </svg>
 
                 <div className="relative z-10 flex w-full flex-col items-center px-8 pt-10">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
