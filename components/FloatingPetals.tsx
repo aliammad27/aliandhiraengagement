@@ -19,10 +19,10 @@ interface Petal {
 }
 
 const COLORS = [
-  '#b89b6e', // gold
-  '#d8c6a8', // gold soft
-  '#e4d3cb', // blush
-  '#c8b8a2', // warm tan
+  '#c5a25a', // antique gold
+  '#ead8aa', // soft gold
+  '#d8b8a8', // rose
+  '#6f8d85', // eucalyptus
   '#fff8f0', // ivory
 ];
 

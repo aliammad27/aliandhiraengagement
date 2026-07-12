@@ -18,6 +18,8 @@ const fadeUp: Variants = {
   }),
 };
 
+const toasterStyle = { style: { background: '#071a34', color: '#fbf6ec' } };
+
 function InviteContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -34,10 +36,7 @@ function InviteContent() {
   });
 
   useEffect(() => {
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+    if (!token) { setLoading(false); return; }
     getGuestByToken(token)
       .then((data) => setGuest(data || null))
       .catch((e) => console.error('Error fetching guest:', e))
@@ -51,7 +50,6 @@ function InviteContent() {
       toast.error('Please let us know if you can attend');
       return;
     }
-
     setSubmitting(true);
     try {
       await recordRSVP({
@@ -74,7 +72,7 @@ function InviteContent() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-ivory">
+      <div className="flex items-center justify-center min-h-screen bg-navy">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
@@ -86,12 +84,13 @@ function InviteContent() {
 
   if (!guest) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-ivory px-6 text-center">
-        <motion.div variants={fadeUp} initial="hidden" animate="visible">
+      <div className="flex items-center justify-center min-h-screen px-6 text-center text-ivory navy-vellum">
+        <div className="absolute inset-0 islamic-pattern opacity-[0.12]" />
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="relative max-w-md rounded-sm border border-gold/35 bg-ivory/95 px-8 py-10 text-charcoal shadow-2xl">
           <p className="eyebrow text-gold mb-4">Invitation</p>
-          <h1 className="font-display text-4xl mb-4">We couldn't find your invitation</h1>
+          <h1 className="font-display text-4xl mb-4">We could not find your invitation</h1>
           <p className="text-charcoal-soft font-light">Please double-check the link you were sent.</p>
-          <Link href="/" className="inline-block mt-8 eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
+          <Link href="/" className="inline-block mt-8 eyebrow text-navy border-b border-gold pb-1">Return Home</Link>
         </motion.div>
       </div>
     );
@@ -99,8 +98,9 @@ function InviteContent() {
 
   if (submitted) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-ivory px-6 text-center">
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-md">
+      <div className="flex items-center justify-center min-h-screen px-6 text-center navy-vellum">
+        <div className="absolute inset-0 islamic-pattern opacity-[0.12]" />
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="relative max-w-md rounded-sm border border-gold/35 bg-ivory/95 px-8 py-10 text-charcoal shadow-2xl">
           <motion.div
             initial={{ scale: 0 }} animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
@@ -110,15 +110,15 @@ function InviteContent() {
           </motion.div>
           <h1 className="font-display text-3xl mb-4">
             {formData.rsvpStatus === 'accepted'
-              ? "We can't wait to celebrate with you"
-              : "You'll be dearly missed"}
+              ? 'We cannot wait to celebrate with you'
+              : 'You will be dearly missed'}
           </h1>
           <p className="text-charcoal-soft font-light mb-10">
             {formData.rsvpStatus === 'accepted'
-              ? "Your response has been received. We'll be in touch with all the details soon."
-              : "Thank you for letting us know. You'll be with us in spirit."}
+              ? 'Your response has been received. We will be in touch with all the details soon.'
+              : 'Thank you for letting us know. You will be with us in spirit.'}
           </p>
-          <Link href="/" className="eyebrow text-charcoal border-b border-gold pb-1">Return Home</Link>
+          <Link href="/" className="eyebrow text-navy border-b border-gold pb-1">Return Home</Link>
         </motion.div>
       </div>
     );
@@ -126,102 +126,100 @@ function InviteContent() {
 
   return (
     <div className="min-h-screen bg-ivory text-charcoal">
-      <Toaster position="top-center" toastOptions={{ style: { background: '#2c2a28', color: '#faf7f2' } }} />
+      <Toaster position="top-center" toastOptions={toasterStyle} />
 
-      {/* Full baroque invitation header */}
-      <div className="max-w-xl mx-auto shadow-xl mb-10">
+      <div className="max-w-xl mx-auto shadow-2xl shadow-navy/20 mb-10">
         <InvitationHero groom="Ali" bride="Hira" />
       </div>
 
-      <div className="px-6 pb-16">
-      <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-10">
-        <h1 className="font-display text-4xl sm:text-5xl mb-3">Dear {guest.name}</h1>
-        <div className="flex items-center justify-center gap-4 text-charcoal-soft">
-          <span className="hairline w-12" />
-          <span className="font-script text-2xl text-gold">join us</span>
-          <span className="hairline w-12" />
-        </div>
-      </motion.div>
-
-      <motion.form
-        variants={fadeUp} initial="hidden" animate="visible" custom={1}
-        onSubmit={handleSubmit}
-        className="max-w-xl mx-auto bg-white/60 border border-charcoal/10 rounded-sm p-8 sm:p-12 space-y-10"
-      >
-        {/* Attendance */}
-        <div>
-          <label className="block font-display text-2xl mb-5 text-center">Will you be joining us?</label>
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { value: 'accepted', label: 'Joyfully Accept' },
-              { value: 'declined', label: 'Regretfully Decline' },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setFormData({ ...formData, rsvpStatus: opt.value })}
-                className={`py-4 px-3 rounded-sm border text-sm tracking-wide transition-all duration-300 ${
-                  formData.rsvpStatus === opt.value
-                    ? 'border-gold bg-gold/10 text-charcoal'
-                    : 'border-charcoal/15 text-charcoal-soft hover:border-gold/50'
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
+      <div className="relative px-6 pb-16">
+        <div className="absolute inset-0 islamic-pattern opacity-[0.05]" />
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-10">
+          <h1 className="font-display text-4xl sm:text-5xl mb-3">Dear {guest.name}</h1>
+          <div className="flex items-center justify-center gap-4 text-charcoal-soft">
+            <span className="hairline w-12" />
+            <span className="font-script text-2xl text-gold">join us</span>
+            <span className="hairline w-12" />
           </div>
-        </div>
+        </motion.div>
 
-        {formData.rsvpStatus === 'accepted' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
-            className="space-y-8 overflow-hidden"
-          >
-            <div>
-              <label className="eyebrow text-charcoal-soft block mb-3">Number of Guests</label>
-              <select
-                value={formData.partySize}
-                onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
-                className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors"
-              >
-                {[1, 2, 3, 4, 5, 6].map((n) => (
-                  <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="eyebrow text-charcoal-soft block mb-3">Dietary Notes</label>
-              <input
-                type="text"
-                placeholder="Allergies, preferences…"
-                value={formData.dietaryRestrictions}
-                onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
-                className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors placeholder:text-charcoal-soft/50"
-              />
-            </div>
-          </motion.div>
-        )}
-
-        <div>
-          <label className="eyebrow text-charcoal-soft block mb-3">A Note to the Couple <span className="lowercase tracking-normal">(optional)</span></label>
-          <textarea
-            placeholder="Share your wishes…"
-            value={formData.specialRequests}
-            onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-            rows={3}
-            className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors resize-none placeholder:text-charcoal-soft/50"
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-charcoal text-ivory rounded-full py-4 text-sm tracking-wide hover:bg-sage-deep transition-colors duration-500 disabled:opacity-50"
+        <motion.form
+          variants={fadeUp} initial="hidden" animate="visible" custom={1}
+          onSubmit={handleSubmit}
+          className="relative max-w-xl mx-auto rounded-sm border border-gold/35 bg-ivory/90 p-8 shadow-2xl shadow-navy/10 sm:p-12 space-y-10"
         >
-          {submitting ? 'Sending…' : 'Send Response'}
-        </button>
-      </motion.form>
+          <div>
+            <label className="block font-display text-2xl mb-5 text-center">Will you be joining us?</label>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { value: 'accepted', label: 'Joyfully Accept' },
+                { value: 'declined', label: 'Regretfully Decline' },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, rsvpStatus: opt.value })}
+                  className={`py-4 px-3 rounded-sm border text-sm transition-all duration-300 ${
+                    formData.rsvpStatus === opt.value
+                      ? 'border-gold bg-navy text-ivory shadow-lg shadow-navy/15'
+                      : 'border-gold/25 bg-white/45 text-charcoal-soft hover:border-gold hover:text-navy'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {formData.rsvpStatus === 'accepted' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+              className="space-y-8 overflow-hidden"
+            >
+              <div>
+                <label className="eyebrow text-charcoal-soft block mb-3">Number of Guests</label>
+                <select
+                  value={formData.partySize}
+                  onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
+                  className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors"
+                >
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                    <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="eyebrow text-charcoal-soft block mb-3">Dietary Notes</label>
+                <input
+                  type="text"
+                  placeholder="Allergies, preferences"
+                  value={formData.dietaryRestrictions}
+                  onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
+                  className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors placeholder:text-charcoal-soft/50"
+                />
+              </div>
+            </motion.div>
+          )}
+
+          <div>
+            <label className="eyebrow text-charcoal-soft block mb-3">A Note to the Couple (optional)</label>
+            <textarea
+              placeholder="Share your wishes"
+              value={formData.specialRequests}
+              onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+              rows={3}
+              className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors resize-none placeholder:text-charcoal-soft/50"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full bg-navy text-ivory rounded-full py-4 text-sm hover:bg-gold hover:text-navy transition-colors duration-500 disabled:opacity-50"
+          >
+            {submitting ? 'Sending...' : 'Send Response'}
+          </button>
+        </motion.form>
       </div>
     </div>
   );
@@ -230,7 +228,7 @@ function InviteContent() {
 export default function InvitePage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-ivory">
+      <div className="flex items-center justify-center min-h-screen bg-navy">
         <div className="w-10 h-10 border border-gold/30 border-t-gold rounded-full animate-spin" />
       </div>
     }>

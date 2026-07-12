@@ -16,12 +16,12 @@ function Corner({ flip = false }: { flip?: boolean }) {
       width="54" height="54" viewBox="0 0 54 54" fill="none"
       style={{ transform: flip ? 'scaleX(-1)' : undefined }}
     >
-      <path d="M2 2 Q2 27 27 27 Q2 27 2 52" stroke="#b89b6e" strokeWidth="1" fill="none" opacity="0.7"/>
-      <path d="M2 2 Q27 2 27 27 Q27 2 52 2" stroke="#b89b6e" strokeWidth="1" fill="none" opacity="0.7"/>
-      <path d="M8 2 Q8 20 27 20 Q8 20 8 38" stroke="#d4b57a" strokeWidth="0.6" fill="none" opacity="0.5"/>
-      <path d="M2 8 Q20 8 20 27 Q20 8 38 8" stroke="#d4b57a" strokeWidth="0.6" fill="none" opacity="0.5"/>
-      <circle cx="2" cy="2" r="1.5" fill="#b89b6e" opacity="0.8"/>
-      <circle cx="27" cy="27" r="1" fill="#b89b6e" opacity="0.5"/>
+      <path d="M2 2 Q2 27 27 27 Q2 27 2 52" stroke="#c5a25a" strokeWidth="1" fill="none" opacity="0.7"/>
+      <path d="M2 2 Q27 2 27 27 Q27 2 52 2" stroke="#c5a25a" strokeWidth="1" fill="none" opacity="0.7"/>
+      <path d="M8 2 Q8 20 27 20 Q8 20 8 38" stroke="#ead8aa" strokeWidth="0.6" fill="none" opacity="0.5"/>
+      <path d="M2 8 Q20 8 20 27 Q20 8 38 8" stroke="#ead8aa" strokeWidth="0.6" fill="none" opacity="0.5"/>
+      <circle cx="2" cy="2" r="1.5" fill="#c5a25a" opacity="0.8"/>
+      <circle cx="27" cy="27" r="1" fill="#c5a25a" opacity="0.5"/>
     </svg>
   );
 }
@@ -30,11 +30,11 @@ function Corner({ flip = false }: { flip?: boolean }) {
 function OrnamentDivider() {
   return (
     <div className="flex items-center justify-center gap-2 w-full">
-      <div style={{ height: 1, flex: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
-      <span style={{ color: '#b89b6e', fontSize: 10 }}>✦</span>
-      <span style={{ color: '#d4b57a', fontSize: 7 }}>◆</span>
-      <span style={{ color: '#b89b6e', fontSize: 10 }}>✦</span>
-      <div style={{ height: 1, flex: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
+      <div style={{ height: 1, flex: 1, background: 'linear-gradient(to right, transparent, #c5a25a)' }} />
+      <span style={{ color: '#c5a25a', fontSize: 10 }}>✦</span>
+      <span style={{ color: '#ead8aa', fontSize: 7 }}>◆</span>
+      <span style={{ color: '#c5a25a', fontSize: 10 }}>✦</span>
+      <div style={{ height: 1, flex: 1, background: 'linear-gradient(to left, transparent, #c5a25a)' }} />
     </div>
   );
 }
@@ -60,7 +60,7 @@ function SparkleCanvas({ active }: { active: boolean }) {
       const speed = Math.random() * 4 + 1.5;
       return { x: cx, y: cy, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 1.2,
         size: Math.random() * 5 + 2, opacity: 1,
-        color: Math.random() > 0.5 ? '#b89b6e' : '#f0deb4', gravity: 0.06 };
+        color: Math.random() > 0.5 ? '#c5a25a' : '#f0deb4', gravity: 0.06 };
     });
     let raf: number;
     const draw = () => {
@@ -106,14 +106,14 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center cursor-pointer select-none px-6"
-          style={{ background: 'radial-gradient(ellipse at center, #f5ede0 0%, #ede3d4 50%, #e0d4c0 100%)' }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center cursor-pointer select-none px-6 text-ivory navy-vellum"
           onClick={handleOpen}
           role="button"
           aria-label="Tap to open your invitation"
         >
           {/* Ambient glow */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(184,155,110,0.18),_transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(197,162,90,0.22),_transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 islamic-pattern opacity-[0.14]" />
 
           {/* Corner ornaments */}
           <div className="absolute top-4 left-4 opacity-60"><Corner /></div>
@@ -127,7 +127,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
             animate={{ opacity: phase === 'closed' ? 1 : 0, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4 }}
             className="font-arabic text-gold text-2xl mb-2 text-center"
-            style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#9a7340' }}
+            style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl' }}
           >
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </motion.p>
@@ -154,13 +154,13 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
               style={{
                 width: 270, bottom: 4,
                 height: 390,
-                background: 'linear-gradient(175deg, #fffdf8 0%, #fdf6e8 100%)',
-                border: '1px solid rgba(184,155,110,0.3)',
+                background: 'linear-gradient(175deg, #fffaf0 0%, #f2e6cf 100%)',
+                border: '1px solid rgba(197,162,90,0.45)',
                 zIndex: phase === 'opening' ? 60 : 15,
               }}
             >
-              <div className="absolute inset-[5px] pointer-events-none" style={{ border: '1px solid rgba(184,155,110,0.45)' }} />
-              <div className="absolute inset-[9px] pointer-events-none" style={{ border: '0.5px solid rgba(212,181,122,0.25)' }} />
+              <div className="absolute inset-[5px] pointer-events-none" style={{ border: '1px solid rgba(197,162,90,0.45)' }} />
+              <div className="absolute inset-[9px] pointer-events-none" style={{ border: '0.5px solid rgba(234,216,170,0.35)' }} />
               <div className="absolute top-1 left-1"><Corner /></div>
               <div className="absolute top-1 right-1"><Corner flip /></div>
               <div className="absolute bottom-1 left-1" style={{ transform: 'scaleY(-1)' }}><Corner /></div>
@@ -168,7 +168,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
 
               <div className="flex flex-col items-center pt-9 px-4">
                 <p className="text-center mb-1"
-                  style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#9a7340', fontSize: 14 }}>
+                  style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#c5a25a', fontSize: 14 }}>
                   بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
                 </p>
               </div>
@@ -179,15 +179,15 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
               </div>
               <div className="px-6 my-2"><OrnamentDivider /></div>
               <div className="flex flex-col items-center pb-5">
-                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
-                <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
-                <p className="text-2xl text-charcoal leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
+                <p className="text-2xl text-navy leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
+                <p className="text-lg my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#c5a25a' }}>and</p>
+                <p className="text-2xl text-navy leading-none" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
                 <div className="flex items-center gap-1 mt-2 px-6 w-full">
-                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
-                  <span style={{ color: '#b89b6e', fontSize: 8 }}>✦</span>
-                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
+                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, transparent, #c5a25a)' }} />
+                  <span style={{ color: '#c5a25a', fontSize: 8 }}>✦</span>
+                  <div style={{ flex: 1, height: 1, background: 'linear-gradient(to left, transparent, #c5a25a)' }} />
                 </div>
-                <p className="mt-2 text-base text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.12em' }}>09.19.26</p>
+                <p className="mt-2 text-base text-navy" style={{ fontFamily: 'var(--font-cormorant), serif' }}>09.19.26</p>
               </div>
             </motion.div>
 
@@ -200,13 +200,13 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
               className="absolute inset-0"
             >
               <div className="absolute inset-0 rounded-sm shadow-xl z-0"
-                style={{ background: 'linear-gradient(160deg, #ede3d4, #e0d4be)', border: '1px solid rgba(184,155,110,0.3)' }} />
+                style={{ background: 'linear-gradient(160deg, #092342, #031225)', border: '1px solid rgba(197,162,90,0.45)' }} />
               <div className="absolute inset-0 z-20"
-                style={{ clipPath: 'polygon(0 0, 0 100%, 50% 58%)', background: 'linear-gradient(135deg, #e5d9c8, #d8ccb8)' }} />
+                style={{ clipPath: 'polygon(0 0, 0 100%, 50% 58%)', background: 'linear-gradient(135deg, #12355c, #061b35)' }} />
               <div className="absolute inset-0 z-20"
-                style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 58%)', background: 'linear-gradient(225deg, #ece2d0, #ddd0bc)' }} />
+                style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 58%)', background: 'linear-gradient(225deg, #17446f, #092342)' }} />
               <div className="absolute inset-0 z-30"
-                style={{ clipPath: 'polygon(0 100%, 100% 100%, 50% 58%)', background: 'linear-gradient(0deg, #d8ccb8, #e8dcca)' }} />
+                style={{ clipPath: 'polygon(0 100%, 100% 100%, 50% 58%)', background: 'linear-gradient(0deg, #031225, #0c2a4c)' }} />
               <motion.div
                 initial={{ rotateX: 0 }}
                 animate={phase === 'opening' ? { rotateX: -178 } : { rotateX: 0 }}
@@ -214,7 +214,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
                 className="absolute inset-x-0 top-0 z-40"
                 style={{ height: '58%', transformOrigin: 'top center', transformStyle: 'preserve-3d',
                   clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  background: 'linear-gradient(180deg, #e8dcca, #d8ccb8)' }}
+                  background: 'linear-gradient(180deg, #12355c, #061b35)' }}
               />
               {/* Wax seal */}
               <motion.div
@@ -224,7 +224,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
                 style={{ width: 80, height: 80 }}
               >
                 <div className="absolute inset-0 rounded-full"
-                  style={{ background: 'radial-gradient(circle at 35% 28%, #d4b57a, #8a6230)', boxShadow: '0 4px 18px rgba(138,98,48,0.5), inset 0 1px 2px rgba(255,240,200,0.4)' }} />
+                  style={{ background: 'radial-gradient(circle at 35% 28%, #f1d791, #9d7336)', boxShadow: '0 4px 18px rgba(3,18,37,0.55), inset 0 1px 2px rgba(255,240,200,0.4)' }} />
                 <div className="absolute inset-[7px] rounded-full" style={{ border: '1px solid rgba(255,230,160,0.4)' }} />
                 <div className="absolute inset-[11px] rounded-full" style={{ border: '0.5px solid rgba(255,220,130,0.25)' }} />
                 <span className="relative z-10 text-xl"
@@ -241,7 +241,7 @@ export default function EnvelopeIntro({ groom, bride, onOpen }: Props) {
             transition={{ duration: 2.4, repeat: phase === 'closed' ? Infinity : 0, ease: 'easeInOut' }}
             className="mt-12 flex flex-col items-center gap-2"
           >
-            <span className="eyebrow text-charcoal-soft tracking-[0.4em] text-[0.65rem]">Tap to open</span>
+            <span className="eyebrow text-ivory/70 text-[0.65rem]">Tap to open</span>
             <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity }}
               className="text-gold text-lg">↓</motion.span>
           </motion.div>

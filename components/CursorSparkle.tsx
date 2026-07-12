@@ -14,7 +14,7 @@ export default function CursorSparkle() {
       lastRef.current = now;
 
       const size = Math.random() * 7 + 3;
-      const color = Math.random() > 0.45 ? '#b89b6e' : Math.random() > 0.5 ? '#d8c6a8' : '#faf7f2';
+      const color = Math.random() > 0.45 ? '#c5a25a' : Math.random() > 0.5 ? '#ead8aa' : '#fbf6ec';
       const tx = (Math.random() - 0.5) * 40;
       const ty = (Math.random() - 0.5) * 40;
 

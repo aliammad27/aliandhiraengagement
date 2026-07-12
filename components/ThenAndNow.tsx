@@ -13,8 +13,9 @@ const fadeUp: Variants = {
 
 export default function ThenAndNow() {
   return (
-    <section className="py-28 sm:py-40 px-6 relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(184,155,110,0.06),_transparent_70%)]" />
+    <section id="story" className="py-28 sm:py-40 px-6 relative overflow-hidden bg-ivory">
+      <div className="pointer-events-none absolute inset-0 islamic-pattern opacity-[0.05]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(197,162,90,0.10),_transparent_70%)]" />
 
       <div className="max-w-3xl mx-auto text-center">
         {/* Heading */}
@@ -40,7 +41,7 @@ export default function ThenAndNow() {
         {/* Single photo — centred, portrait, generous size */}
         <motion.div
           variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={3}
-          className="relative group mx-auto overflow-hidden rounded-sm shadow-2xl"
+          className="relative group mx-auto overflow-hidden rounded-sm border border-gold/30 shadow-2xl shadow-navy/15"
           style={{ maxWidth: 480 }}
         >
           <div className="aspect-[4/5] overflow-hidden">

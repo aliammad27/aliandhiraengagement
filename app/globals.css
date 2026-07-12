@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Editorial-minimalist palette */
-  --ivory: #faf7f2;
-  --cream: #f3ede3;
-  --charcoal: #2c2a28;
-  --charcoal-soft: #57534e;
-  --sage: #8a9a7b;
-  --sage-deep: #6b7a5d;
-  --gold: #b89b6e;
-  --gold-soft: #d8c6a8;
-  --blush: #e4d3cb;
+  /* Navy invitation palette */
+  --ivory: #fbf6ec;
+  --cream: #efe4d0;
+  --charcoal: #071a34;
+  --charcoal-soft: #506276;
+  --sage: #6f8d85;
+  --sage-deep: #12355c;
+  --gold: #c5a25a;
+  --gold-soft: #ead8aa;
+  --blush: #d8b8a8;
+  --navy: #071a34;
+  --navy-soft: #12355c;
+  --midnight: #031225;
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -28,6 +31,9 @@
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-blush: var(--blush);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-midnight: var(--midnight);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-cormorant);
   --font-script: var(--font-script);
@@ -44,7 +50,7 @@ body {
 .font-display {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 300;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .font-script {
@@ -54,7 +60,7 @@ body {
 /* Refined letter-spaced eyebrow text */
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.32em;
+  letter-spacing: 0;
   font-size: 0.72rem;
   font-weight: 500;
 }
@@ -63,6 +69,67 @@ body {
 .hairline {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.navy-vellum {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(197, 162, 90, 0.18), transparent 26%),
+    radial-gradient(circle at 78% 8%, rgba(111, 141, 133, 0.16), transparent 22%),
+    radial-gradient(circle at 50% 110%, rgba(234, 216, 170, 0.12), transparent 32%),
+    linear-gradient(145deg, var(--midnight) 0%, var(--navy) 46%, var(--navy-soft) 100%);
+}
+
+.parchment-vellum {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(197, 162, 90, 0.14), transparent 22%),
+    radial-gradient(circle at 86% 18%, rgba(216, 184, 168, 0.18), transparent 20%),
+    linear-gradient(160deg, #fffaf0 0%, var(--ivory) 52%, var(--cream) 100%);
+}
+
+.islamic-pattern {
+  background-image:
+    linear-gradient(30deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
+    linear-gradient(150deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
+    linear-gradient(30deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
+    linear-gradient(150deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16));
+  background-position: 0 0, 0 0, 22px 38px, 22px 38px;
+  background-size: 44px 76px;
+}
+
+.floral-corner {
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  pointer-events: none;
+}
+
+.floral-corner::before,
+.floral-corner::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px 999px 999px 0;
+  transform: rotate(-36deg);
+}
+
+.floral-corner::before {
+  width: 92px;
+  height: 34px;
+  right: 12px;
+  top: 34px;
+  background: linear-gradient(90deg, rgba(111, 141, 133, 0.82), rgba(111, 141, 133, 0.16));
+}
+
+.floral-corner::after {
+  width: 58px;
+  height: 58px;
+  right: 48px;
+  top: 8px;
+  background:
+    radial-gradient(circle at 50% 52%, #fffdf7 0 18%, transparent 19%),
+    conic-gradient(from 10deg, #fff7e8, #d8b8a8, #fff7e8, #ead8aa, #fff7e8);
+  box-shadow:
+    -34px 46px 0 -18px rgba(255, 247, 232, 0.95),
+    -54px 66px 0 -26px rgba(216, 184, 168, 0.85);
 }
 
 /* Arabic calligraphy font */
@@ -85,11 +152,11 @@ body {
 .shimmer-name {
   background: linear-gradient(
     105deg,
-    var(--charcoal) 35%,
+    var(--ivory) 35%,
     var(--gold)     48%,
     #f0deb4         53%,
     var(--gold)     58%,
-    var(--charcoal) 70%
+    var(--ivory) 70%
   );
   background-size: 250% auto;
   background-clip: text;

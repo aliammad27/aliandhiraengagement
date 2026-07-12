@@ -8,138 +8,168 @@ interface Props {
   bride: string;
 }
 
+function CornerFlourish({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} width="74" height="74" viewBox="0 0 74 74" fill="none" aria-hidden="true">
+      <path d="M5 6C5 33 18 47 45 47" stroke="currentColor" strokeWidth="1.2" opacity="0.72" />
+      <path d="M5 6C32 6 47 19 47 46" stroke="currentColor" strokeWidth="1.2" opacity="0.72" />
+      <path d="M14 6C14 27 25 37 47 37" stroke="currentColor" strokeWidth="0.8" opacity="0.46" />
+      <path d="M6 15C27 15 37 26 37 47" stroke="currentColor" strokeWidth="0.8" opacity="0.46" />
+      <circle cx="5" cy="6" r="2.3" fill="currentColor" opacity="0.9" />
+      <circle cx="47" cy="47" r="1.6" fill="currentColor" opacity="0.58" />
+      <path d="M56 54C62 51 66 47 68 41C69 50 65 58 57 64C49 58 45 50 46 41C48 47 51 51 56 54Z" fill="currentColor" opacity="0.16" />
+    </svg>
+  );
+}
+
+function StarDivider() {
+  return (
+    <div className="flex items-center gap-3 w-full" aria-hidden="true">
+      <span className="hairline flex-1" />
+      <span className="text-gold text-sm">✦</span>
+      <span className="w-1.5 h-1.5 rotate-45 bg-gold/70" />
+      <span className="text-gold text-sm">✦</span>
+      <span className="hairline flex-1" />
+    </div>
+  );
+}
+
 export default function InvitationHero({ groom, bride }: Props) {
+  const initials = `${bride[0] || 'H'}&${groom[0] || 'A'}`;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2 }}
-      className="relative flex flex-col items-center text-center px-6 pt-12 pb-8 overflow-hidden"
-      style={{ background: 'linear-gradient(175deg, #fffdf8 0%, #fdf6e8 100%)' }}
+      className="relative flex flex-col items-center overflow-hidden px-5 py-8 text-center text-ivory navy-vellum"
     >
-      {/* Ornate border lines */}
-      <div className="absolute inset-[10px] border border-gold/25 pointer-events-none rounded-sm" />
-      <div className="absolute inset-[16px] border border-gold/12 pointer-events-none rounded-sm" />
+      <div className="absolute inset-0 islamic-pattern opacity-[0.16]" />
+      <div className="absolute inset-[10px] rounded-sm border border-gold/40 pointer-events-none" />
+      <div className="absolute inset-[16px] rounded-sm border border-gold/20 pointer-events-none" />
+      <div className="floral-corner top-2 right-2 opacity-70" />
+      <div className="floral-corner bottom-2 left-2 rotate-180 opacity-60" />
+      <CornerFlourish className="absolute left-3 top-3 text-gold/80" />
+      <CornerFlourish className="absolute right-3 top-3 scale-x-[-1] text-gold/80" />
+      <CornerFlourish className="absolute bottom-3 left-3 scale-y-[-1] text-gold/70" />
+      <CornerFlourish className="absolute bottom-3 right-3 [transform:scale(-1,-1)] text-gold/70" />
 
-      {/* Corner flourishes */}
-      {[
-        'top-2 left-2',
-        'top-2 right-2 scale-x-[-1]',
-        'bottom-2 left-2 scale-y-[-1]',
-        'bottom-2 right-2 [transform:scale(-1,-1)]',
-      ].map((pos, i) => (
-        <div key={i} className={`absolute ${pos} opacity-50`}>
-          <svg width="44" height="44" viewBox="0 0 54 54" fill="none">
-            <path d="M2 2 Q2 27 27 27 Q2 27 2 52" stroke="#b89b6e" strokeWidth="1" fill="none" opacity="0.7"/>
-            <path d="M2 2 Q27 2 27 27 Q27 2 52 2" stroke="#b89b6e" strokeWidth="1" fill="none" opacity="0.7"/>
-            <circle cx="2" cy="2" r="1.5" fill="#b89b6e" opacity="0.8"/>
-          </svg>
+      <div className="relative z-10 w-full max-w-[390px] rounded-[2rem] border-[9px] border-midnight bg-midnight/80 p-2 shadow-2xl">
+        <div className="relative overflow-hidden rounded-[1.35rem] px-5 py-7 text-charcoal parchment-vellum">
+          <div className="absolute inset-0 islamic-pattern opacity-[0.08]" />
+          <div className="absolute inset-[8px] rounded-[1rem] border border-gold/35 pointer-events-none" />
+          <div className="absolute inset-[14px] rounded-[0.75rem] border border-gold/15 pointer-events-none" />
+          <div className="floral-corner -right-4 -top-4 opacity-75" />
+          <div className="floral-corner -bottom-5 -left-5 rotate-180 opacity-65" />
+
+          <div className="relative z-10 mx-auto max-w-[295px]">
+            <motion.p
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.9 }}
+              className="font-arabic mb-2 text-2xl text-gold"
+            >
+              بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.9 }}
+              className="eyebrow mb-5 text-navy"
+            >
+              Engagement Invitation
+            </motion.p>
+
+            <div
+              className="relative mx-auto mb-5 border-x border-t border-gold/50 px-5 pb-7 pt-10"
+              style={{ borderRadius: '999px 999px 14px 14px' }}
+            >
+              <div
+                className="absolute inset-x-4 top-4 h-28 border-x border-t border-gold/25"
+                style={{ borderRadius: '999px 999px 0 0' }}
+              />
+
+              <div className="relative mb-2 flex h-16 items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7, duration: 1 }}
+                  className="absolute left-0 top-3"
+                >
+                  <BaroqueWings width={110} color="#c5a25a" />
+                </motion.div>
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.9, duration: 0.8, type: 'spring', stiffness: 100 }}
+                  className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle at 32% 28%, #f1d791, #9d7336)',
+                    boxShadow: '0 8px 24px rgba(7,26,52,0.22), inset 0 1px 3px rgba(255,240,200,0.6)',
+                  }}
+                >
+                  <div className="absolute inset-[6px] rounded-full border border-white/35" />
+                  <span
+                    className="relative z-10 text-lg text-ivory"
+                    style={{ fontFamily: 'var(--font-script), cursive', textShadow: '0 1px 3px rgba(0,0,0,0.35)' }}
+                  >
+                    {initials}
+                  </span>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7, duration: 1 }}
+                  className="absolute right-0 top-3"
+                >
+                  <BaroqueWings width={110} color="#c5a25a" flip />
+                </motion.div>
+              </div>
+
+              <StarDivider />
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.9 }}
+                className="flex flex-col items-center py-5"
+              >
+                <p className="font-display text-5xl leading-none text-navy">{bride}</p>
+                <p className="font-script my-2 text-3xl leading-none text-gold">and</p>
+                <p className="font-display text-5xl leading-none text-navy">{groom}</p>
+              </motion.div>
+
+              <StarDivider />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.9 }}
+              className="mb-5 grid grid-cols-3 gap-2"
+            >
+              <div className="rounded-sm border border-gold/35 bg-navy px-2 py-3 text-ivory">
+                <p className="eyebrow text-gold-soft">Saturday</p>
+                <p className="font-display text-2xl leading-none">Sep</p>
+              </div>
+              <div className="rounded-sm border border-gold/50 bg-gold px-2 py-3 text-navy">
+                <p className="eyebrow">Date</p>
+                <p className="font-display text-4xl leading-none">19</p>
+              </div>
+              <div className="rounded-sm border border-gold/35 bg-navy px-2 py-3 text-ivory">
+                <p className="eyebrow text-gold-soft">Year</p>
+                <p className="font-display text-2xl leading-none">2026</p>
+              </div>
+            </motion.div>
+
+            <p className="font-display text-lg leading-snug text-navy">
+              With dua, love, and the blessings of family, we invite you to celebrate our engagement.
+            </p>
+            <p className="eyebrow mt-4 text-gold">Formal invitation to follow</p>
+          </div>
         </div>
-      ))}
-
-      {/* Bismillah */}
-      <motion.p
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.9 }}
-        className="text-2xl mb-3"
-        style={{ fontFamily: 'var(--font-arabic), serif', direction: 'rtl', color: '#9a7340' }}
-      >
-        بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-      </motion.p>
-
-      {/* Title */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.9 }}
-        className="eyebrow text-charcoal mb-6"
-      >
-        Engagement Invitation
-      </motion.p>
-
-      {/* Baroque Wings + Seal Row */}
-      <div className="relative flex items-center justify-center w-full mb-4" style={{ height: 120 }}>
-        {/* Left wing */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          className="absolute left-0"
-          style={{ width: '45%' }}
-        >
-          <BaroqueWings width={160} />
-        </motion.div>
-
-        {/* Wax seal center */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8, type: 'spring', stiffness: 100 }}
-          className="relative z-10 flex items-center justify-center rounded-full"
-          style={{
-            width: 90, height: 90,
-            background: 'radial-gradient(circle at 32% 28%, #d4b57a, #8a6230)',
-            boxShadow: '0 6px 30px rgba(138,98,48,0.45), inset 0 1px 3px rgba(255,240,200,0.5)',
-          }}
-        >
-          <div className="absolute inset-[7px] rounded-full border border-white/25" />
-          <div className="absolute inset-[12px] rounded-full border border-white/15" />
-          <span style={{ fontFamily: 'var(--font-script), cursive', color: 'rgba(255,248,220,0.95)', fontSize: 20, textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
-            {bride[0]}&{groom[0]}
-          </span>
-        </motion.div>
-
-        {/* Right wing */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          className="absolute right-0"
-          style={{ width: '45%' }}
-        >
-          <BaroqueWings width={160} flip />
-        </motion.div>
       </div>
-
-      {/* Gold divider */}
-      <div className="flex items-center gap-2 w-full max-w-xs mb-5">
-        <div className="flex-1" style={{ height: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
-        <span style={{ color: '#b89b6e', fontSize: 9 }}>✦ ◆ ✦</span>
-        <div className="flex-1" style={{ height: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
-      </div>
-
-      {/* Names */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.9 }}
-        className="flex flex-col items-center mb-5"
-      >
-        <p className="text-4xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{bride}</p>
-        <p className="text-2xl my-1" style={{ fontFamily: 'var(--font-script), cursive', color: '#b89b6e' }}>and</p>
-        <p className="text-4xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif' }}>{groom}</p>
-      </motion.div>
-
-      {/* Gold divider */}
-      <div className="flex items-center gap-2 w-full max-w-xs mb-5">
-        <div className="flex-1" style={{ height: 1, background: 'linear-gradient(to right, transparent, #b89b6e)' }} />
-        <span style={{ color: '#b89b6e', fontSize: 9 }}>✦ ◆ ✦</span>
-        <div className="flex-1" style={{ height: 1, background: 'linear-gradient(to left, transparent, #b89b6e)' }} />
-      </div>
-
-      {/* Date */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.9 }}
-        className="flex flex-col items-center"
-      >
-        <p className="eyebrow text-gold mb-1">Save the Date</p>
-        <p className="text-3xl text-charcoal" style={{ fontFamily: 'var(--font-cormorant), serif', letterSpacing: '0.1em' }}>
-          09.19.26
-        </p>
-      </motion.div>
     </motion.div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-export default function BaroqueWings({ color = '#b89b6e', width = 320, flip = false }) {
+export default function BaroqueWings({ color = '#c5a25a', width = 320, flip = false }) {
   return (
     <svg
       viewBox="0 0 320 160"
