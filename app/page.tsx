@@ -43,21 +43,21 @@ export default function Home() {
     <main className="overflow-hidden bg-ivory text-charcoal">
       <InvitationCardIntro bride={bride} groom={groom} />
 
-      <header className="absolute inset-x-0 top-0 z-50 text-ivory">
+      <header className="absolute inset-x-0 top-0 z-50 text-navy">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-8">
           <a href="#top" className="font-display text-2xl font-medium">
             H<span className="text-gold">&amp;</span>A
           </a>
           <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
-            <a href="#story" className="hidden text-ivory/70 transition-colors hover:text-ivory sm:inline">
+            <a href="#story" className="hidden text-navy/70 transition-colors hover:text-navy sm:inline">
               Our story
             </a>
-            <a href="#details" className="hidden text-ivory/70 transition-colors hover:text-ivory sm:inline">
+            <a href="#details" className="hidden text-navy/70 transition-colors hover:text-navy sm:inline">
               The date
             </a>
             <Link
               href="/invite"
-              className="inline-flex min-h-10 items-center border border-gold/70 px-3 text-[0.7rem] font-medium uppercase text-ivory transition-colors hover:bg-gold hover:text-navy sm:px-4"
+              className="inline-flex min-h-10 items-center border border-navy/70 px-3 text-[0.7rem] font-medium uppercase text-navy transition-colors hover:bg-navy hover:text-ivory sm:px-4"
             >
               RSVP
             </Link>
@@ -67,7 +67,7 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative flex min-h-[82svh] items-center justify-center bg-navy px-6 pb-10 pt-20 text-center text-ivory sm:min-h-[88svh] sm:px-8 sm:pb-14 sm:pt-24"
+        className="relative flex min-h-[82svh] items-center justify-center bg-ivory px-6 pb-10 pt-20 text-center text-charcoal sm:min-h-[88svh] sm:px-8 sm:pb-14 sm:pt-24"
       >
         <div className="mx-auto flex w-full max-w-lg flex-col items-center">
           <p className="font-arabic text-lg text-gold sm:text-2xl">
@@ -80,34 +80,34 @@ export default function Home() {
             <span className="h-px w-10 bg-gold/45" />
           </div>
 
-          <p className="text-[0.68rem] font-medium uppercase text-ivory/55">
+          <p className="text-[0.68rem] font-medium uppercase text-navy/60">
             With the blessings of their families
           </p>
 
-          <h1 className="mt-5 font-display whitespace-nowrap text-6xl font-normal leading-none sm:text-8xl">
+          <h1 className="mt-5 font-display whitespace-nowrap text-6xl font-normal leading-none text-navy sm:text-8xl">
             {bride} <span className="font-light text-gold">&amp;</span> {groom}
           </h1>
 
-          <p className="mt-5 w-full max-w-[310px] font-display text-lg leading-7 text-ivory/70 sm:max-w-md sm:text-2xl sm:leading-relaxed">
+          <p className="mt-5 w-full max-w-[310px] font-display text-lg leading-7 text-charcoal-soft sm:max-w-md sm:text-2xl sm:leading-relaxed">
             With love and gratitude, we invite you to celebrate our engagement.
           </p>
 
           <time dateTime="2025-10-17" aria-label={eventDate} className="mt-7 block w-full max-w-[300px]">
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-3">
-              <span className="font-display text-xl text-ivory/75">Friday</span>
-              <span className="border-x border-gold/30 font-display text-4xl text-gold-soft">17</span>
-              <span className="font-display text-xl text-ivory/75">October</span>
+            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-navy/20 py-3">
+              <span className="font-display text-xl text-navy/80">Friday</span>
+              <span className="border-x border-navy/15 font-display text-4xl text-gold">17</span>
+              <span className="font-display text-xl text-navy/80">October</span>
             </span>
-            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2025 · In sha Allah</span>
+            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2025 · In sha Allah</span>
           </time>
 
           <div className="mt-7 text-center">
-            <p className="text-[0.68rem] font-medium uppercase text-ivory/55">1204 Middle Ave, Waterford Works, NJ</p>
+            <p className="text-[0.68rem] font-medium uppercase text-charcoal-soft">1204 Middle Ave, Waterford Works, NJ</p>
             <a
               href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-[0.68rem] uppercase text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-gold-soft"
+              className="mt-2 inline-block text-[0.68rem] uppercase text-navy underline decoration-navy/40 underline-offset-4 transition-colors hover:text-gold"
             >
               Get directions
             </a>

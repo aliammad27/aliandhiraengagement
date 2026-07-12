@@ -35,7 +35,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
     setPhase('opening');
     timerRef.current = setTimeout(
       () => setPhase('done'),
-      reduceMotion ? 450 : 2050,
+      reduceMotion ? 450 : 1500,
     );
   }, [phase, reduceMotion]);
 
@@ -45,10 +45,10 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
     <AnimatePresence>
       {phase !== 'done' && (
         <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0.1 : 0.5, ease: 'easeOut' }}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-cream px-5 py-7"
+          initial={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: reduceMotion ? 0.1 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-midnight px-5 py-7"
         >
           <button
             type="button"
@@ -58,7 +58,12 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
             aria-label="Open Hira and Ali's engagement invitation"
           >
             <div className="relative aspect-[3/4] w-full [perspective:1400px]">
-              <div className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-navy shadow-xl shadow-navy/15">
+              <motion.div
+                initial={false}
+                animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.94 }}
+                transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-navy shadow-2xl shadow-black/40"
+              >
                 <div className="absolute inset-3 border border-gold/35" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
@@ -73,7 +78,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                   <p className="font-display text-xl text-charcoal">October 17, 2025</p>
                   <p className="mt-2 text-[0.65rem] text-charcoal-soft">In sha Allah</p>
                 </div>
-              </div>
+              </motion.div>
 
               <motion.div
                 initial={false}
@@ -111,7 +116,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
             <motion.span
               initial={false}
               animate={{ opacity: opening ? 0 : 1, y: opening ? 4 : 0 }}
-              className="mt-6 inline-flex min-h-12 w-full items-center justify-center bg-navy px-7 text-sm font-medium text-ivory transition-colors group-hover:bg-navy-soft group-focus-visible:bg-navy-soft"
+              className="mt-6 inline-flex min-h-12 w-full items-center justify-center bg-gold px-7 text-sm font-medium text-navy transition-colors group-hover:bg-gold-soft group-focus-visible:bg-gold-soft"
             >
               Open invitation
             </motion.span>
