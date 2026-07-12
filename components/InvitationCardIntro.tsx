@@ -48,7 +48,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
           initial={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-midnight px-5 py-7"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-navy px-5 py-7"
         >
           <button
             type="button"
@@ -99,27 +99,42 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 initial={false}
                 animate={{ opacity: opening ? 0 : 1 }}
                 transition={{ duration: reduceMotion ? 0.05 : 0.3 }}
-                className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center px-7 text-center text-ivory"
+                className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center text-center text-ivory"
               >
                 <div className="absolute inset-3 border border-gold/45" />
-                <p className="font-arabic relative text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-                <p className="relative mt-8 text-[0.65rem] font-medium uppercase text-ivory/55">Engagement invitation</p>
-                <p className="font-display relative mt-4 text-6xl leading-none">
-                  H<span className="mx-2 text-3xl text-gold">&amp;</span>A
+
+                <svg
+                  viewBox="0 0 300 400"
+                  preserveAspectRatio="none"
+                  className="absolute inset-0 h-full w-full"
+                  aria-hidden="true"
+                >
+                  <line x1="14" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.5)" strokeWidth="1" />
+                  <line x1="286" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.5)" strokeWidth="1" />
+                </svg>
+
+                <div className="relative z-10 flex w-full flex-col items-center px-8 pt-12">
+                  <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                  <p className="mt-6 text-[0.62rem] font-medium uppercase tracking-[0.15em] text-ivory/55">
+                    Engagement invitation
+                  </p>
+                  <p className="mt-4 font-display italic text-3xl leading-tight">
+                    {bride} <span className="not-italic text-gold">&amp;</span> {groom}
+                  </p>
+                </div>
+
+                <div
+                  className="absolute left-1/2 z-20 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gold bg-navy shadow-lg shadow-black/30"
+                  style={{ top: '58%' }}
+                >
+                  <span className="font-display text-base text-gold">H&amp;A</span>
+                </div>
+
+                <p className="absolute inset-x-0 bottom-10 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold">
+                  Open invitation
                 </p>
-                <p className="font-display relative mt-5 text-xl text-ivory/80">{bride} &amp; {groom}</p>
-                <span className="relative my-6 h-px w-16 bg-gold/55" aria-hidden="true" />
-                <p className="font-display relative text-lg text-gold-soft">10.17.25</p>
               </motion.div>
             </div>
-
-            <motion.span
-              initial={false}
-              animate={{ opacity: opening ? 0 : 1, y: opening ? 4 : 0 }}
-              className="mt-6 inline-flex min-h-12 w-full items-center justify-center bg-gold px-7 text-sm font-medium text-navy transition-colors group-hover:bg-gold-soft group-focus-visible:bg-gold-soft"
-            >
-              Open invitation
-            </motion.span>
           </button>
         </motion.div>
       )}
