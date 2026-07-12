@@ -5,223 +5,233 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getEngagementConfig } from '@/lib/database';
 import { EngagementConfig } from '@/lib/types';
-import EnvelopeIntro from '@/components/EnvelopeIntro';
-import FloatingPetals from '@/components/FloatingPetals';
-import CursorSparkle from '@/components/CursorSparkle';
 import ThenAndNow from '@/components/ThenAndNow';
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 18 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 1, delay: i * 0.15, ease: 'easeOut' as const },
+    transition: { duration: 0.75, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
+function formatEventDate(value?: Date) {
+  if (!value) return 'September 19, 2026';
+
+  const possibleTimestamp = value as Date & { toDate?: () => Date };
+  const date = typeof possibleTimestamp.toDate === 'function'
+    ? possibleTimestamp.toDate()
+    : new Date(value);
+
+  if (Number.isNaN(date.getTime())) return 'September 19, 2026';
+
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
 export default function Home() {
   const [config, setConfig] = useState<EngagementConfig | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     getEngagementConfig()
-      .then((data) => setConfig(data || null))
-      .catch((e) => console.error('Error fetching config:', e))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (isMounted && data) setConfig(data);
+      })
+      .catch(() => undefined);
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const groom = config?.coupleNames?.groom || 'Ali';
   const bride = config?.coupleNames?.bride || 'Hira';
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-navy">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
-          className="w-10 h-10 border border-gold/30 border-t-gold rounded-full"
-        />
-      </div>
-    );
-  }
+  const eventDate = formatEventDate(config?.engagementDate);
+  const photos = config?.photos?.filter(Boolean) || [];
 
   return (
-    <div className="bg-ivory text-charcoal overflow-hidden">
-      <FloatingPetals />
-      <CursorSparkle />
-      <EnvelopeIntro groom={groom} bride={bride} />
-
-      <motion.nav
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 inset-x-0 z-50 border-b border-gold/20 bg-navy/80 text-ivory backdrop-blur-md"
-      >
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
-          <span className="font-script text-2xl text-gold">{bride} &amp; {groom}</span>
-          <div className="flex items-center gap-8 text-sm">
-            <a href="#story" className="hidden sm:inline text-ivory/80 hover:text-gold transition-colors">Our Story</a>
-            <a href="#details" className="hidden sm:inline text-ivory/80 hover:text-gold transition-colors">Details</a>
+    <main className="overflow-hidden bg-ivory text-charcoal">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy/95 text-ivory backdrop-blur-sm">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+          <a href="#top" className="font-display text-xl font-medium sm:text-2xl">
+            {bride} <span className="text-gold">&amp;</span> {groom}
+          </a>
+          <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
+            <a href="#story" className="hidden text-ivory/70 transition-colors hover:text-ivory sm:inline">
+              Our story
+            </a>
+            <a href="#details" className="hidden text-ivory/70 transition-colors hover:text-ivory sm:inline">
+              The date
+            </a>
             <Link
               href="/invite"
-              className="eyebrow rounded-full border border-gold/45 px-5 py-2 text-ivory hover:bg-gold hover:text-navy transition-colors"
+              className="rounded-sm border border-gold px-4 py-2 text-xs font-medium uppercase text-ivory transition-colors hover:bg-gold hover:text-navy"
             >
               RSVP
             </Link>
+          </nav>
+        </div>
+      </header>
+
+      <section
+        id="top"
+        className="relative flex min-h-[88svh] items-center justify-center bg-navy px-5 pb-14 pt-24 text-center text-ivory"
+      >
+        <div className="invitation-arch pointer-events-none absolute inset-x-5 bottom-8 top-20 mx-auto max-w-[580px] opacity-60" />
+
+        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center">
+          <p className="font-arabic text-xl text-gold sm:text-2xl">
+            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+          </p>
+
+          <div
+            className="my-7 flex items-center gap-4 text-gold"
+            aria-hidden="true"
+          >
+            <span className="h-px w-12 bg-gold/55" />
+            <span className="text-sm">✦</span>
+            <span className="h-px w-12 bg-gold/55" />
+          </div>
+
+          <p className="mb-5 text-xs font-medium uppercase text-ivory/65">
+            Together with their families
+          </p>
+
+          <h1 className="font-display whitespace-nowrap text-5xl font-normal leading-none sm:text-8xl lg:text-9xl">
+            {bride} <span className="font-light text-gold">&amp;</span> {groom}
+          </h1>
+
+          <p className="mt-7 w-full max-w-sm font-display text-xl leading-relaxed text-ivory/80 sm:max-w-md sm:text-2xl">
+            invite you to celebrate their engagement
+          </p>
+
+          <p className="mt-7 border-y border-gold/35 px-8 py-3 font-display text-xl text-gold-soft sm:text-2xl">
+            {eventDate}
+          </p>
+
+          <div className="mt-9">
+            <Link
+              href="/invite"
+              className="inline-flex min-h-12 items-center justify-center rounded-sm bg-ivory px-8 text-sm font-medium text-navy transition-colors hover:bg-gold-soft"
+            >
+              View invitation
+            </Link>
           </div>
         </div>
-      </motion.nav>
-
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-20 text-center text-ivory navy-vellum">
-        <div className="pointer-events-none absolute inset-0 islamic-pattern opacity-[0.14]" />
-        <div className="floral-corner top-20 right-4 opacity-70" />
-        <div className="floral-corner bottom-16 left-4 rotate-180 opacity-50" />
-
-        <motion.p
-          variants={fadeUp} initial="hidden" animate="visible" custom={0}
-          className="font-arabic text-2xl sm:text-3xl mb-3 text-center text-gold"
-        >
-          بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-        </motion.p>
-
-        <motion.p
-          variants={fadeUp} initial="hidden" animate="visible" custom={0.5}
-          className="eyebrow text-gold-soft mb-8"
-        >
-          Together with their families, with dua and gratitude
-        </motion.p>
-
-        <motion.h1
-          variants={fadeUp} initial="hidden" animate="visible" custom={1}
-          className="font-display leading-[0.95]"
-        >
-          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name">{bride}</span>
-          <span className="block font-script text-gold text-4xl sm:text-6xl my-3 sm:my-4">and</span>
-          <span className="block text-6xl sm:text-8xl md:text-9xl shimmer-name" style={{ animationDelay: '1.2s' }}>{groom}</span>
-        </motion.h1>
-
-        <motion.p
-          variants={fadeUp} initial="hidden" animate="visible" custom={2}
-          className="font-display text-2xl sm:text-3xl text-ivory/80 mt-10 max-w-xl"
-        >
-          request the pleasure of your company<br className="hidden sm:block" /> at their engagement celebration
-        </motion.p>
-
-        <motion.div
-          variants={fadeUp} initial="hidden" animate="visible" custom={3}
-          className="flex items-center gap-5 mt-10 text-ivory/75"
-        >
-          <span className="hairline w-16" />
-          <span className="eyebrow whitespace-nowrap">
-            {config?.engagementDate
-              ? new Date(config.engagementDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-              : 'Date to be announced'}
-          </span>
-          <span className="hairline w-16" />
-        </motion.div>
-
-        <motion.div
-          variants={fadeUp} initial="hidden" animate="visible" custom={4}
-          className="mt-14"
-        >
-          <Link
-            href="/invite"
-            className="group inline-flex items-center gap-3 rounded-full bg-gold px-9 py-4 text-sm text-navy shadow-xl shadow-midnight/25 hover:bg-ivory transition-colors duration-500"
-          >
-            View Your Invitation
-            <span className="transition-transform duration-500 group-hover:translate-x-1">&rarr;</span>
-          </Link>
-        </motion.div>
-
-        {/* Scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="eyebrow text-ivory/55 text-[0.6rem]">Scroll</span>
-          <motion.span
-            animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-px h-10 bg-gradient-to-b from-gold to-transparent"
-          />
-        </motion.div>
       </section>
 
+      <ThenAndNow />
 
-      {/* Gallery */}
-      {config?.photos && config.photos.length > 0 && (
-        <section className="py-10 px-6">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {config.photos.map((photo, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
-                className="overflow-hidden rounded-sm aspect-[3/4]"
+      {photos.length > 0 && (
+        <section className="border-y border-charcoal/10 bg-cream px-5 py-16 sm:px-8">
+          <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
+            {photos.slice(0, 3).map((photo, index) => (
+              <motion.figure
+                key={photo}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                custom={index}
+                className="aspect-[4/5] overflow-hidden bg-charcoal/5"
               >
-                <img src={photo} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-              </motion.div>
+                <img
+                  src={photo}
+                  alt={`${bride} and ${groom}`}
+                  className="h-full w-full object-cover"
+                />
+              </motion.figure>
             ))}
           </div>
         </section>
       )}
 
-      <ThenAndNow />
-
-      <section id="details" className="relative overflow-hidden py-28 sm:py-40 px-6 bg-cream">
-        <div className="absolute inset-0 islamic-pattern opacity-[0.09]" />
-        <div className="max-w-3xl mx-auto text-center">
+      <section id="details" className="bg-ivory px-5 py-24 text-center sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-4xl">
           <motion.p
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="eyebrow text-gold mb-5"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-xs font-medium uppercase text-sage-deep"
           >
-            The Celebration
+            The engagement
           </motion.p>
           <motion.h2
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
-            className="font-display text-4xl sm:text-6xl mb-8"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={1}
+            className="mt-5 font-display text-5xl font-normal sm:text-7xl"
           >
-            We would be honoured<br />by your presence
+            September 19, 2026
           </motion.h2>
-          <motion.p
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2}
-            className="text-charcoal-soft text-lg font-light mb-12"
-          >
-            Kindly let us know if you can join us. Your invitation holds the RSVP and guest details.
-          </motion.p>
+
           <motion.div
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2.5}
-            className="mb-12 grid gap-4 sm:grid-cols-3"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={2}
+            className="mx-auto my-10 grid max-w-2xl grid-cols-3 border-y border-charcoal/15 py-6"
           >
-            {[
-              ['Bismillah', 'An invitation opened in the name of Allah.'],
-              ['Family', 'A celebration held with the blessings of both families.'],
-              ['RSVP', 'A simple private response page for every guest.'],
-            ].map(([title, copy]) => (
-              <div key={title} className="rounded-sm border border-gold/30 bg-ivory/70 px-5 py-6 text-center shadow-sm">
-                <p className="font-display text-2xl text-navy">{title}</p>
-                <p className="mt-2 text-sm leading-6 text-charcoal-soft">{copy}</p>
-              </div>
-            ))}
+            <div>
+              <p className="text-xs uppercase text-charcoal-soft">Day</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">Saturday</p>
+            </div>
+            <div className="border-x border-charcoal/15">
+              <p className="text-xs uppercase text-charcoal-soft">Date</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">19</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase text-charcoal-soft">Year</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">2026</p>
+            </div>
           </motion.div>
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={3}>
+
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={3}
+            className="mx-auto max-w-lg text-base leading-7 text-charcoal-soft"
+          >
+            We would be honoured to celebrate with you, in sha Allah. Your personal invitation includes the full event details and RSVP.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={4}
+            className="mt-9"
+          >
             <Link
               href="/invite"
-              className="group inline-flex items-center gap-3 rounded-full bg-navy px-9 py-4 text-sm text-ivory hover:bg-gold hover:text-navy transition-colors duration-500"
+              className="inline-flex min-h-12 items-center justify-center rounded-sm bg-navy px-8 text-sm font-medium text-ivory transition-colors hover:bg-navy-soft"
             >
-              Respond Now
-              <span className="transition-transform duration-500 group-hover:translate-x-1">&rarr;</span>
+              Open your invitation
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 px-6 text-center bg-navy text-ivory/70">
-        <p className="font-script text-3xl text-ivory mb-3">{bride} &amp; {groom}</p>
-        <p className="eyebrow text-ivory/40">Forever begins now</p>
-        <Link href="/admin" className="inline-block mt-8 text-xs text-ivory/30 hover:text-gold transition-colors">
-          Manage
+      <footer className="border-t border-white/10 bg-navy px-5 py-12 text-center text-ivory">
+        <p className="font-display text-3xl">{bride} <span className="text-gold">&amp;</span> {groom}</p>
+        <p className="mt-3 text-xs text-ivory/50">09.19.26</p>
+        <Link href="/admin" className="mt-7 inline-block text-xs text-ivory/30 transition-colors hover:text-ivory/60">
+          Manage invitations
         </Link>
       </footer>
-    </div>
+    </main>
   );
 }

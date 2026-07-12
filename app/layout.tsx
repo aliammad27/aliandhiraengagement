@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Cormorant_Garamond, Great_Vibes, Amiri } from "next/font/google";
+import { Geist, Cormorant_Garamond, Amiri } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,12 +10,6 @@ const geistSans = Geist({
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   weight: ["300", "400", "500", "600"],
-  subsets: ["latin"],
-});
-
-const greatVibes = Great_Vibes({
-  variable: "--font-script",
-  weight: ["400"],
   subsets: ["latin"],
 });
 
@@ -39,7 +33,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${cormorant.variable} ${greatVibes.variable} ${amiri.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${cormorant.variable} ${amiri.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
     </html>

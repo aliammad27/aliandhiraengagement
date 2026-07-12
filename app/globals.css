@@ -1,19 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* Navy invitation palette */
-  --ivory: #fbf6ec;
-  --cream: #efe4d0;
-  --charcoal: #071a34;
-  --charcoal-soft: #506276;
-  --sage: #6f8d85;
-  --sage-deep: #12355c;
-  --gold: #c5a25a;
-  --gold-soft: #ead8aa;
-  --blush: #d8b8a8;
-  --navy: #071a34;
-  --navy-soft: #12355c;
-  --midnight: #031225;
+  --ivory: #f8f5ef;
+  --cream: #ece7de;
+  --charcoal: #17212c;
+  --charcoal-soft: #667078;
+  --sage: #758079;
+  --sage-deep: #4e6158;
+  --gold: #b79a5e;
+  --gold-soft: #ded0ad;
+  --blush: #cdbab0;
+  --navy: #0a2038;
+  --navy-soft: #173651;
+  --midnight: #061524;
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -36,7 +35,10 @@
   --color-midnight: var(--midnight);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-cormorant);
-  --font-script: var(--font-script);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -46,128 +48,65 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Elegant display headings */
+button,
+a,
+input,
+select,
+textarea {
+  border-radius: 4px;
+}
+
 .font-display {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 300;
   letter-spacing: 0;
 }
 
-.font-script {
-  font-family: var(--font-script), cursive;
+.font-arabic {
+  direction: rtl;
+  font-family: var(--font-arabic), serif;
 }
 
-/* Refined letter-spaced eyebrow text */
 .eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0;
   font-size: 0.72rem;
   font-weight: 500;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
-/* Thin decorative divider */
 .hairline {
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  background: var(--gold);
+}
+
+.invitation-arch {
+  border: 1px solid rgba(183, 154, 94, 0.58);
+  border-radius: 999px 999px 0 0;
 }
 
 .navy-vellum {
-  background:
-    radial-gradient(circle at 20% 18%, rgba(197, 162, 90, 0.18), transparent 26%),
-    radial-gradient(circle at 78% 8%, rgba(111, 141, 133, 0.16), transparent 22%),
-    radial-gradient(circle at 50% 110%, rgba(234, 216, 170, 0.12), transparent 32%),
-    linear-gradient(145deg, var(--midnight) 0%, var(--navy) 46%, var(--navy-soft) 100%);
+  background: var(--navy);
 }
 
 .parchment-vellum {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(197, 162, 90, 0.14), transparent 22%),
-    radial-gradient(circle at 86% 18%, rgba(216, 184, 168, 0.18), transparent 20%),
-    linear-gradient(160deg, #fffaf0 0%, var(--ivory) 52%, var(--cream) 100%);
-}
-
-.islamic-pattern {
-  background-image:
-    linear-gradient(30deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
-    linear-gradient(150deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
-    linear-gradient(30deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16)),
-    linear-gradient(150deg, rgba(197, 162, 90, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(197, 162, 90, 0.16) 87.5%, rgba(197, 162, 90, 0.16));
-  background-position: 0 0, 0 0, 22px 38px, 22px 38px;
-  background-size: 44px 76px;
-}
-
-.floral-corner {
-  position: absolute;
-  width: 132px;
-  height: 132px;
-  pointer-events: none;
-}
-
-.floral-corner::before,
-.floral-corner::after {
-  content: "";
-  position: absolute;
-  border-radius: 999px 999px 999px 0;
-  transform: rotate(-36deg);
-}
-
-.floral-corner::before {
-  width: 92px;
-  height: 34px;
-  right: 12px;
-  top: 34px;
-  background: linear-gradient(90deg, rgba(111, 141, 133, 0.82), rgba(111, 141, 133, 0.16));
-}
-
-.floral-corner::after {
-  width: 58px;
-  height: 58px;
-  right: 48px;
-  top: 8px;
-  background:
-    radial-gradient(circle at 50% 52%, #fffdf7 0 18%, transparent 19%),
-    conic-gradient(from 10deg, #fff7e8, #d8b8a8, #fff7e8, #ead8aa, #fff7e8);
-  box-shadow:
-    -34px 46px 0 -18px rgba(255, 247, 232, 0.95),
-    -54px 66px 0 -26px rgba(216, 184, 168, 0.85);
-}
-
-/* Arabic calligraphy font */
-.font-arabic {
-  font-family: var(--font-arabic), serif;
-  direction: rtl;
+  background: var(--ivory);
 }
 
 ::selection {
   background: var(--gold-soft);
-  color: var(--charcoal);
+  color: var(--navy);
 }
 
-/* Gold shimmer sweep on couple names */
-@keyframes shimmer-sweep {
-  0%   { background-position: -250% center; }
-  100% { background-position: 250% center; }
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.shimmer-name {
-  background: linear-gradient(
-    105deg,
-    var(--ivory) 35%,
-    var(--gold)     48%,
-    #f0deb4         53%,
-    var(--gold)     58%,
-    var(--ivory) 70%
-  );
-  background-size: 250% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer-sweep 5s linear infinite;
-}
-
-/* Sparkle pop keyframe (used by EnvelopeIntro burst) */
-@keyframes sparkle-pop {
-  0%   { transform: translate(-50%, -50%) scale(0) rotate(0deg);   opacity: 1; }
-  60%  { opacity: 1; }
-  100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2) rotate(var(--rot)); opacity: 0; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

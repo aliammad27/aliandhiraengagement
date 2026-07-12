@@ -1,24 +1,38 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
-import toast, { Toaster } from 'react-hot-toast';
 import InvitationHero from '@/components/InvitationHero';
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 18 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, delay: i * 0.12, ease: 'easeOut' as const },
+    transition: { duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-const toasterStyle = { style: { background: '#071a34', color: '#fbf6ec' } };
+const toasterStyle = {
+  style: {
+    background: '#0a2038',
+    borderRadius: '4px',
+    color: '#f8f5ef',
+  },
+};
+
+function LoadingScreen() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-navy">
+      <div className="h-8 w-8 animate-spin rounded-full border border-gold/30 border-t-gold" />
+    </div>
+  );
+}
 
 function InviteContent() {
   const searchParams = useSearchParams();
@@ -36,20 +50,26 @@ function InviteContent() {
   });
 
   useEffect(() => {
-    if (!token) { setLoading(false); return; }
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     getGuestByToken(token)
       .then((data) => setGuest(data || null))
-      .catch((e) => console.error('Error fetching guest:', e))
+      .catch((error) => console.error('Error fetching guest:', error))
       .finally(() => setLoading(false));
   }, [token]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     if (!guest) return;
+
     if (!formData.rsvpStatus) {
       toast.error('Please let us know if you can attend');
       return;
     }
+
     setSubmitting(true);
     try {
       await recordRSVP({
@@ -70,168 +90,199 @@ function InviteContent() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-navy">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
-          className="w-10 h-10 border border-gold/30 border-t-gold rounded-full"
-        />
-      </div>
-    );
-  }
+  if (loading) return <LoadingScreen />;
 
   if (!guest) {
     return (
-      <div className="flex items-center justify-center min-h-screen px-6 text-center text-ivory navy-vellum">
-        <div className="absolute inset-0 islamic-pattern opacity-[0.12]" />
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="relative max-w-md rounded-sm border border-gold/35 bg-ivory/95 px-8 py-10 text-charcoal shadow-2xl">
-          <p className="eyebrow text-gold mb-4">Invitation</p>
-          <h1 className="font-display text-4xl mb-4">We could not find your invitation</h1>
-          <p className="text-charcoal-soft font-light">Please double-check the link you were sent.</p>
-          <Link href="/" className="inline-block mt-8 eyebrow text-navy border-b border-gold pb-1">Return Home</Link>
+      <main className="flex min-h-screen items-center justify-center bg-navy px-5 text-center text-ivory">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-md border border-gold/40 px-7 py-12 sm:px-10"
+        >
+          <p className="font-arabic text-xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+          <h1 className="mt-8 font-display text-4xl">Invitation not found</h1>
+          <p className="mt-4 leading-7 text-ivory/65">Please open the personal link that was sent to you.</p>
+          <Link
+            href="/"
+            className="mt-8 inline-flex min-h-11 items-center justify-center border border-ivory/35 px-6 text-sm transition-colors hover:border-gold hover:text-gold"
+          >
+            Return home
+          </Link>
         </motion.div>
-      </div>
+      </main>
     );
   }
 
   if (submitted) {
+    const accepted = formData.rsvpStatus === 'accepted';
+
     return (
-      <div className="flex items-center justify-center min-h-screen px-6 text-center navy-vellum">
-        <div className="absolute inset-0 islamic-pattern opacity-[0.12]" />
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="relative max-w-md rounded-sm border border-gold/35 bg-ivory/95 px-8 py-10 text-charcoal shadow-2xl">
-          <motion.div
-            initial={{ scale: 0 }} animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
-            className="font-script text-7xl text-gold mb-6"
-          >
-            {formData.rsvpStatus === 'accepted' ? 'Thank you' : 'With love'}
-          </motion.div>
-          <h1 className="font-display text-3xl mb-4">
-            {formData.rsvpStatus === 'accepted'
-              ? 'We cannot wait to celebrate with you'
-              : 'You will be dearly missed'}
+      <main className="flex min-h-screen items-center justify-center bg-navy px-5 text-center text-ivory">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-lg border border-gold/40 px-7 py-12 sm:px-12 sm:py-16"
+        >
+          <p className="text-sm text-gold">✦</p>
+          <h1 className="mt-6 font-display text-5xl">
+            {accepted ? 'We look forward to celebrating with you.' : 'You will be missed.'}
           </h1>
-          <p className="text-charcoal-soft font-light mb-10">
-            {formData.rsvpStatus === 'accepted'
-              ? 'Your response has been received. We will be in touch with all the details soon.'
-              : 'Thank you for letting us know. You will be with us in spirit.'}
+          <p className="mx-auto mt-6 max-w-sm leading-7 text-ivory/65">
+            {accepted
+              ? 'Your response has been received. We will share any final details with you directly.'
+              : 'Thank you for letting us know. You will be in our thoughts on the day.'}
           </p>
-          <Link href="/" className="eyebrow text-navy border-b border-gold pb-1">Return Home</Link>
+          <Link
+            href="/"
+            className="mt-9 inline-flex min-h-11 items-center justify-center border border-ivory/35 px-6 text-sm transition-colors hover:border-gold hover:text-gold"
+          >
+            Return home
+          </Link>
         </motion.div>
-      </div>
+      </main>
     );
   }
 
+  const maximumPartySize = Math.max(1, guest.partySize || 1);
+
   return (
-    <div className="min-h-screen bg-ivory text-charcoal">
+    <main className="min-h-screen bg-ivory text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
 
-      <div className="max-w-xl mx-auto shadow-2xl shadow-navy/20 mb-10">
+      <div className="mx-auto max-w-2xl">
         <InvitationHero groom="Ali" bride="Hira" />
       </div>
 
-      <div className="relative px-6 pb-16">
-        <div className="absolute inset-0 islamic-pattern opacity-[0.05]" />
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-xl mx-auto text-center mb-10">
-          <h1 className="font-display text-4xl sm:text-5xl mb-3">Dear {guest.name}</h1>
-          <div className="flex items-center justify-center gap-4 text-charcoal-soft">
-            <span className="hairline w-12" />
-            <span className="font-script text-2xl text-gold">join us</span>
-            <span className="hairline w-12" />
-          </div>
+      <section className="px-5 py-16 sm:px-8 sm:py-20">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mx-auto max-w-xl text-center"
+        >
+          <p className="text-xs font-medium uppercase text-sage-deep">Your response</p>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Dear {guest.name},</h2>
+          <p className="mx-auto mt-4 max-w-md leading-7 text-charcoal-soft">
+            Please let us know whether you will be able to join us.
+          </p>
         </motion.div>
 
         <motion.form
-          variants={fadeUp} initial="hidden" animate="visible" custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={1}
           onSubmit={handleSubmit}
-          className="relative max-w-xl mx-auto rounded-sm border border-gold/35 bg-ivory/90 p-8 shadow-2xl shadow-navy/10 sm:p-12 space-y-10"
+          className="mx-auto mt-12 max-w-xl space-y-10 border-y border-charcoal/15 py-10 sm:py-12"
         >
-          <div>
-            <label className="block font-display text-2xl mb-5 text-center">Will you be joining us?</label>
-            <div className="grid grid-cols-2 gap-4">
+          <fieldset>
+            <legend className="mb-5 block w-full text-center font-display text-2xl">
+              Will you be joining us?
+            </legend>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
-                { value: 'accepted', label: 'Joyfully Accept' },
-                { value: 'declined', label: 'Regretfully Decline' },
-              ].map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setFormData({ ...formData, rsvpStatus: opt.value })}
-                  className={`py-4 px-3 rounded-sm border text-sm transition-all duration-300 ${
-                    formData.rsvpStatus === opt.value
-                      ? 'border-gold bg-navy text-ivory shadow-lg shadow-navy/15'
-                      : 'border-gold/25 bg-white/45 text-charcoal-soft hover:border-gold hover:text-navy'
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
+                { value: 'accepted', label: 'Joyfully accept' },
+                { value: 'declined', label: 'Regretfully decline' },
+              ].map((option) => {
+                const selected = formData.rsvpStatus === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
+                    className={`min-h-14 border px-3 text-xs transition-colors sm:text-sm ${
+                      selected
+                        ? 'border-navy bg-navy text-ivory'
+                        : 'border-charcoal/20 bg-transparent text-charcoal hover:border-navy'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
             </div>
-          </div>
+          </fieldset>
 
           {formData.rsvpStatus === 'accepted' && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
               className="space-y-8 overflow-hidden"
             >
               <div>
-                <label className="eyebrow text-charcoal-soft block mb-3">Number of Guests</label>
+                <label htmlFor="party-size" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
+                  Number of guests
+                </label>
                 <select
+                  id="party-size"
                   value={formData.partySize}
-                  onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
-                  className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors"
+                  onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
+                  className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors focus:border-navy"
                 >
-                  {[1, 2, 3, 4, 5, 6].map((n) => (
-                    <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+                  {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
+                    <option key={number} value={number}>
+                      {number} {number === 1 ? 'guest' : 'guests'}
+                    </option>
                   ))}
                 </select>
               </div>
+
               <div>
-                <label className="eyebrow text-charcoal-soft block mb-3">Dietary Notes</label>
+                <label htmlFor="dietary-notes" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
+                  Dietary notes
+                </label>
                 <input
+                  id="dietary-notes"
                   type="text"
-                  placeholder="Allergies, preferences"
+                  placeholder="Allergies or dietary preferences"
                   value={formData.dietaryRestrictions}
-                  onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
-                  className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors placeholder:text-charcoal-soft/50"
+                  onChange={(event) => setFormData({ ...formData, dietaryRestrictions: event.target.value })}
+                  className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
                 />
               </div>
             </motion.div>
           )}
 
           <div>
-            <label className="eyebrow text-charcoal-soft block mb-3">A Note to the Couple (optional)</label>
+            <label htmlFor="guest-note" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
+              Note to the couple <span className="normal-case">(optional)</span>
+            </label>
             <textarea
+              id="guest-note"
               placeholder="Share your wishes"
               value={formData.specialRequests}
-              onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+              onChange={(event) => setFormData({ ...formData, specialRequests: event.target.value })}
               rows={3}
-              className="w-full bg-transparent border-b border-charcoal/20 py-3 focus:outline-none focus:border-gold transition-colors resize-none placeholder:text-charcoal-soft/50"
+              className="w-full resize-none border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
             />
           </div>
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-navy text-ivory rounded-full py-4 text-sm hover:bg-gold hover:text-navy transition-colors duration-500 disabled:opacity-50"
+            className="min-h-12 w-full bg-navy px-6 text-sm font-medium text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {submitting ? 'Sending...' : 'Send Response'}
+            {submitting ? 'Sending response...' : 'Send response'}
           </button>
         </motion.form>
-      </div>
-    </div>
+
+        <div className="mx-auto mt-9 max-w-xl text-center">
+          <Link href="/" className="text-sm text-charcoal-soft underline decoration-charcoal/25 underline-offset-4 hover:text-charcoal">
+            Back to Hira &amp; Ali
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
 
 export default function InvitePage() {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-navy">
-        <div className="w-10 h-10 border border-gold/30 border-t-gold rounded-full animate-spin" />
-      </div>
-    }>
+    <Suspense fallback={<LoadingScreen />}>
       <InviteContent />
     </Suspense>
   );
