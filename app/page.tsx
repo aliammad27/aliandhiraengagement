@@ -100,6 +100,18 @@ export default function Home() {
             </span>
             <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2025 · In sha Allah</span>
           </time>
+
+          <div className="mt-7 text-center">
+            <p className="text-[0.68rem] font-medium uppercase text-ivory/55">1204 Middle Ave, Waterford Works, NJ</p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-[0.68rem] uppercase text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-gold-soft"
+            >
+              Get directions
+            </a>
+          </div>
         </div>
       </section>
 
