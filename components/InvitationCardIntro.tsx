@@ -36,7 +36,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
     setPhase('opening');
     timerRef.current = setTimeout(
       () => setPhase('done'),
-      reduceMotion ? 450 : 1500,
+      reduceMotion ? 450 : 2000,
     );
   }, [phase, reduceMotion]);
 
@@ -52,10 +52,13 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden px-5 py-7"
           style={navyRadial}
         >
-          <button
+          <motion.button
             type="button"
             onClick={openCard}
             disabled={opening}
+            initial={reduceMotion ? false : { opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="group flex w-[min(78vw,300px)] flex-col items-center bg-transparent outline-none disabled:cursor-default"
             aria-label="Open Hira and Ali's engagement invitation"
           >
@@ -63,7 +66,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
               <motion.div
                 initial={false}
                 animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.94 }}
-                transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0 overflow-hidden bg-ivory p-6 text-navy shadow-2xl shadow-black/40"
               >
                 <CornerFrame borderColor="border-gold/40" />
@@ -85,14 +88,14 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
               <motion.div
                 initial={false}
                 animate={{ rotateY: opening ? -116 : 0 }}
-                transition={{ duration: reduceMotion ? 0.1 : 1.05, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ duration: reduceMotion ? 0.1 : 1.05, delay: opening && !reduceMotion ? 0.32 : 0, ease: [0.65, 0, 0.35, 1] }}
                 className="absolute inset-y-0 left-0 z-20 w-1/2 origin-left border-y border-l border-gold/60 bg-navy [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
               <motion.div
                 initial={false}
                 animate={{ rotateY: opening ? 116 : 0 }}
-                transition={{ duration: reduceMotion ? 0.1 : 1.05, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ duration: reduceMotion ? 0.1 : 1.05, delay: opening && !reduceMotion ? 0.32 : 0, ease: [0.65, 0, 0.35, 1] }}
                 className="absolute inset-y-0 right-0 z-20 w-1/2 origin-right border-y border-r border-gold/60 bg-navy [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
@@ -100,10 +103,18 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
               <motion.div
                 initial={false}
                 animate={{ opacity: opening ? 0 : 1 }}
-                transition={{ duration: reduceMotion ? 0.05 : 0.3 }}
-                className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center text-center text-ivory"
+                transition={{ duration: reduceMotion ? 0.05 : 0.35, delay: opening && !reduceMotion ? 0.2 : 0 }}
+                className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center overflow-hidden text-center text-ivory"
               >
                 <CornerFrame borderColor="border-gold/50" />
+
+                <span
+                  aria-hidden="true"
+                  className="font-script pointer-events-none absolute inset-0 z-0 flex select-none items-center justify-center text-[13rem] leading-none text-ivory/[0.05]"
+                  style={{ transform: 'rotate(-14deg)' }}
+                >
+                  &amp;
+                </span>
 
                 <div className="relative z-10 flex w-full flex-col items-center px-8 pt-10">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
@@ -115,25 +126,54 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                   </p>
                 </div>
 
-                <div
-                  className="absolute left-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full"
-                  style={{
-                    top: '58%',
-                    background: 'radial-gradient(circle at 35% 28%, #d9bf87 0%, #b79a5e 45%, #8a6f3f 100%)',
-                    boxShadow:
-                      'inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.5)',
-                  }}
+                <motion.div
+                  initial={false}
+                  animate={
+                    opening
+                      ? { scale: reduceMotion ? 1 : 1.2, opacity: 0 }
+                      : { scale: 1, opacity: 1 }
+                  }
+                  transition={{ duration: reduceMotion ? 0.05 : 0.34, ease: 'easeIn' }}
+                  className="absolute left-1/2 z-20 h-16 w-16 -translate-x-1/2 -translate-y-1/2"
+                  style={{ top: '58%' }}
                 >
-                  <span className="font-display text-base text-navy">H&amp;A</span>
-                  <span className="h-px w-5 bg-navy/40" aria-hidden="true" />
-                </div>
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute -inset-2 rounded-full bg-gold/35 blur-md"
+                    animate={
+                      reduceMotion || opening
+                        ? { opacity: 0.25 }
+                        : { opacity: [0.18, 0.45, 0.18], scale: [1, 1.1, 1] }
+                    }
+                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                  <span
+                    className="relative flex h-full w-full flex-col items-center justify-center gap-1 rounded-full"
+                    style={{
+                      background: 'radial-gradient(circle at 35% 28%, #d9bf87 0%, #b79a5e 45%, #8a6f3f 100%)',
+                      boxShadow:
+                        'inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.5)',
+                    }}
+                  >
+                    <span className="font-display text-base text-navy">H&amp;A</span>
+                    <span className="h-px w-5 bg-navy/40" aria-hidden="true" />
+                  </span>
+                </motion.div>
 
-                <p className="absolute inset-x-0 bottom-10 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold">
-                  Open the invitation
+                <p className="absolute inset-x-0 bottom-[4.5rem] font-display text-sm italic text-ivory/55">
+                  Saturday, October 17, 2026
                 </p>
+
+                <motion.p
+                  animate={reduceMotion ? { opacity: 1 } : { opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute inset-x-0 bottom-10 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold"
+                >
+                  Open the invitation
+                </motion.p>
               </motion.div>
             </div>
-          </button>
+          </motion.button>
         </motion.div>
       )}
     </AnimatePresence>
