@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
-import { getGuestByToken, recordRSVP } from '@/lib/database';
+import { addGuest, generateInvitationToken, getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import InvitationHero from '@/components/InvitationHero';
 import { CornerFrame, StarDivider, navyRadial } from '@/components/ornaments';
@@ -47,6 +47,7 @@ function InviteContent() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
+    name: '',
     rsvpStatus: '',
     partySize: 1,
   });
@@ -65,7 +66,12 @@ function InviteContent() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!guest) return;
+
+    const name = guest?.name || formData.name.trim();
+    if (!name) {
+      toast.error('Please tell us your name');
+      return;
+    }
 
     if (!formData.rsvpStatus) {
       toast.error('Please let us know if you can attend');
@@ -74,8 +80,20 @@ function InviteContent() {
 
     setSubmitting(true);
     try {
+      let guestId = guest?.id;
+
+      if (!guestId) {
+        guestId = await addGuest({
+          name,
+          email: '',
+          phone: '',
+          partySize: Number(formData.partySize),
+          invitationToken: generateInvitationToken(),
+        });
+      }
+
       await recordRSVP({
-        guestId: guest.id,
+        guestId,
         eventId: 'main',
         status: formData.rsvpStatus as 'accepted' | 'declined',
         partySize: Number(formData.partySize),
@@ -91,30 +109,6 @@ function InviteContent() {
   };
 
   if (loading) return <LoadingScreen />;
-
-  if (!guest) {
-    return (
-      <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={navyRadial}>
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="relative w-full max-w-md px-7 py-14 sm:px-10"
-        >
-          <CornerFrame borderColor="border-gold/50" />
-          <p className="font-arabic text-xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-          <h1 className="mt-8 font-display text-4xl">Invitation not found</h1>
-          <p className="mt-4 leading-7 text-ivory/65">Please open the personal link that was sent to you.</p>
-          <Link
-            href="/"
-            className="mt-8 inline-flex min-h-11 items-center justify-center border border-gold/50 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-navy"
-          >
-            Return home
-          </Link>
-        </motion.div>
-      </main>
-    );
-  }
 
   if (submitted) {
     const accepted = formData.rsvpStatus === 'accepted';
@@ -148,7 +142,7 @@ function InviteContent() {
     );
   }
 
-  const maximumPartySize = Math.max(1, guest.partySize || 1);
+  const maximumPartySize = guest ? Math.max(1, guest.partySize || 1) : 6;
 
   return (
     <main className="min-h-screen bg-ivory text-charcoal">
@@ -166,7 +160,9 @@ function InviteContent() {
           className="mx-auto max-w-xl text-center"
         >
           <p className="font-script text-3xl text-gold">Kindly respond</p>
-          <h2 className="mt-4 font-display text-4xl text-navy sm:text-5xl">Dear {guest.name},</h2>
+          <h2 className="mt-4 font-display text-4xl text-navy sm:text-5xl">
+            {guest ? `Dear ${guest.name},` : 'Will you join us?'}
+          </h2>
           <p className="mx-auto mt-4 max-w-md font-display text-lg italic leading-8 text-charcoal-soft">
             Please let us know whether you will be able to join us.
           </p>
@@ -181,6 +177,28 @@ function InviteContent() {
           className="relative mx-auto mt-10 max-w-xl space-y-10 bg-white px-6 py-12 shadow-xl shadow-navy/10 sm:px-12"
         >
           <CornerFrame borderColor="border-gold/45" />
+
+          {!guest && (
+            <div>
+              <label
+                htmlFor="guest-name"
+                className="mb-3 block text-center text-[0.66rem] font-medium uppercase tracking-[0.2em] text-charcoal-soft"
+              >
+                Your name
+              </label>
+              <input
+                id="guest-name"
+                type="text"
+                required
+                autoComplete="name"
+                placeholder="First and last name"
+                value={formData.name}
+                onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                className="w-full border-b border-gold/40 bg-transparent py-3 text-center font-display text-xl outline-none transition-colors placeholder:text-charcoal-soft/45 focus:border-navy"
+              />
+            </div>
+          )}
+
           <fieldset>
             <legend className="mb-6 block w-full text-center font-display text-2xl text-navy">
               Will you be joining us?
