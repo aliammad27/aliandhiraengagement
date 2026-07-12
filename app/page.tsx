@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getEngagementConfig } from '@/lib/database';
 import { EngagementConfig } from '@/lib/types';
+import InvitationCardIntro from '@/components/InvitationCardIntro';
 import ThenAndNow from '@/components/ThenAndNow';
 
 const fadeUp: Variants = {
@@ -40,6 +41,8 @@ export default function Home() {
 
   return (
     <main className="overflow-hidden bg-ivory text-charcoal">
+      <InvitationCardIntro bride={bride} groom={groom} />
+
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy/95 text-ivory backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
           <a href="#top" className="font-display text-xl font-medium sm:text-2xl">
