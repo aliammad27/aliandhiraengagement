@@ -16,23 +16,6 @@ const fadeUp: Variants = {
   }),
 };
 
-function formatEventDate(value?: Date) {
-  if (!value) return 'September 19, 2026';
-
-  const possibleTimestamp = value as Date & { toDate?: () => Date };
-  const date = typeof possibleTimestamp.toDate === 'function'
-    ? possibleTimestamp.toDate()
-    : new Date(value);
-
-  if (Number.isNaN(date.getTime())) return 'September 19, 2026';
-
-  return date.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
-
 export default function Home() {
   const [config, setConfig] = useState<EngagementConfig | null>(null);
 
@@ -52,7 +35,7 @@ export default function Home() {
 
   const groom = config?.coupleNames?.groom || 'Ali';
   const bride = config?.coupleNames?.bride || 'Hira';
-  const eventDate = formatEventDate(config?.engagementDate);
+  const eventDate = 'October 17, 2025';
   const photos = config?.photos?.filter(Boolean) || [];
 
   return (
@@ -171,7 +154,7 @@ export default function Home() {
             custom={1}
             className="mt-5 font-display text-5xl font-normal sm:text-7xl"
           >
-            September 19, 2026
+            October 17, 2025
           </motion.h2>
 
           <motion.div
@@ -184,15 +167,15 @@ export default function Home() {
           >
             <div>
               <p className="text-xs uppercase text-charcoal-soft">Day</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">Saturday</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">Friday</p>
             </div>
             <div className="border-x border-charcoal/15">
               <p className="text-xs uppercase text-charcoal-soft">Date</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">19</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">17</p>
             </div>
             <div>
               <p className="text-xs uppercase text-charcoal-soft">Year</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">2026</p>
+              <p className="mt-2 font-display text-xl sm:text-2xl">2025</p>
             </div>
           </motion.div>
 
@@ -227,7 +210,7 @@ export default function Home() {
 
       <footer className="border-t border-white/10 bg-navy px-5 py-12 text-center text-ivory">
         <p className="font-display text-3xl">{bride} <span className="text-gold">&amp;</span> {groom}</p>
-        <p className="mt-3 text-xs text-ivory/50">09.19.26</p>
+        <p className="mt-3 text-xs text-ivory/50">10.17.25</p>
         <Link href="/admin" className="mt-7 inline-block text-xs text-ivory/30 transition-colors hover:text-ivory/60">
           Manage invitations
         </Link>

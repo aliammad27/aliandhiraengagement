@@ -35,7 +35,7 @@ export default function InvitationHero({ groom, bride }: Props) {
         </div>
 
         <p className="font-display text-2xl text-gold-soft">
-          Saturday, September 19, 2026
+          Friday, October 17, 2025
         </p>
         <p className="mt-3 text-xs text-ivory/55">In sha Allah</p>
       </div>
