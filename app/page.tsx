@@ -43,10 +43,10 @@ export default function Home() {
     <main className="overflow-hidden bg-ivory text-charcoal">
       <InvitationCardIntro bride={bride} groom={groom} />
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy/95 text-ivory backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <a href="#top" className="font-display text-xl font-medium sm:text-2xl">
-            {bride} <span className="text-gold">&amp;</span> {groom}
+      <header className="absolute inset-x-0 top-0 z-50 text-ivory">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-8">
+          <a href="#top" className="font-display text-2xl font-medium">
+            H<span className="text-gold">&amp;</span>A
           </a>
           <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
             <a href="#story" className="hidden text-ivory/70 transition-colors hover:text-ivory sm:inline">
@@ -57,7 +57,7 @@ export default function Home() {
             </a>
             <Link
               href="/invite"
-              className="rounded-sm border border-gold px-4 py-2 text-xs font-medium uppercase text-ivory transition-colors hover:bg-gold hover:text-navy"
+              className="inline-flex min-h-10 items-center border border-gold/70 px-3 text-[0.7rem] font-medium uppercase text-ivory transition-colors hover:bg-gold hover:text-navy sm:px-4"
             >
               RSVP
             </Link>
@@ -67,48 +67,39 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative flex min-h-[88svh] items-center justify-center bg-navy px-5 pb-14 pt-24 text-center text-ivory"
+        className="relative flex min-h-[82svh] items-center justify-center bg-navy px-6 pb-10 pt-20 text-center text-ivory sm:min-h-[88svh] sm:px-8 sm:pb-14 sm:pt-24"
       >
-        <div className="invitation-arch pointer-events-none absolute inset-x-5 bottom-8 top-20 mx-auto max-w-[580px] opacity-60" />
-
-        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center">
-          <p className="font-arabic text-xl text-gold sm:text-2xl">
+        <div className="mx-auto flex w-full max-w-lg flex-col items-center">
+          <p className="font-arabic text-lg text-gold sm:text-2xl">
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </p>
 
-          <div
-            className="my-7 flex items-center gap-4 text-gold"
-            aria-hidden="true"
-          >
-            <span className="h-px w-12 bg-gold/55" />
-            <span className="text-sm">✦</span>
-            <span className="h-px w-12 bg-gold/55" />
+          <div className="my-5 flex items-center gap-3 text-gold" aria-hidden="true">
+            <span className="h-px w-10 bg-gold/45" />
+            <span className="text-xs">✦</span>
+            <span className="h-px w-10 bg-gold/45" />
           </div>
 
-          <p className="mb-5 text-xs font-medium uppercase text-ivory/65">
-            Together with their families
+          <p className="text-[0.68rem] font-medium uppercase text-ivory/55">
+            With the blessings of their families
           </p>
 
-          <h1 className="font-display whitespace-nowrap text-5xl font-normal leading-none sm:text-8xl lg:text-9xl">
+          <h1 className="mt-5 font-display whitespace-nowrap text-6xl font-normal leading-none sm:text-8xl">
             {bride} <span className="font-light text-gold">&amp;</span> {groom}
           </h1>
 
-          <p className="mt-7 w-full max-w-sm font-display text-xl leading-relaxed text-ivory/80 sm:max-w-md sm:text-2xl">
-            invite you to celebrate their engagement
+          <p className="mt-5 w-full max-w-[310px] font-display text-lg leading-7 text-ivory/70 sm:max-w-md sm:text-2xl sm:leading-relaxed">
+            With love and gratitude, we invite you to celebrate our engagement.
           </p>
 
-          <p className="mt-7 border-y border-gold/35 px-8 py-3 font-display text-xl text-gold-soft sm:text-2xl">
-            {eventDate}
-          </p>
-
-          <div className="mt-9">
-            <Link
-              href="/invite"
-              className="inline-flex min-h-12 items-center justify-center rounded-sm bg-ivory px-8 text-sm font-medium text-navy transition-colors hover:bg-gold-soft"
-            >
-              View invitation
-            </Link>
-          </div>
+          <time dateTime="2025-10-17" aria-label={eventDate} className="mt-7 block w-full max-w-[300px]">
+            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-3">
+              <span className="font-display text-xl text-ivory/75">Friday</span>
+              <span className="border-x border-gold/30 font-display text-4xl text-gold-soft">17</span>
+              <span className="font-display text-xl text-ivory/75">October</span>
+            </span>
+            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2025 · In sha Allah</span>
+          </time>
         </div>
       </section>
 
