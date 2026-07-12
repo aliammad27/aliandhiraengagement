@@ -10,6 +10,17 @@ interface Props {
 
 type Phase = 'closed' | 'opening' | 'done';
 
+function CornerFrame({ borderColor }: { borderColor: string }) {
+  return (
+    <>
+      <span className={`pointer-events-none absolute left-3 top-3 h-6 w-6 border-l border-t ${borderColor}`} />
+      <span className={`pointer-events-none absolute right-3 top-3 h-6 w-6 border-r border-t ${borderColor}`} />
+      <span className={`pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b border-l ${borderColor}`} />
+      <span className={`pointer-events-none absolute bottom-3 right-3 h-6 w-6 border-b border-r ${borderColor}`} />
+    </>
+  );
+}
+
 export default function InvitationCardIntro({ bride, groom }: Props) {
   const [phase, setPhase] = useState<Phase>('closed');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,7 +59,8 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
           initial={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-navy px-5 py-7"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden px-5 py-7"
+          style={{ background: 'radial-gradient(130% 90% at 50% 22%, #12315a 0%, #0a2038 48%, #051220 100%)' }}
         >
           <button
             type="button"
@@ -62,9 +74,9 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 initial={false}
                 animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.94 }}
                 transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-navy shadow-2xl shadow-black/40"
+                className="absolute inset-0 overflow-hidden bg-ivory p-6 text-navy shadow-2xl shadow-black/40"
               >
-                <div className="absolute inset-3 border border-gold/35" />
+                <CornerFrame borderColor="border-gold/40" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
                   <p className="mt-7 text-[0.65rem] font-medium uppercase text-sage-deep">You are invited</p>
@@ -101,7 +113,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 transition={{ duration: reduceMotion ? 0.05 : 0.3 }}
                 className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center text-center text-ivory"
               >
-                <div className="absolute inset-3 border border-gold/45" />
+                <CornerFrame borderColor="border-gold/50" />
 
                 <div className="relative z-10 flex w-full flex-col items-center px-8 pt-10">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
@@ -114,11 +126,16 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 </div>
 
                 <div
-                  className="absolute left-1/2 z-20 flex h-16 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full border border-gold bg-navy shadow-lg shadow-black/30"
-                  style={{ top: '58%' }}
+                  className="absolute left-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full"
+                  style={{
+                    top: '58%',
+                    background: 'radial-gradient(circle at 35% 28%, #d9bf87 0%, #b79a5e 45%, #8a6f3f 100%)',
+                    boxShadow:
+                      'inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.5)',
+                  }}
                 >
-                  <span className="font-display text-base text-gold">H&amp;A</span>
-                  <span className="h-px w-5 bg-gold/50" aria-hidden="true" />
+                  <span className="font-display text-base text-navy">H&amp;A</span>
+                  <span className="h-px w-5 bg-navy/40" aria-hidden="true" />
                 </div>
 
                 <p className="absolute inset-x-0 bottom-10 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold">
