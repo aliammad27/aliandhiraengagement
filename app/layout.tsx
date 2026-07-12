@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Cormorant_Garamond, Amiri } from "next/font/google";
+import { Geist, Cormorant_Garamond, Amiri, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,6 +19,12 @@ const amiri = Amiri({
   subsets: ["arabic"],
 });
 
+const pinyonScript = Pinyon_Script({
+  variable: "--font-script",
+  weight: "400",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Hira & Ali",
   description: "Join us as we celebrate our engagement",
@@ -33,7 +39,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${cormorant.variable} ${amiri.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${cormorant.variable} ${amiri.variable} ${pinyonScript.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
     </html>

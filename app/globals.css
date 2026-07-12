@@ -66,6 +66,10 @@ textarea {
   font-family: var(--font-arabic), serif;
 }
 
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
 .eyebrow {
   font-size: 0.72rem;
   font-weight: 500;

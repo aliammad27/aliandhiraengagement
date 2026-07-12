@@ -109,29 +109,40 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                   className="absolute inset-0 h-full w-full"
                   aria-hidden="true"
                 >
-                  <line x1="14" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.5)" strokeWidth="1" />
-                  <line x1="286" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.5)" strokeWidth="1" />
+                  <line x1="14" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.55)" strokeWidth="1" />
+                  <line x1="286" y1="14" x2="150" y2="232" stroke="rgba(183,154,94,0.55)" strokeWidth="1" />
+                  {[0.25, 0.4, 0.55, 0.7, 0.85].map((t) => {
+                    const x = 14 + 136 * t;
+                    const y = 14 + 218 * t;
+                    return (
+                      <g key={t}>
+                        <circle cx={x} cy={y} r="2.2" fill="rgba(183,154,94,0.55)" />
+                        <circle cx={300 - x} cy={y} r="2.2" fill="rgba(183,154,94,0.55)" />
+                      </g>
+                    );
+                  })}
                 </svg>
 
-                <div className="relative z-10 flex w-full flex-col items-center px-8 pt-12">
+                <div className="relative z-10 flex w-full flex-col items-center px-8 pt-10">
                   <p className="font-arabic text-lg text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-                  <p className="mt-6 text-[0.62rem] font-medium uppercase tracking-[0.15em] text-ivory/55">
-                    Engagement invitation
+                  <p className="mt-5 text-[0.6rem] font-medium uppercase tracking-[0.2em] text-ivory/55">
+                    A love letter from
                   </p>
-                  <p className="mt-4 font-display italic text-3xl leading-tight">
-                    {bride} <span className="not-italic text-gold">&amp;</span> {groom}
+                  <p className="font-script mt-3 text-5xl leading-none text-ivory">
+                    {bride} &amp; {groom}
                   </p>
                 </div>
 
                 <div
-                  className="absolute left-1/2 z-20 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gold bg-navy shadow-lg shadow-black/30"
+                  className="absolute left-1/2 z-20 flex h-16 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full border border-gold bg-navy shadow-lg shadow-black/30"
                   style={{ top: '58%' }}
                 >
                   <span className="font-display text-base text-gold">H&amp;A</span>
+                  <span className="h-px w-5 bg-gold/50" aria-hidden="true" />
                 </div>
 
                 <p className="absolute inset-x-0 bottom-10 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold">
-                  Open invitation
+                  Open the invitation
                 </p>
               </motion.div>
             </div>
