@@ -8,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import InvitationHero from '@/components/InvitationHero';
+import { CornerFrame, StarDivider, navyRadial } from '@/components/ornaments';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -28,7 +29,10 @@ const toasterStyle = {
 
 function LoadingScreen() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-navy">
+    <div
+      className="flex min-h-screen items-center justify-center"
+      style={{ background: 'radial-gradient(130% 90% at 50% 22%, #12315a 0%, #0a2038 48%, #051220 100%)' }}
+    >
       <div className="h-8 w-8 animate-spin rounded-full border border-gold/30 border-t-gold" />
     </div>
   );
@@ -90,19 +94,20 @@ function InviteContent() {
 
   if (!guest) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-navy px-5 text-center text-ivory">
+      <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={navyRadial}>
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="w-full max-w-md border border-gold/40 px-7 py-12 sm:px-10"
+          className="relative w-full max-w-md px-7 py-14 sm:px-10"
         >
+          <CornerFrame borderColor="border-gold/50" />
           <p className="font-arabic text-xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
           <h1 className="mt-8 font-display text-4xl">Invitation not found</h1>
           <p className="mt-4 leading-7 text-ivory/65">Please open the personal link that was sent to you.</p>
           <Link
             href="/"
-            className="mt-8 inline-flex min-h-11 items-center justify-center border border-ivory/35 px-6 text-sm transition-colors hover:border-gold hover:text-gold"
+            className="mt-8 inline-flex min-h-11 items-center justify-center border border-gold/50 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-navy"
           >
             Return home
           </Link>
@@ -115,25 +120,26 @@ function InviteContent() {
     const accepted = formData.rsvpStatus === 'accepted';
 
     return (
-      <main className="flex min-h-screen items-center justify-center bg-navy px-5 text-center text-ivory">
+      <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={navyRadial}>
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="w-full max-w-lg border border-gold/40 px-7 py-12 sm:px-12 sm:py-16"
+          className="relative w-full max-w-lg px-7 py-14 sm:px-12 sm:py-16"
         >
-          <p className="text-sm text-gold">✦</p>
-          <h1 className="mt-6 font-display text-5xl">
+          <CornerFrame borderColor="border-gold/50" />
+          <StarDivider />
+          <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">
             {accepted ? 'We look forward to celebrating with you.' : 'You will be missed.'}
           </h1>
-          <p className="mx-auto mt-6 max-w-sm leading-7 text-ivory/65">
+          <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/70">
             {accepted
               ? 'Your response has been received. We will share any final details with you directly.'
               : 'Thank you for letting us know. You will be in our thoughts on the day.'}
           </p>
           <Link
             href="/"
-            className="mt-9 inline-flex min-h-11 items-center justify-center border border-ivory/35 px-6 text-sm transition-colors hover:border-gold hover:text-gold"
+            className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold/50 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-navy"
           >
             Return home
           </Link>
@@ -159,9 +165,9 @@ function InviteContent() {
           animate="visible"
           className="mx-auto max-w-xl text-center"
         >
-          <p className="text-xs font-medium uppercase text-sage-deep">Your response</p>
-          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Dear {guest.name},</h2>
-          <p className="mx-auto mt-4 max-w-md leading-7 text-charcoal-soft">
+          <p className="font-script text-3xl text-gold">Kindly respond</p>
+          <h2 className="mt-4 font-display text-4xl text-navy sm:text-5xl">Dear {guest.name},</h2>
+          <p className="mx-auto mt-4 max-w-md font-display text-lg italic leading-8 text-charcoal-soft">
             Please let us know whether you will be able to join us.
           </p>
         </motion.div>
@@ -172,10 +178,11 @@ function InviteContent() {
           animate="visible"
           custom={1}
           onSubmit={handleSubmit}
-          className="mx-auto mt-12 max-w-xl space-y-10 border-y border-charcoal/15 py-10 sm:py-12"
+          className="relative mx-auto mt-10 max-w-xl space-y-10 bg-white px-6 py-12 shadow-xl shadow-navy/10 sm:px-12"
         >
+          <CornerFrame borderColor="border-gold/45" />
           <fieldset>
-            <legend className="mb-5 block w-full text-center font-display text-2xl">
+            <legend className="mb-6 block w-full text-center font-display text-2xl text-navy">
               Will you be joining us?
             </legend>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -190,10 +197,10 @@ function InviteContent() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                    className={`min-h-14 border px-3 text-xs transition-colors sm:text-sm ${
+                    className={`min-h-14 border px-3 font-display text-base transition-all sm:text-lg ${
                       selected
-                        ? 'border-navy bg-navy text-ivory'
-                        : 'border-charcoal/20 bg-transparent text-charcoal hover:border-navy'
+                        ? 'border-navy bg-navy text-ivory shadow-md shadow-navy/25'
+                        : 'border-gold/40 bg-transparent text-charcoal hover:border-navy hover:text-navy'
                     }`}
                   >
                     {option.label}
@@ -209,14 +216,17 @@ function InviteContent() {
               animate={{ opacity: 1, height: 'auto' }}
               className="overflow-hidden"
             >
-              <label htmlFor="party-size" className="mb-3 block text-xs font-medium uppercase text-charcoal-soft">
+              <label
+                htmlFor="party-size"
+                className="mb-3 block text-center text-[0.66rem] font-medium uppercase tracking-[0.2em] text-charcoal-soft"
+              >
                 Number of guests
               </label>
               <select
                 id="party-size"
                 value={formData.partySize}
                 onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
-                className="w-full border-b border-charcoal/25 bg-transparent py-3 outline-none transition-colors focus:border-navy"
+                className="w-full border-b border-gold/40 bg-transparent py-3 text-center font-display text-lg outline-none transition-colors focus:border-navy"
               >
                 {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
                   <option key={number} value={number}>
@@ -230,14 +240,14 @@ function InviteContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full bg-navy px-6 text-sm font-medium text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-50"
+            className="min-h-12 w-full bg-navy px-6 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-ivory shadow-md shadow-navy/25 transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? 'Sending response...' : 'Send response'}
           </button>
         </motion.form>
 
         <div className="mx-auto mt-9 max-w-xl text-center">
-          <Link href="/" className="text-sm text-charcoal-soft underline decoration-charcoal/25 underline-offset-4 hover:text-charcoal">
+          <Link href="/" className="text-sm text-charcoal-soft underline decoration-gold/40 underline-offset-4 transition-colors hover:text-navy">
             Back to Hira &amp; Ali
           </Link>
         </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
+import { CornerFrame, navyRadial } from '@/components/ornaments';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -35,10 +36,11 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-navy px-5 text-center text-ivory">
+    <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={navyRadial}>
       <Toaster position="top-center" toastOptions={{ style: { background: '#0a2038', borderRadius: '4px', color: '#f8f5ef' } }} />
 
-      <div className="w-full max-w-sm border border-gold/40 px-7 py-12 sm:px-10">
+      <div className="relative w-full max-w-sm px-7 py-14 sm:px-10">
+        <CornerFrame borderColor="border-gold/50" />
         <p className="font-arabic text-xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
         <h1 className="mt-8 font-display text-4xl">Admin access</h1>
         <p className="mt-4 leading-7 text-ivory/65">Enter the password to manage invitations.</p>

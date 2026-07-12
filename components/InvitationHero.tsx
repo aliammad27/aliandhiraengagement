@@ -1,5 +1,7 @@
 'use client';
 
+import { CornerFrame, StarDivider, navyRadial } from '@/components/ornaments';
+
 interface Props {
   groom: string;
   bride: string;
@@ -7,29 +9,43 @@ interface Props {
 
 export default function InvitationHero({ groom, bride }: Props) {
   return (
-    <section className="bg-navy px-6 py-10 text-center text-ivory sm:px-12 sm:py-14">
+    <section className="relative px-6 py-12 text-center text-ivory sm:px-12 sm:py-16" style={navyRadial}>
+      <CornerFrame borderColor="border-gold/50" />
+
       <p className="font-arabic text-lg text-gold sm:text-xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-      <p className="mt-5 text-[0.68rem] font-medium uppercase text-ivory/55">Engagement invitation</p>
+
+      <p className="mt-6 text-[0.62rem] font-medium uppercase tracking-[0.28em] text-ivory/55">
+        Engagement invitation
+      </p>
+
       <h1 className="mt-5 font-display whitespace-nowrap text-5xl font-normal leading-none sm:text-6xl">
-        {bride} <span className="text-gold">&amp;</span> {groom}
+        {bride} <span className="font-script mx-1 align-middle text-3xl text-gold sm:text-4xl">&amp;</span> {groom}
       </h1>
 
-      <time dateTime="2026-10-17" aria-label="Saturday, October 17, 2026" className="mx-auto mt-7 block max-w-[300px]">
-        <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-3">
-          <span className="font-display text-lg text-ivory/75">Saturday</span>
-          <span className="border-x border-gold/30 font-display text-3xl text-gold-soft">17</span>
-          <span className="font-display text-lg text-ivory/75">October</span>
+      <div className="mx-auto mt-6 max-w-[220px]">
+        <StarDivider />
+      </div>
+
+      <time dateTime="2026-10-17" aria-label="Saturday, October 17, 2026" className="mx-auto mt-6 block max-w-[300px]">
+        <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-4">
+          <span className="font-display text-lg text-ivory/80">Saturday</span>
+          <span className="border-x border-gold/30 font-display text-4xl leading-none text-gold-soft">17</span>
+          <span className="font-display text-lg text-ivory/80">October</span>
         </span>
-        <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-ivory/50">2026 · Insha'Allah</span>
+        <span aria-hidden="true" className="mt-3 block font-display text-base italic text-ivory/60">
+          2026 · Insha&apos;Allah
+        </span>
       </time>
 
-      <div className="mt-7 text-center">
-        <p className="text-[0.68rem] font-medium uppercase text-ivory/55">1204 Middle Ave, Waterford Works, NJ</p>
+      <div className="mt-8 text-center">
+        <p className="text-[0.66rem] font-medium uppercase tracking-[0.2em] text-ivory/55">
+          1204 Middle Ave, Waterford Works, NJ
+        </p>
         <a
           href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-block text-[0.68rem] uppercase text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-gold-soft"
+          className="mt-3 inline-flex min-h-10 items-center border border-gold/50 px-5 text-[0.66rem] font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-navy"
         >
           Get directions
         </a>

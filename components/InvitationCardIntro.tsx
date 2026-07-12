@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { CornerFrame, navyRadial } from '@/components/ornaments';
 
 interface Props {
   bride: string;
@@ -9,17 +10,6 @@ interface Props {
 }
 
 type Phase = 'closed' | 'opening' | 'done';
-
-function CornerFrame({ borderColor }: { borderColor: string }) {
-  return (
-    <>
-      <span className={`pointer-events-none absolute left-3 top-3 h-6 w-6 border-l border-t ${borderColor}`} />
-      <span className={`pointer-events-none absolute right-3 top-3 h-6 w-6 border-r border-t ${borderColor}`} />
-      <span className={`pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b border-l ${borderColor}`} />
-      <span className={`pointer-events-none absolute bottom-3 right-3 h-6 w-6 border-b border-r ${borderColor}`} />
-    </>
-  );
-}
 
 export default function InvitationCardIntro({ bride, groom }: Props) {
   const [phase, setPhase] = useState<Phase>('closed');
@@ -60,7 +50,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden px-5 py-7"
-          style={{ background: 'radial-gradient(130% 90% at 50% 22%, #12315a 0%, #0a2038 48%, #051220 100%)' }}
+          style={navyRadial}
         >
           <button
             type="button"

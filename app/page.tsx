@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getEngagementConfig } from '@/lib/database';
 import { EngagementConfig } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
+import { CornerFrame, StarDivider, navyRadial } from '@/components/ornaments';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -63,51 +64,88 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative flex min-h-[82svh] items-center justify-center bg-ivory px-6 pb-10 pt-20 text-center text-charcoal sm:min-h-[88svh] sm:px-8 sm:pb-14 sm:pt-24"
+        className="relative flex min-h-[82svh] items-center justify-center px-6 pb-12 pt-20 text-center text-charcoal sm:min-h-[88svh] sm:px-8 sm:pb-16 sm:pt-24"
+        style={{ background: 'radial-gradient(120% 80% at 50% 0%, #fdfbf6 0%, #f8f5ef 55%, #efe9dd 100%)' }}
       >
         <div className="mx-auto flex w-full max-w-lg flex-col items-center">
-          <p className="font-arabic text-lg text-gold sm:text-2xl">
+          <motion.p variants={fadeUp} initial="hidden" animate="visible" className="font-arabic text-lg text-gold sm:text-2xl">
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-          </p>
+          </motion.p>
 
-          <div className="my-5 flex items-center gap-3 text-gold" aria-hidden="true">
-            <span className="h-px w-10 bg-gold/45" />
-            <span className="text-xs">✦</span>
-            <span className="h-px w-10 bg-gold/45" />
-          </div>
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1} className="my-5">
+            <StarDivider />
+          </motion.div>
 
-          <p className="text-[0.68rem] font-medium uppercase text-navy/60">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            className="text-[0.66rem] font-medium uppercase tracking-[0.28em] text-navy/60"
+          >
             With the blessings of their families
-          </p>
+          </motion.p>
 
-          <h1 className="mt-5 font-display whitespace-nowrap text-6xl font-normal leading-none text-navy sm:text-8xl">
-            {bride} <span className="font-light text-gold">&amp;</span> {groom}
-          </h1>
+          <motion.h1
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            className="mt-6 font-display whitespace-nowrap text-6xl font-normal leading-none text-navy sm:text-8xl"
+          >
+            {bride} <span className="font-script mx-1 align-middle text-4xl text-gold sm:text-6xl">&amp;</span> {groom}
+          </motion.h1>
 
-          <p className="mt-5 w-full max-w-[310px] font-display text-lg leading-7 text-charcoal-soft sm:max-w-md sm:text-2xl sm:leading-relaxed">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={3}
+            className="mt-6 w-full max-w-[320px] font-display italic text-lg leading-7 text-charcoal-soft sm:max-w-md sm:text-2xl sm:leading-relaxed"
+          >
             With love and gratitude, we invite you to celebrate our engagement.
-          </p>
+          </motion.p>
 
-          <time dateTime="2026-10-17" aria-label={eventDate} className="mt-7 block w-full max-w-[300px]">
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-navy/20 py-3">
-              <span className="font-display text-xl text-navy/80">Saturday</span>
-              <span className="border-x border-navy/15 font-display text-4xl text-gold">17</span>
-              <span className="font-display text-xl text-navy/80">October</span>
+          <motion.time
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={4}
+            dateTime="2026-10-17"
+            aria-label={eventDate}
+            className="mt-9 block w-full max-w-[320px]"
+          >
+            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-4">
+              <span className="flex flex-col gap-1">
+                <span className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Day</span>
+                <span className="font-display text-xl text-navy">Saturday</span>
+              </span>
+              <span className="flex flex-col border-x border-gold/30">
+                <span className="font-display text-5xl leading-none text-gold">17</span>
+              </span>
+              <span className="flex flex-col gap-1">
+                <span className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Month</span>
+                <span className="font-display text-xl text-navy">October</span>
+              </span>
             </span>
-            <span aria-hidden="true" className="mt-3 block text-[0.68rem] text-charcoal-soft">2026 · Insha'Allah</span>
-          </time>
+            <span aria-hidden="true" className="mt-3 block font-display text-base italic text-charcoal-soft">
+              2026 · Insha&apos;Allah
+            </span>
+          </motion.time>
 
-          <div className="mt-7 text-center">
-            <p className="text-[0.68rem] font-medium uppercase text-charcoal-soft">1204 Middle Ave, Waterford Works, NJ</p>
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 text-center">
+            <p className="text-[0.66rem] font-medium uppercase tracking-[0.2em] text-charcoal-soft">
+              1204 Middle Ave, Waterford Works, NJ
+            </p>
             <a
               href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-[0.68rem] uppercase text-navy underline decoration-navy/40 underline-offset-4 transition-colors hover:text-gold"
+              className="mt-3 inline-flex min-h-10 items-center border border-navy/30 px-5 text-[0.66rem] font-medium uppercase tracking-[0.2em] text-navy transition-colors hover:border-gold hover:text-gold"
             >
               Get directions
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -135,83 +173,63 @@ export default function Home() {
         </section>
       )}
 
-      <section id="details" className="bg-ivory px-5 py-24 text-center sm:px-8 sm:py-32">
-        <div className="mx-auto max-w-4xl">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-xs font-medium uppercase text-sage-deep"
-          >
-            The engagement
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={1}
-            className="mt-5 font-display text-5xl font-normal sm:text-7xl"
-          >
+      <section id="details" className="border-t border-charcoal/10 bg-cream px-5 py-20 text-center sm:px-8 sm:py-28">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="relative mx-auto max-w-2xl bg-ivory px-6 py-14 shadow-xl shadow-navy/10 sm:px-14 sm:py-16"
+        >
+          <CornerFrame borderColor="border-gold/50" />
+
+          <p className="font-script text-3xl text-gold sm:text-4xl">Save the date</p>
+
+          <h2 className="mt-5 font-display text-4xl font-normal text-navy sm:text-6xl">
             October 17, 2026
-          </motion.h2>
+          </h2>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={2}
-            className="mx-auto my-10 grid max-w-2xl grid-cols-3 border-y border-charcoal/15 py-6"
-          >
+          <div className="mx-auto mt-4 max-w-[240px]">
+            <StarDivider />
+          </div>
+
+          <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-gold/35 py-5">
             <div>
-              <p className="text-xs uppercase text-charcoal-soft">Day</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">Saturday</p>
+              <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Day</p>
+              <p className="mt-2 font-display text-xl text-navy sm:text-2xl">Saturday</p>
             </div>
-            <div className="border-x border-charcoal/15">
-              <p className="text-xs uppercase text-charcoal-soft">Date</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">17</p>
+            <div className="border-x border-gold/25">
+              <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Date</p>
+              <p className="mt-2 font-display text-xl text-gold sm:text-2xl">17</p>
             </div>
             <div>
-              <p className="text-xs uppercase text-charcoal-soft">Year</p>
-              <p className="mt-2 font-display text-xl sm:text-2xl">2026</p>
+              <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Year</p>
+              <p className="mt-2 font-display text-xl text-navy sm:text-2xl">2026</p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={3}
-            className="mx-auto max-w-lg text-base leading-7 text-charcoal-soft"
-          >
-            We would be honoured to celebrate with you, insha'Allah. Your personal invitation includes the full event details and RSVP.
-          </motion.p>
+          <p className="mx-auto mt-8 max-w-md font-display text-lg italic leading-8 text-charcoal-soft">
+            We would be honoured to celebrate with you, insha&apos;Allah. Your personal invitation includes the full event details and RSVP.
+          </p>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={4}
-            className="mt-9"
+          <Link
+            href="/invite"
+            className="mt-9 inline-flex min-h-12 items-center justify-center bg-navy px-9 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-ivory shadow-md shadow-navy/25 transition-colors hover:bg-navy-soft"
           >
-            <Link
-              href="/invite"
-              className="inline-flex min-h-12 items-center justify-center rounded-sm bg-navy px-8 text-sm font-medium text-ivory transition-colors hover:bg-navy-soft"
-            >
-              Open your invitation
-            </Link>
-          </motion.div>
-        </div>
+            Open your invitation
+          </Link>
+        </motion.div>
       </section>
 
-      <footer className="border-t border-white/10 bg-navy px-5 py-12 text-center text-ivory">
-        <p className="font-display text-3xl">{bride} <span className="text-gold">&amp;</span> {groom}</p>
-        <p className="mt-3 text-xs text-ivory/50">10.17.26</p>
-        <Link href="/admin" className="mt-7 inline-block text-xs text-ivory/30 transition-colors hover:text-ivory/60">
+      <footer className="relative px-5 py-16 text-center text-ivory" style={navyRadial}>
+        <StarDivider />
+        <p className="font-script mt-7 text-5xl leading-tight text-ivory">
+          {bride} <span className="text-gold">&amp;</span> {groom}
+        </p>
+        <p className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.28em] text-gold-soft/80">
+          October 17, 2026 · Insha&apos;Allah
+        </p>
+        <Link href="/admin" className="mt-8 inline-block text-xs text-ivory/30 transition-colors hover:text-ivory/60">
           Manage invitations
         </Link>
       </footer>
