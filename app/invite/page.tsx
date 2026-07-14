@@ -126,7 +126,7 @@ function InviteContent() {
           <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">
             {accepted ? 'We look forward to celebrating with you.' : 'You will be missed.'}
           </h1>
-          <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/72">
+          <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/70">
             {accepted
               ? 'Your response has been received. We will share any final details with you directly.'
               : 'Thank you for letting us know. You will be in our thoughts on the day.'}
