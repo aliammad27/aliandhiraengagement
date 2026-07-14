@@ -1,23 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --ivory: #fffaf2;
-  --cream: #f3ead9;
-  --charcoal: #253027;
-  --charcoal-soft: #6f7c6f;
-  --sage: #9caf93;
-  --sage-deep: #4f6f5b;
-  --sage-dark: #314d3a;
+  --ivory: #f7f4ef;
+  --cream: #faf8f4;
+  --warm-white: #f7f4ef;
+  --charcoal: #2c2c2c;
+  --charcoal-soft: #888888;
+  --soft-gray: #888888;
+  --line: #ddd8d0;
+  --sage: #7d9b76;
+  --sage-light: #a8c4a2;
+  --sage-pale: #d4e6d1;
+  --sage-deep: #7d9b76;
+  --sage-dark: #5f7d62;
   --gold: #c3a060;
   --gold-soft: #ead7a6;
-  --blush: #f2cbd3;
-  --pink: #d78fa3;
-  --pink-deep: #b85f7b;
-  --navy: #314d3a;
-  --navy-soft: #5f7d62;
-  --midnight: #263b2d;
+  --blush: #e8b4b6;
+  --pink: #d4878a;
+  --pink-light: #e8b4b6;
+  --pink-pale: #f5e0e1;
+  --pink-deep: #d4878a;
+  --navy: #7d9b76;
+  --navy-soft: #a8c4a2;
+  --midnight: #5f7d62;
 
-  --background: var(--ivory);
+  --background: var(--cream);
   --foreground: var(--charcoal);
 }
 
@@ -26,15 +33,22 @@
   --color-foreground: var(--foreground);
   --color-ivory: var(--ivory);
   --color-cream: var(--cream);
+  --color-warm-white: var(--warm-white);
   --color-charcoal: var(--charcoal);
   --color-charcoal-soft: var(--charcoal-soft);
+  --color-soft-gray: var(--soft-gray);
+  --color-line: var(--line);
   --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sage-pale: var(--sage-pale);
   --color-sage-deep: var(--sage-deep);
   --color-sage-dark: var(--sage-dark);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-blush: var(--blush);
   --color-pink: var(--pink);
+  --color-pink-light: var(--pink-light);
+  --color-pink-pale: var(--pink-pale);
   --color-pink-deep: var(--pink-deep);
   --color-navy: var(--navy);
   --color-navy-soft: var(--navy-soft);
@@ -48,7 +62,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, var(--ivory) 0%, var(--cream) 58%, #ead9bd 100%);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -94,16 +108,16 @@ textarea {
 }
 
 .navy-vellum {
-  background: var(--sage-deep);
+  background: var(--sage);
 }
 
 .parchment-vellum {
-  background: var(--ivory);
+  background: var(--warm-white);
 }
 
 ::selection {
-  background: var(--blush);
-  color: var(--sage-dark);
+  background: var(--pink-pale);
+  color: var(--charcoal);
 }
 
 @media (prefers-reduced-motion: reduce) {
