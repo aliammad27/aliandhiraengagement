@@ -28,9 +28,9 @@ export default function InvitationHero({ groom, bride }: Props) {
 
       <time dateTime="2026-10-17" aria-label="Saturday, October 17, 2026" className="mx-auto mt-6 block max-w-[300px]">
         <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/35 py-4">
-          <span className="font-display text-lg text-ivory/82">Saturday</span>
+          <span className="font-display text-lg text-ivory/80">Saturday</span>
           <span className="border-x border-gold/30 font-display text-4xl leading-none text-blush">17</span>
-          <span className="font-display text-lg text-ivory/82">October</span>
+          <span className="font-display text-lg text-ivory/80">October</span>
         </span>
         <span aria-hidden="true" className="mt-3 block font-display text-base italic text-ivory/70">
           2026 · Insha&apos;Allah
