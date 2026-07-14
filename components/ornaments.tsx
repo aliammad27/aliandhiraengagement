@@ -12,8 +12,8 @@ export function CornerFrame({ borderColor }: { borderColor: string }) {
 export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink' }) {
   const styles = {
     gold: { line: 'bg-gold/45', star: 'text-gold' },
-    sage: { line: 'bg-sage-deep/30', star: 'text-sage-deep/70' },
-    pink: { line: 'bg-pink-deep/35', star: 'text-pink-deep/80' },
+    sage: { line: 'bg-sage/30', star: 'text-sage/80' },
+    pink: { line: 'bg-pink/35', star: 'text-pink/85' },
   }[tone];
 
   return (
@@ -26,11 +26,13 @@ export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink'
 }
 
 export const sageBlushRadial = {
-  background: 'linear-gradient(145deg, #314d3a 0%, #4f6f5b 46%, #8fa884 72%, #d78fa3 135%)',
+  background:
+    'radial-gradient(ellipse at -10% -20%, rgba(168,196,162,0.34) 0%, transparent 68%), radial-gradient(ellipse at 110% 112%, rgba(212,135,138,0.28) 0%, transparent 70%), linear-gradient(145deg, #5f7d62 0%, #7d9b76 48%, #d4878a 140%)',
 };
 
 export const creamGoldWash = {
-  background: 'linear-gradient(180deg, #fffaf2 0%, #f6eddb 58%, #ead9bd 100%)',
+  background:
+    'radial-gradient(ellipse at -10% -20%, rgba(168,196,162,0.18) 0%, transparent 70%), radial-gradient(ellipse at 110% 110%, rgba(212,135,138,0.15) 0%, transparent 70%), linear-gradient(180deg, #f7f4ef 0%, #faf8f4 58%, #f5e0e1 100%)',
 };
 
 export const navyRadial = sageBlushRadial;
