@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --ivory: #f8f5ef;
-  --cream: #ece7de;
-  --charcoal: #17212c;
-  --charcoal-soft: #667078;
-  --sage: #758079;
-  --sage-deep: #4e6158;
-  --gold: #b79a5e;
-  --gold-soft: #ded0ad;
-  --blush: #cdbab0;
-  --navy: #0a2038;
-  --navy-soft: #173651;
-  --midnight: #061524;
+  --ivory: #fffaf2;
+  --cream: #f3ead9;
+  --charcoal: #253027;
+  --charcoal-soft: #6f7c6f;
+  --sage: #9caf93;
+  --sage-deep: #4f6f5b;
+  --sage-dark: #314d3a;
+  --gold: #c3a060;
+  --gold-soft: #ead7a6;
+  --blush: #f2cbd3;
+  --pink: #d78fa3;
+  --pink-deep: #b85f7b;
+  --navy: #314d3a;
+  --navy-soft: #5f7d62;
+  --midnight: #263b2d;
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -27,9 +30,12 @@
   --color-charcoal-soft: var(--charcoal-soft);
   --color-sage: var(--sage);
   --color-sage-deep: var(--sage-deep);
+  --color-sage-dark: var(--sage-dark);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-blush: var(--blush);
+  --color-pink: var(--pink);
+  --color-pink-deep: var(--pink-deep);
   --color-navy: var(--navy);
   --color-navy-soft: var(--navy-soft);
   --color-midnight: var(--midnight);
@@ -42,7 +48,7 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--cream) 58%, #ead9bd 100%);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -83,12 +89,12 @@ textarea {
 }
 
 .invitation-arch {
-  border: 1px solid rgba(183, 154, 94, 0.58);
+  border: 1px solid rgba(195, 160, 96, 0.58);
   border-radius: 999px 999px 0 0;
 }
 
 .navy-vellum {
-  background: var(--navy);
+  background: var(--sage-deep);
 }
 
 .parchment-vellum {
@@ -96,8 +102,8 @@ textarea {
 }
 
 ::selection {
-  background: var(--gold-soft);
-  color: var(--navy);
+  background: var(--blush);
+  color: var(--sage-dark);
 }
 
 @media (prefers-reduced-motion: reduce) {
