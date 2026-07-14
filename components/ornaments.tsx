@@ -9,18 +9,28 @@ export function CornerFrame({ borderColor }: { borderColor: string }) {
   );
 }
 
-export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'navy' }) {
-  const line = tone === 'gold' ? 'bg-gold/45' : 'bg-navy/25';
-  const star = tone === 'gold' ? 'text-gold' : 'text-navy/60';
+export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink' }) {
+  const styles = {
+    gold: { line: 'bg-gold/45', star: 'text-gold' },
+    sage: { line: 'bg-sage-deep/30', star: 'text-sage-deep/70' },
+    pink: { line: 'bg-pink-deep/35', star: 'text-pink-deep/80' },
+  }[tone];
+
   return (
-    <div className={`flex items-center justify-center gap-3 ${star}`} aria-hidden="true">
-      <span className={`h-px w-10 ${line}`} />
+    <div className={`flex items-center justify-center gap-3 ${styles.star}`} aria-hidden="true">
+      <span className={`h-px w-10 ${styles.line}`} />
       <span className="text-xs">✦</span>
-      <span className={`h-px w-10 ${line}`} />
+      <span className={`h-px w-10 ${styles.line}`} />
     </div>
   );
 }
 
-export const navyRadial = {
-  background: 'radial-gradient(130% 90% at 50% 22%, #12315a 0%, #0a2038 48%, #051220 100%)',
+export const sageBlushRadial = {
+  background: 'linear-gradient(145deg, #314d3a 0%, #4f6f5b 46%, #8fa884 72%, #d78fa3 135%)',
 };
+
+export const creamGoldWash = {
+  background: 'linear-gradient(180deg, #fffaf2 0%, #f6eddb 58%, #ead9bd 100%)',
+};
+
+export const navyRadial = sageBlushRadial;
