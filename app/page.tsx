@@ -57,21 +57,21 @@ export default function Home() {
   const photos = config?.photos?.filter(Boolean) || [];
 
   return (
-    <main className="overflow-hidden bg-cream text-charcoal">
+    <main className="w-full overflow-hidden bg-cream text-charcoal">
       <InvitationCardIntro bride={bride} groom={groom} />
 
       <header className="absolute inset-x-0 top-0 z-50 text-ivory">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-8">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-8">
           <a href="#top" className="font-display text-2xl font-semibold text-ivory">
             H<span className="text-pink-light">&amp;</span>A
           </a>
-          <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
+          <nav className="flex items-center gap-4 text-sm sm:gap-6" aria-label="Main navigation">
             <a href="#details" className="hidden text-ivory transition-colors hover:text-gold-soft sm:inline">
               The date
             </a>
             <Link
               href="/invite"
-              className="inline-flex min-h-10 items-center border border-ivory px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
+              className="inline-flex min-h-10 items-center justify-center border border-ivory px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
             >
               RSVP
             </Link>
@@ -81,7 +81,7 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative flex min-h-[82svh] items-center justify-center bg-sage-dark px-6 pb-12 pt-20 text-center text-ivory sm:min-h-[88svh] sm:px-8 sm:pb-16 sm:pt-24"
+        className="relative flex min-h-[100svh] items-center justify-center bg-sage-dark px-4 pb-12 pt-20 text-center text-ivory sm:min-h-[88svh] sm:px-8 sm:pb-16 sm:pt-24"
       >
         <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
           <motion.p variants={fadeUp} initial="hidden" animate="visible" className="font-arabic text-xl text-gold-soft sm:text-3xl">
@@ -97,7 +97,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             custom={1}
-            className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold-soft"
+            className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-gold-soft sm:max-w-none sm:tracking-[0.22em]"
           >
             With the blessings of their families
           </motion.p>
@@ -107,9 +107,9 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             custom={2}
-            className="mt-6 font-display whitespace-nowrap text-6xl font-normal leading-none text-ivory sm:text-8xl"
+            className="mt-6 max-w-full font-display text-[clamp(3.45rem,16vw,6rem)] font-normal leading-none text-ivory [text-wrap:balance] sm:text-8xl"
           >
-            {bride} <span className="font-script mx-1 align-middle text-4xl text-pink-light sm:text-6xl">&amp;</span> {groom}
+            {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-light">&amp;</span> {groom}
           </motion.h1>
 
           <motion.p
@@ -117,7 +117,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             custom={3}
-            className="mt-6 w-full max-w-[360px] font-display italic text-xl leading-8 text-ivory sm:max-w-lg sm:text-3xl sm:leading-relaxed"
+            className="mt-6 w-full max-w-[340px] font-display italic text-[1.35rem] leading-8 text-ivory sm:max-w-lg sm:text-3xl sm:leading-relaxed"
           >
             With love and gratitude, we invite you to celebrate our engagement.
           </motion.p>
@@ -132,16 +132,16 @@ export default function Home() {
             className="mt-9 block w-full max-w-[360px]"
           >
             <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold-soft/70 py-4">
-              <span className="flex flex-col gap-1">
-                <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">Day</span>
-                <span className="font-display text-xl text-ivory sm:text-2xl">{eventWeekday}</span>
+              <span className="flex min-w-0 flex-col gap-1 px-1">
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Day</span>
+                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventWeekday}</span>
               </span>
-              <span className="flex flex-col border-x border-gold-soft/50">
+              <span className="flex min-w-0 flex-col border-x border-gold-soft/50 px-1">
                 <span className="font-display text-5xl leading-none text-pink-light">{eventDay}</span>
               </span>
-              <span className="flex flex-col gap-1">
-                <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">Month</span>
-                <span className="font-display text-xl text-ivory sm:text-2xl">{eventMonth}</span>
+              <span className="flex min-w-0 flex-col gap-1 px-1">
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Month</span>
+                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventMonth}</span>
               </span>
             </span>
             <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-ivory">
@@ -149,15 +149,15 @@ export default function Home() {
             </span>
           </motion.time>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 text-center">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory">
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 w-full text-center">
+            <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-ivory sm:max-w-none sm:tracking-[0.18em]">
               1204 Middle Ave, Waterford Works, NJ
             </p>
             <a
               href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-11 items-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
+              className="mt-4 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:w-auto sm:tracking-[0.18em]"
             >
               Get directions
             </a>
@@ -166,7 +166,7 @@ export default function Home() {
       </section>
 
       {photos.length > 0 && (
-        <section className="border-y border-sage-deep/10 bg-cream px-5 py-16 sm:px-8">
+        <section className="border-y border-sage-deep/10 bg-cream px-4 py-12 sm:px-8 sm:py-16">
           <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
             {photos.slice(0, 3).map((photo, index) => (
               <motion.figure
@@ -189,19 +189,19 @@ export default function Home() {
         </section>
       )}
 
-      <section id="details" className="border-t border-sage-deep/10 bg-cream px-5 py-20 text-center sm:px-8 sm:py-28">
+      <section id="details" className="border-t border-sage-deep/10 bg-cream px-4 py-14 text-center sm:px-8 sm:py-28">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative mx-auto max-w-2xl border border-gold/35 bg-ivory px-6 py-14 shadow-xl shadow-sage-deep/10 sm:px-14 sm:py-16"
+          className="relative mx-auto max-w-2xl border border-gold/35 bg-ivory px-5 py-12 shadow-xl shadow-sage-deep/10 sm:px-14 sm:py-16"
         >
           <CornerFrame borderColor="border-pink-deep/60" />
 
           <p className="font-script text-3xl text-pink-deep sm:text-4xl">Save the date</p>
 
-          <h2 className="mt-5 font-display text-4xl font-normal text-sage-dark sm:text-6xl">
+          <h2 className="mt-5 font-display text-[clamp(2.35rem,11vw,3.75rem)] font-normal leading-tight text-sage-dark sm:text-6xl">
             {eventDate}
           </h2>
 
@@ -210,17 +210,17 @@ export default function Home() {
           </div>
 
           <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-gold/50 py-5">
-            <div>
-              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-charcoal-soft">Day</p>
-              <p className="mt-2 font-display text-xl text-sage-dark sm:text-2xl">{eventWeekday}</p>
+            <div className="min-w-0 px-1">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-charcoal-soft sm:tracking-[0.2em]">Day</p>
+              <p className="mt-2 truncate font-display text-lg text-sage-dark sm:text-2xl">{eventWeekday}</p>
             </div>
-            <div className="border-x border-gold/35">
-              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-charcoal-soft">Date</p>
-              <p className="mt-2 font-display text-xl text-pink-deep sm:text-2xl">{eventDay}</p>
+            <div className="min-w-0 border-x border-gold/35 px-1">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-charcoal-soft sm:tracking-[0.2em]">Date</p>
+              <p className="mt-2 font-display text-lg text-pink-deep sm:text-2xl">{eventDay}</p>
             </div>
-            <div>
-              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-charcoal-soft">Year</p>
-              <p className="mt-2 font-display text-xl text-sage-dark sm:text-2xl">{eventYear}</p>
+            <div className="min-w-0 px-1">
+              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-charcoal-soft sm:tracking-[0.2em]">Year</p>
+              <p className="mt-2 font-display text-lg text-sage-dark sm:text-2xl">{eventYear}</p>
             </div>
           </div>
 
@@ -230,19 +230,19 @@ export default function Home() {
 
           <Link
             href="/invite"
-            className="mt-9 inline-flex min-h-12 items-center justify-center bg-sage-dark px-9 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep"
+            className="mt-9 inline-flex min-h-12 w-full max-w-xs items-center justify-center bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep sm:w-auto sm:px-9 sm:tracking-[0.18em]"
           >
             Open your invitation
           </Link>
         </motion.div>
       </section>
 
-      <footer className="relative bg-sage-dark px-5 py-16 text-center text-ivory">
+      <footer className="relative bg-sage-dark px-4 py-14 text-center text-ivory sm:py-16">
         <StarDivider />
-        <p className="font-script mt-7 text-5xl leading-tight text-ivory">
+        <p className="font-script mt-7 text-[clamp(3rem,14vw,4.5rem)] leading-tight text-ivory">
           {bride} <span className="text-pink-light">&amp;</span> {groom}
         </p>
-        <p className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold-soft">
+        <p className="mx-auto mt-4 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.18em] text-gold-soft sm:max-w-none sm:tracking-[0.22em]">
           {eventDate} · Insha&apos;Allah
         </p>
         <Link href="/admin" className="mt-8 inline-block text-xs font-medium text-ivory transition-colors hover:text-gold-soft">
