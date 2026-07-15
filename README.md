@@ -2,6 +2,8 @@
 
 Next.js engagement invitation and RSVP site for deployment on Vercel with Firebase Firestore.
 
+Public website: [https://hiraandali.com](https://hiraandali.com)
+
 ## Local Development
 
 Create `.env.local` from `.env.example`, then run:
@@ -54,5 +56,9 @@ npx firebase-tools@latest deploy --only firestore:rules --project engagement-sit
 The project is connected to Vercel at:
 
 [https://vercel.com/aliandai/aliandhiraengagement](https://vercel.com/aliandai/aliandhiraengagement)
+
+The production domain is:
+
+[https://hiraandali.com](https://hiraandali.com)
 
 After changing environment variables, redeploy the latest commit from Vercel.
