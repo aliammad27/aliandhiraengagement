@@ -9,13 +9,13 @@ interface Props {
 
 export default function InvitationHero({ groom, bride }: Props) {
   return (
-    <section className="relative overflow-hidden bg-sage-deep px-5 py-10 text-center text-ivory sm:px-8 sm:py-14">
-      <div className="relative mx-auto max-w-3xl border border-gold/50 px-5 py-10 sm:px-10 sm:py-14">
-        <CornerFrame borderColor="border-gold/60" />
+    <section className="relative overflow-hidden bg-sage-dark px-5 py-10 text-center text-ivory sm:px-8 sm:py-14">
+      <div className="relative mx-auto max-w-3xl border border-gold-soft/70 px-5 py-10 sm:px-10 sm:py-14">
+        <CornerFrame borderColor="border-gold-soft" />
 
         <p className="font-arabic text-xl text-gold-soft sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
 
-        <p className="mt-6 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-pink-pale">
+        <p className="mt-6 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-gold-soft">
           Engagement invitation
         </p>
 
@@ -34,19 +34,19 @@ export default function InvitationHero({ groom, bride }: Props) {
         >
           Saturday, October 17, 2026
         </time>
-        <p className="mt-2 font-display text-lg italic text-ivory/85">Insha&apos;Allah</p>
+        <p className="mt-2 font-display text-lg italic text-ivory">Insha&apos;Allah</p>
 
-        <div className="mx-auto mt-8 h-px w-28 bg-gold/60" aria-hidden="true" />
+        <div className="mx-auto mt-8 h-px w-28 bg-gold-soft" aria-hidden="true" />
 
         <div className="mt-7 text-center">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ivory/85">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ivory">
             1204 Middle Ave, Waterford Works, NJ
           </p>
           <a
             href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex min-h-11 items-center border border-gold/65 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold hover:text-sage-dark"
+            className="mt-4 inline-flex min-h-11 items-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
           >
             Get directions
           </a>
