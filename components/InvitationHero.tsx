@@ -1,6 +1,6 @@
 'use client';
 
-import { CornerFrame, StarDivider, sageBlushRadial } from '@/components/ornaments';
+import { CornerFrame, StarDivider } from '@/components/ornaments';
 
 interface Props {
   groom: string;
@@ -9,7 +9,7 @@ interface Props {
 
 export default function InvitationHero({ groom, bride }: Props) {
   return (
-    <section className="relative px-6 py-12 text-center text-ivory shadow-lg shadow-sage-deep/15 sm:px-12 sm:py-16" style={sageBlushRadial}>
+    <section className="relative bg-sage-deep px-6 py-12 text-center text-ivory shadow-lg shadow-sage-deep/15 sm:px-12 sm:py-16">
       <CornerFrame borderColor="border-gold/55" />
 
       <p className="font-arabic text-lg text-gold sm:text-xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
