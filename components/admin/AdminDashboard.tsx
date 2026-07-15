@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
-          className="h-8 w-8 rounded-full border border-gold/30 border-t-gold"
+          className="h-8 w-8 rounded-full border border-gold/45 border-t-gold"
         />
       </div>
     );
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-ivory text-charcoal">
-      <Toaster toastOptions={{ style: { background: '#7d9b76', borderRadius: '4px', color: '#faf8f4' } }} />
+      <Toaster toastOptions={{ style: { background: '#5f7d62', borderRadius: '4px', color: '#faf8f4' } }} />
 
       <motion.header
         initial={{ y: -20, opacity: 0 }}
@@ -79,15 +79,15 @@ export default function AdminDashboard() {
       >
         <div className="mx-auto flex max-w-6xl items-start justify-between gap-4 px-5 py-8 sm:px-8">
           <div>
-            <p className="text-xs font-medium uppercase text-gold">Engagement management</p>
+            <p className="text-xs font-semibold uppercase text-gold-soft">Engagement management</p>
             <h1 className="mt-3 font-display text-3xl sm:text-4xl">
-              {config?.coupleNames?.bride || 'Hira'} <span className="text-gold">&amp;</span>{' '}
+              {config?.coupleNames?.bride || 'Hira'} <span className="text-gold-soft">&amp;</span>{' '}
               {config?.coupleNames?.groom || 'Ali'}
             </h1>
           </div>
           <button
             onClick={handleLogout}
-            className="mt-1 min-h-9 whitespace-nowrap border border-ivory/25 px-4 text-xs font-medium uppercase text-ivory/70 transition-colors hover:border-gold hover:text-gold"
+            className="mt-1 min-h-9 whitespace-nowrap border border-ivory px-4 text-xs font-semibold uppercase text-ivory transition-colors hover:border-gold-soft hover:text-gold-soft"
           >
             Log out
           </button>
@@ -104,10 +104,10 @@ export default function AdminDashboard() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`min-h-10 whitespace-nowrap px-5 py-2 text-xs font-medium uppercase transition-colors ${
+              className={`min-h-10 whitespace-nowrap px-5 py-2 text-xs font-semibold uppercase transition-colors ${
                 activeTab === tab
                   ? 'bg-navy text-ivory'
-                  : 'border border-charcoal/15 text-charcoal-soft hover:border-navy hover:text-navy'
+                  : 'border border-charcoal/25 text-charcoal hover:border-navy hover:text-navy'
               }`}
             >
               {tab === 'overview' && 'Overview'}
@@ -140,44 +140,44 @@ export default function AdminDashboard() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="border border-charcoal/10 bg-white px-5 py-6"
+                    className="border border-charcoal/15 bg-white px-5 py-6"
                   >
-                    <p className="text-xs font-medium uppercase text-charcoal-soft">{stat.label}</p>
-                    <p className="mt-2 font-display text-4xl">{stat.value}</p>
+                    <p className="text-xs font-semibold uppercase text-charcoal-soft">{stat.label}</p>
+                    <p className="mt-2 font-display text-4xl text-charcoal">{stat.value}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="border border-charcoal/10 bg-white p-6 sm:p-8">
-                <h2 className="font-display text-2xl">Quick actions</h2>
+              <div className="border border-charcoal/15 bg-white p-6 sm:p-8">
+                <h2 className="font-display text-2xl text-charcoal">Quick actions</h2>
                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <button
                     onClick={() => setActiveTab('guests')}
-                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
+                    className="border border-charcoal/25 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-display text-lg">Add guests</h3>
-                    <p className="mt-1 text-sm text-charcoal-soft">Invite more people to celebrate</p>
+                    <h3 className="font-display text-lg text-charcoal">Add guests</h3>
+                    <p className="mt-1 text-sm font-medium text-charcoal">Invite more people to celebrate</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('events')}
-                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
+                    className="border border-charcoal/25 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-display text-lg">Manage events</h3>
-                    <p className="mt-1 text-sm text-charcoal-soft">Create and organize events</p>
+                    <h3 className="font-display text-lg text-charcoal">Manage events</h3>
+                    <p className="mt-1 text-sm font-medium text-charcoal">Create and organize events</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('rsvps')}
-                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
+                    className="border border-charcoal/25 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-display text-lg">View RSVPs</h3>
-                    <p className="mt-1 text-sm text-charcoal-soft">Check responses from guests</p>
+                    <h3 className="font-display text-lg text-charcoal">View RSVPs</h3>
+                    <p className="mt-1 text-sm font-medium text-charcoal">Check responses from guests</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('settings')}
-                    className="border border-charcoal/15 p-4 text-left transition-colors hover:border-navy"
+                    className="border border-charcoal/25 p-4 text-left transition-colors hover:border-navy"
                   >
-                    <h3 className="font-display text-lg">Update profile</h3>
-                    <p className="mt-1 text-sm text-charcoal-soft">Edit engagement details</p>
+                    <h3 className="font-display text-lg text-charcoal">Update profile</h3>
+                    <p className="mt-1 text-sm font-medium text-charcoal">Edit engagement details</p>
                   </button>
                 </div>
               </div>
