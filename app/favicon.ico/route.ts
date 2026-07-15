@@ -2,12 +2,11 @@ type Rgba = readonly [number, number, number, number];
 
 const SIZE = 32;
 const SAGE: Rgba = [79, 111, 91, 255];
-const GOLD: Rgba = [201, 167, 93, 255];
+const GOLD: Rgba = [216, 184, 106, 255];
 const IVORY: Rgba = [255, 250, 242, 255];
-const PINK: Rgba = [240, 183, 192, 255];
+const PINK: Rgba = [216, 143, 156, 255];
 
 const H = ["10001", "10001", "10001", "11111", "10001", "10001", "10001"];
-const AMP = ["0110", "1001", "1010", "0100", "1011", "1001", "0111"];
 const A = ["01110", "10001", "10001", "11111", "10001", "10001", "10001"];
 
 export const dynamic = "force-static";
@@ -30,6 +29,36 @@ function fillRect(pixels: Uint8Array, x: number, y: number, width: number, heigh
   }
 }
 
+function fillCircle(pixels: Uint8Array, centerX: number, centerY: number, radius: number, color: Rgba) {
+  const radiusSquared = radius * radius;
+
+  for (let y = centerY - radius; y <= centerY + radius; y += 1) {
+    for (let x = centerX - radius; x <= centerX + radius; x += 1) {
+      const dx = x - centerX;
+      const dy = y - centerY;
+      if (dx * dx + dy * dy <= radiusSquared) {
+        setPixel(pixels, x, y, color);
+      }
+    }
+  }
+}
+
+function drawRing(pixels: Uint8Array, centerX: number, centerY: number, radius: number, thickness: number, color: Rgba) {
+  const outer = radius * radius;
+  const inner = (radius - thickness) * (radius - thickness);
+
+  for (let y = centerY - radius; y <= centerY + radius; y += 1) {
+    for (let x = centerX - radius; x <= centerX + radius; x += 1) {
+      const dx = x - centerX;
+      const dy = y - centerY;
+      const distance = dx * dx + dy * dy;
+      if (distance <= outer && distance >= inner) {
+        setPixel(pixels, x, y, color);
+      }
+    }
+  }
+}
+
 function drawPattern(pixels: Uint8Array, pattern: string[], x: number, y: number, scale: number, color: Rgba) {
   pattern.forEach((row, rowIndex) => {
     [...row].forEach((cell, colIndex) => {
@@ -43,18 +72,14 @@ function makePixels() {
   const pixels = new Uint8Array(SIZE * SIZE * 4);
 
   fillRect(pixels, 0, 0, SIZE, SIZE, SAGE);
-  fillRect(pixels, 0, 0, SIZE, 2, GOLD);
-  fillRect(pixels, 0, SIZE - 2, SIZE, 2, GOLD);
-  fillRect(pixels, 0, 0, 2, SIZE, GOLD);
-  fillRect(pixels, SIZE - 2, 0, 2, SIZE, GOLD);
-  fillRect(pixels, 5, 5, SIZE - 10, 1, GOLD);
-  fillRect(pixels, 5, SIZE - 6, SIZE - 10, 1, GOLD);
-  fillRect(pixels, 5, 5, 1, SIZE - 10, GOLD);
-  fillRect(pixels, SIZE - 6, 5, 1, SIZE - 10, GOLD);
+  fillCircle(pixels, 16, 16, 12, PINK);
+  drawRing(pixels, 16, 16, 12, 1, GOLD);
+  drawRing(pixels, 16, 16, 14, 1, [255, 250, 242, 48]);
 
-  drawPattern(pixels, H, 3, 9, 2, IVORY);
-  drawPattern(pixels, AMP, 14, 13, 1, PINK);
-  drawPattern(pixels, A, 20, 9, 2, IVORY);
+  drawPattern(pixels, H, 5, 9, 2, IVORY);
+  fillRect(pixels, 15, 15, 2, 2, GOLD);
+  fillRect(pixels, 15, 20, 2, 1, GOLD);
+  drawPattern(pixels, A, 18, 9, 2, IVORY);
 
   return pixels;
 }
@@ -114,7 +139,7 @@ export function GET() {
   return new Response(makeFaviconIco(), {
     headers: {
       "Content-Type": "image/x-icon",
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Cache-Control": "public, max-age=3600, must-revalidate",
     },
   });
 }
