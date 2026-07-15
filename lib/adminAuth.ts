@@ -1,9 +1,15 @@
-import { createHmac, timingSafeEqual } from 'crypto';
+import { createHash, createHmac, timingSafeEqual } from 'crypto';
 
 export const ADMIN_SESSION_COOKIE = 'admin_session';
 
-function getAdminPassword() {
-  return process.env.ADMIN_PASSWORD || '';
+const ADMIN_PASSWORD_HASH = '1315b95f1c1e1926b109497cdae54f2dee2f3aae23afff609c848fd840021e9d';
+
+function getAdminPasswordHash() {
+  return process.env.ADMIN_PASSWORD_SHA256 || ADMIN_PASSWORD_HASH;
+}
+
+function hashPassword(value: string) {
+  return createHash('sha256').update(value).digest('hex');
 }
 
 function getSessionSecret() {
@@ -19,8 +25,18 @@ function sign(value: string) {
 }
 
 export function checkPassword(password: string) {
-  const expected = getAdminPassword();
-  return Boolean(expected) && password === expected;
+  const expectedHash = getAdminPasswordHash();
+  const receivedHash = hashPassword(password);
+
+  try {
+    const expected = Buffer.from(expectedHash, 'hex');
+    const received = Buffer.from(receivedHash, 'hex');
+    if (expected.length !== received.length) return false;
+
+    return timingSafeEqual(received, expected);
+  } catch {
+    return false;
+  }
 }
 
 export function createSessionToken() {
