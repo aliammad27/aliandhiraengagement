@@ -178,6 +178,26 @@ async function readRsvps(eventId?: string) {
   return listCollection<RSVPResponse>('rsvps');
 }
 
+async function deleteGuestRsvps(guestId: string) {
+  const rsvps = await listCollection<RSVPResponse>('rsvps');
+  const matchingRsvps = rsvps.filter((rsvp) => rsvp.guestId === guestId);
+  await Promise.all(matchingRsvps.map((rsvp) => deleteDocument('rsvps', rsvp.id)));
+}
+
+async function removeGuestFromEventLists(guestId: string, updatedAt: Date) {
+  const events = await listCollection<EngagementEvent>('events');
+  const eventsWithGuest = events.filter((event) => event.guestList?.includes(guestId));
+
+  await Promise.all(
+    eventsWithGuest.map((event) =>
+      updateDocument<EngagementEvent>('events', event.id, {
+        guestList: event.guestList.filter((id) => id !== guestId),
+        updatedAt,
+      })
+    )
+  );
+}
+
 export async function GET(request: NextRequest) {
   if (!hasAdminSession(request)) return jsonError('Unauthorized', 401);
 
@@ -256,6 +276,10 @@ export async function POST(request: NextRequest) {
 
     if (action === 'deleteGuest') {
       const id = requiredString(body.id, 'Guest ID', 120);
+      await Promise.all([
+        deleteGuestRsvps(id),
+        removeGuestFromEventLists(id, now),
+      ]);
       await deleteDocument('guests', id);
       return NextResponse.json({ success: true });
     }
