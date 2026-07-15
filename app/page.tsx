@@ -17,6 +17,17 @@ const fadeUp: Variants = {
   }),
 };
 
+const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-17T12:00:00Z');
+
+function engagementDisplayDate(value: EngagementConfig['engagementDate'] | undefined) {
+  const date = value ? new Date(value) : FALLBACK_ENGAGEMENT_DATE;
+  return Number.isNaN(date.getTime()) ? FALLBACK_ENGAGEMENT_DATE : date;
+}
+
+function formatEngagementDate(date: Date, options: Intl.DateTimeFormatOptions) {
+  return date.toLocaleDateString('en-US', { timeZone: 'UTC', ...options });
+}
+
 export default function Home() {
   const [config, setConfig] = useState<EngagementConfig | null>(null);
 
@@ -36,7 +47,13 @@ export default function Home() {
 
   const groom = config?.coupleNames?.groom || 'Ali';
   const bride = config?.coupleNames?.bride || 'Hira';
-  const eventDate = 'October 17, 2026';
+  const engagementDate = engagementDisplayDate(config?.engagementDate);
+  const eventDate = formatEngagementDate(engagementDate, { month: 'long', day: 'numeric', year: 'numeric' });
+  const eventWeekday = formatEngagementDate(engagementDate, { weekday: 'long' });
+  const eventDay = formatEngagementDate(engagementDate, { day: 'numeric' });
+  const eventMonth = formatEngagementDate(engagementDate, { month: 'long' });
+  const eventYear = formatEngagementDate(engagementDate, { year: 'numeric' });
+  const eventIsoDate = engagementDate.toISOString().split('T')[0];
   const photos = config?.photos?.filter(Boolean) || [];
 
   return (
@@ -111,25 +128,25 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             custom={4}
-            dateTime="2026-10-17"
+            dateTime={eventIsoDate}
             aria-label={eventDate}
             className="mt-9 block w-full max-w-[320px]"
           >
             <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/45 py-4">
               <span className="flex flex-col gap-1">
                 <span className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Day</span>
-                <span className="font-display text-xl text-sage-deep">Saturday</span>
+                <span className="font-display text-xl text-sage-deep">{eventWeekday}</span>
               </span>
               <span className="flex flex-col border-x border-gold/30">
-                <span className="font-display text-5xl leading-none text-pink-deep">17</span>
+                <span className="font-display text-5xl leading-none text-pink-deep">{eventDay}</span>
               </span>
               <span className="flex flex-col gap-1">
                 <span className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Month</span>
-                <span className="font-display text-xl text-sage-deep">October</span>
+                <span className="font-display text-xl text-sage-deep">{eventMonth}</span>
               </span>
             </span>
             <span aria-hidden="true" className="mt-3 block font-display text-base italic text-charcoal-soft">
-              2026 · Insha&apos;Allah
+              {eventYear} · Insha&apos;Allah
             </span>
           </motion.time>
 
@@ -186,7 +203,7 @@ export default function Home() {
           <p className="font-script text-3xl text-pink-deep sm:text-4xl">Save the date</p>
 
           <h2 className="mt-5 font-display text-4xl font-normal text-sage-deep sm:text-6xl">
-            October 17, 2026
+            {eventDate}
           </h2>
 
           <div className="mx-auto mt-4 max-w-[240px]">
@@ -196,15 +213,15 @@ export default function Home() {
           <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-gold/40 py-5">
             <div>
               <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Day</p>
-              <p className="mt-2 font-display text-xl text-sage-deep sm:text-2xl">Saturday</p>
+              <p className="mt-2 font-display text-xl text-sage-deep sm:text-2xl">{eventWeekday}</p>
             </div>
             <div className="border-x border-gold/25">
               <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Date</p>
-              <p className="mt-2 font-display text-xl text-pink-deep sm:text-2xl">17</p>
+              <p className="mt-2 font-display text-xl text-pink-deep sm:text-2xl">{eventDay}</p>
             </div>
             <div>
               <p className="text-[0.6rem] font-medium uppercase tracking-[0.24em] text-charcoal-soft">Year</p>
-              <p className="mt-2 font-display text-xl text-sage-deep sm:text-2xl">2026</p>
+              <p className="mt-2 font-display text-xl text-sage-deep sm:text-2xl">{eventYear}</p>
             </div>
           </div>
 
@@ -227,7 +244,7 @@ export default function Home() {
           {bride} <span className="text-blush">&amp;</span> {groom}
         </p>
         <p className="mt-4 text-[0.68rem] font-medium uppercase tracking-[0.28em] text-gold-soft/90">
-          October 17, 2026 · Insha&apos;Allah
+          {eventDate} · Insha&apos;Allah
         </p>
         <Link href="/admin" className="mt-8 inline-block text-xs text-ivory/35 transition-colors hover:text-ivory/65">
           Manage invitations
