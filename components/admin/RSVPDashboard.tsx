@@ -30,9 +30,9 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: idx * 0.1 }}
-            className="border border-charcoal/15 bg-white px-5 py-6"
+            className="border border-gold/30 bg-ivory px-5 py-6 shadow-sm shadow-sage-deep/5"
           >
-            <p className="text-xs font-semibold uppercase text-charcoal">{stat.label}</p>
+            <p className="text-xs font-semibold uppercase text-sage-dark">{stat.label}</p>
             <p className="mt-2 font-display text-4xl text-charcoal">{stat.value}</p>
             {stat.total !== null && <p className="mt-1 text-xs font-semibold text-charcoal">+{stat.total} party size</p>}
           </motion.div>
@@ -40,19 +40,19 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
       </div>
 
       {/* Accepted RSVPs */}
-      <div className="overflow-hidden border border-charcoal/15 bg-white">
-        <div className="border-b border-charcoal/15 p-6 sm:p-8">
-          <h2 className="font-display text-2xl text-charcoal">Accepted ({acceptedRsvps.length})</h2>
+      <div className="overflow-hidden border border-gold/30 bg-ivory shadow-sm shadow-sage-deep/5">
+        <div className="border-b border-gold/25 p-6 sm:p-8">
+          <h2 className="font-display text-2xl text-sage-dark">Accepted ({acceptedRsvps.length})</h2>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="border-b border-charcoal/15">
+            <thead className="border-b border-gold/25 bg-cream">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Guest name</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Party size</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Dietary restrictions</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Special requests</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Guest name</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Party size</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Dietary restrictions</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Special requests</th>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="border-b border-charcoal/10 hover:bg-cream/40"
+                    className="border-b border-charcoal/10 hover:bg-pink-pale/35"
                   >
                     <td className="px-6 py-4 text-sm font-medium text-charcoal">{guest?.name}</td>
                     <td className="px-6 py-4 text-sm text-charcoal">
@@ -84,17 +84,17 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
 
       {/* Declined RSVPs */}
       {declinedRsvps.length > 0 && (
-        <div className="overflow-hidden border border-charcoal/15 bg-white">
-          <div className="border-b border-charcoal/15 p-6 sm:p-8">
-            <h2 className="font-display text-2xl text-charcoal">Declined ({declinedRsvps.length})</h2>
+        <div className="overflow-hidden border border-gold/30 bg-ivory shadow-sm shadow-sage-deep/5">
+          <div className="border-b border-gold/25 p-6 sm:p-8">
+            <h2 className="font-display text-2xl text-sage-dark">Declined ({declinedRsvps.length})</h2>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-charcoal/15">
+              <thead className="border-b border-gold/25 bg-cream">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Guest name</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Reason</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Guest name</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Reason</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,7 +106,7 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: idx * 0.05 }}
-                      className="border-b border-charcoal/10 hover:bg-cream/40"
+                      className="border-b border-charcoal/10 hover:bg-pink-pale/35"
                     >
                       <td className="px-6 py-4 text-sm font-medium text-charcoal">{guest?.name}</td>
                       <td className="px-6 py-4 text-sm text-charcoal">{rsvp.specialRequests || '-'}</td>
@@ -121,18 +121,18 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
 
       {/* No Response */}
       {noResponseGuests.length > 0 && (
-        <div className="overflow-hidden border border-charcoal/15 bg-white">
-          <div className="border-b border-charcoal/15 p-6 sm:p-8">
-            <h2 className="font-display text-2xl text-charcoal">No response ({noResponseGuests.length})</h2>
+        <div className="overflow-hidden border border-gold/30 bg-ivory shadow-sm shadow-sage-deep/5">
+          <div className="border-b border-gold/25 p-6 sm:p-8">
+            <h2 className="font-display text-2xl text-sage-dark">No response ({noResponseGuests.length})</h2>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-charcoal/15">
+              <thead className="border-b border-gold/25 bg-cream">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Guest name</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Guest name</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Email</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -142,12 +142,12 @@ export default function RSVPDashboard({ rsvps, guests }: Props) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="border-b border-charcoal/10 hover:bg-cream/40"
+                    className="border-b border-charcoal/10 hover:bg-pink-pale/35"
                   >
                     <td className="px-6 py-4 text-sm font-medium text-charcoal">{guest.name}</td>
                     <td className="px-6 py-4 text-sm text-charcoal">{guest.email}</td>
                     <td className="px-6 py-4 text-sm">
-                      <span className="border border-gold/50 px-3 py-1 text-xs font-semibold uppercase text-sage-dark">
+                      <span className="border border-gold/60 px-3 py-1 text-xs font-semibold uppercase text-sage-dark">
                         Pending
                       </span>
                     </td>
