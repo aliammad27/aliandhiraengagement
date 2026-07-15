@@ -1,162 +1,144 @@
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  getDoc,
-  query,
-  where,
-  QueryConstraint,
-  writeBatch,
-} from 'firebase/firestore';
-import { db } from './firebase';
 import { Guest, EngagementEvent, EngagementConfig, RSVPResponse } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
+type RSVPSubmission = Omit<RSVPResponse, 'id' | 'guestId'> & {
+  guestId?: string;
+  invitationToken?: string | null;
+  guestName?: string;
+};
+
+async function apiRequest<T>(path: string, init: RequestInit = {}) {
+  const headers = new Headers(init.headers);
+  if (init.body && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  const response = await fetch(path, {
+    ...init,
+    cache: init.cache || 'no-store',
+    headers,
+  });
+
+  if (!response.ok) {
+    let message = `Request failed with status ${response.status}`;
+    try {
+      const data = (await response.json()) as { error?: string };
+      if (data.error) message = data.error;
+    } catch {
+      // Use the default message when the response is not JSON.
+    }
+    throw new Error(message);
+  }
+
+  return (await response.json()) as T;
+}
+
+function jsonBody(body: unknown) {
+  return JSON.stringify(body);
+}
+
 // Guest Management
 export async function addGuest(guest: Omit<Guest, 'id' | 'createdAt' | 'updatedAt'>) {
-  const docRef = await addDoc(collection(db, 'guests'), {
-    ...guest,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+  const data = await apiRequest<{ id: string }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'addGuest', guest }),
   });
-  return docRef.id;
+  return data.id;
 }
 
 export async function getGuests() {
-  const snapshot = await getDocs(collection(db, 'guests'));
-  return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Guest));
+  const data = await apiRequest<{ guests: Guest[] }>('/api/admin/data?collection=guests');
+  return data.guests;
 }
 
 export async function getGuestById(id: string) {
-  const docRef = doc(db, 'guests', id);
-  const snapshot = await getDoc(docRef);
-  if (!snapshot.exists()) return undefined;
-  return { ...snapshot.data(), id: snapshot.id } as Guest;
+  const guests = await getGuests();
+  return guests.find((guest) => guest.id === id);
 }
 
 export async function getGuestByToken(token: string) {
-  const snapshot = await getDocs(
-    query(collection(db, 'guests'), where('invitationToken', '==', token))
-  );
-  const docSnap = snapshot.docs[0];
-  if (!docSnap) return undefined;
-  return { ...docSnap.data(), id: docSnap.id } as Guest;
+  if (!token) return undefined;
+  const data = await apiRequest<{ guest: Guest | null }>(`/api/invite?token=${encodeURIComponent(token)}`);
+  return data.guest || undefined;
 }
 
 export async function updateGuest(id: string, updates: Partial<Guest>) {
-  const docRef = doc(db, 'guests', id);
-  await updateDoc(docRef, {
-    ...updates,
-    updatedAt: new Date(),
+  await apiRequest<{ success: true }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'updateGuest', id, updates }),
   });
 }
 
 export async function deleteGuest(id: string) {
-  const docRef = doc(db, 'guests', id);
-  await deleteDoc(docRef);
+  await apiRequest<{ success: true }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'deleteGuest', id }),
+  });
 }
 
 // Bulk operations
 export async function bulkAddGuests(guests: Omit<Guest, 'id' | 'createdAt' | 'updatedAt'>[]) {
-  const batch = writeBatch(db);
-  const ids: string[] = [];
-
-  guests.forEach(guest => {
-    const docRef = doc(collection(db, 'guests'));
-    ids.push(docRef.id);
-    batch.set(docRef, {
-      ...guest,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+  const data = await apiRequest<{ ids: string[] }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'bulkAddGuests', guests }),
   });
-
-  await batch.commit();
-  return ids;
+  return data.ids;
 }
 
 // RSVP Management
-export async function recordRSVP(rsvp: Omit<RSVPResponse, 'id'>) {
-  const docRef = await addDoc(collection(db, 'rsvps'), {
-    ...rsvp,
-    respondedAt: new Date(),
+export async function recordRSVP(rsvp: RSVPSubmission) {
+  const data = await apiRequest<{ id: string }>('/api/rsvp', {
+    method: 'POST',
+    body: jsonBody(rsvp),
   });
-  return docRef.id;
+  return data.id;
 }
 
 export async function getRSVPs(eventId?: string) {
-  let q: QueryConstraint[] = [];
-  if (eventId) {
-    q = [where('eventId', '==', eventId)];
-  }
-  const snapshot = await getDocs(
-    q.length > 0 ? query(collection(db, 'rsvps'), ...q) : collection(db, 'rsvps')
-  );
-  return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as RSVPResponse));
+  const params = new URLSearchParams({ collection: 'rsvps' });
+  if (eventId) params.set('eventId', eventId);
+  const data = await apiRequest<{ rsvps: RSVPResponse[] }>(`/api/admin/data?${params.toString()}`);
+  return data.rsvps;
 }
 
 export async function getGuestRSVP(guestId: string, eventId: string) {
-  const snapshot = await getDocs(
-    query(
-      collection(db, 'rsvps'),
-      where('guestId', '==', guestId),
-      where('eventId', '==', eventId)
-    )
-  );
-  const docSnap = snapshot.docs[0];
-  if (!docSnap) return undefined;
-  return { ...docSnap.data(), id: docSnap.id } as RSVPResponse;
+  const params = new URLSearchParams({ collection: 'guestRsvp', guestId, eventId });
+  const data = await apiRequest<{ rsvp: RSVPResponse | null }>(`/api/admin/data?${params.toString()}`);
+  return data.rsvp || undefined;
 }
 
 // Event Management
 export async function addEvent(event: Omit<EngagementEvent, 'id' | 'createdAt' | 'updatedAt'>) {
-  const docRef = await addDoc(collection(db, 'events'), {
-    ...event,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+  const data = await apiRequest<{ id: string }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'addEvent', event }),
   });
-  return docRef.id;
+  return data.id;
 }
 
 export async function getEvents() {
-  const snapshot = await getDocs(collection(db, 'events'));
-  return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as EngagementEvent));
+  const data = await apiRequest<{ events: EngagementEvent[] }>('/api/admin/data?collection=events');
+  return data.events;
 }
 
 export async function updateEvent(id: string, updates: Partial<EngagementEvent>) {
-  const docRef = doc(db, 'events', id);
-  await updateDoc(docRef, {
-    ...updates,
-    updatedAt: new Date(),
+  await apiRequest<{ success: true }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'updateEvent', id, updates }),
   });
 }
 
 // Engagement Config
 export async function getEngagementConfig() {
-  const snapshot = await getDocs(collection(db, 'config'));
-  const docSnap = snapshot.docs[0];
-  if (!docSnap) return undefined;
-  return { ...docSnap.data(), id: docSnap.id } as EngagementConfig;
+  const data = await apiRequest<{ config: EngagementConfig | null }>('/api/config');
+  return data.config || undefined;
 }
 
 export async function updateEngagementConfig(config: Partial<EngagementConfig>) {
-  const snapshot = await getDocs(collection(db, 'config'));
-  const docRef = doc(db, 'config', snapshot.docs[0]?.id || 'main');
-
-  if (snapshot.docs.length === 0) {
-    await addDoc(collection(db, 'config'), {
-      ...config,
-      updatedAt: new Date(),
-    });
-  } else {
-    await updateDoc(docRef, {
-      ...config,
-      updatedAt: new Date(),
-    });
-  }
+  await apiRequest<{ config: EngagementConfig }>('/api/admin/data', {
+    method: 'POST',
+    body: jsonBody({ action: 'updateConfig', config }),
+  });
 }
 
 // Generate invitation token
