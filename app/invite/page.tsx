@@ -241,7 +241,7 @@ function InviteContent() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                    className={`min-h-14 border px-4 font-display text-lg transition-all ${
+                    className={`min-h-14 border px-4 font-display text-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep ${
                       selected
                         ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
                         : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
@@ -255,36 +255,42 @@ function InviteContent() {
           </fieldset>
 
           {formData.rsvpStatus === 'accepted' && (
-            <motion.div
+            <motion.fieldset
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               className="overflow-hidden"
             >
-              <label
-                htmlFor="party-size"
-                className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark"
-              >
+              <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark">
                 Number of guests
-              </label>
-              <select
-                id="party-size"
-                value={formData.partySize}
-                onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
-                className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors focus:border-pink-deep"
-              >
-                {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
-                  <option key={number} value={number}>
-                    {number} {number === 1 ? 'guest' : 'guests'}
-                  </option>
-                ))}
-              </select>
-            </motion.div>
+              </legend>
+              <div className="mx-auto grid max-w-md grid-cols-2 gap-3 sm:grid-cols-3">
+                {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
+                  const selected = formData.partySize === number;
+
+                  return (
+                    <button
+                      key={number}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setFormData({ ...formData, partySize: number })}
+                      className={`min-h-12 border px-3 text-center font-display text-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep ${
+                        selected
+                          ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
+                          : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                      }`}
+                    >
+                      {number} {number === 1 ? 'guest' : 'guests'}
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.fieldset>
           )}
 
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-12 w-full bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? 'Sending response...' : 'Send response'}
           </button>
