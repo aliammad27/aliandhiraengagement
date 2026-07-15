@@ -178,22 +178,20 @@ function InviteContent() {
     <main className="min-h-screen bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
 
-      <div className="mx-auto max-w-2xl">
-        <InvitationHero groom="Ali" bride="Hira" />
-      </div>
+      <InvitationHero groom="Ali" bride="Hira" />
 
-      <section className="border-t border-sage-deep/10 px-5 py-16 sm:px-8 sm:py-20">
+      <section className="px-5 py-14 sm:px-8 sm:py-16">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-xl text-center"
+          className="mx-auto max-w-2xl text-center"
         >
-          <p className="font-script text-3xl text-pink-deep">Kindly respond</p>
-          <h2 className="mt-4 font-display text-4xl text-sage-deep sm:text-5xl">
+          <p className="font-script text-3xl text-pink-deep sm:text-4xl">Kindly respond</p>
+          <h2 className="mt-3 font-display text-4xl text-sage-deep sm:text-5xl">
             {guest ? `Dear ${guest.name},` : 'Will you join us?'}
           </h2>
-          <p className="mx-auto mt-4 max-w-md font-display text-lg italic leading-8 text-charcoal-soft">
+          <p className="mx-auto mt-4 max-w-md text-base leading-7 text-charcoal-soft">
             Please let us know whether you will be able to join us.
           </p>
         </motion.div>
@@ -204,15 +202,13 @@ function InviteContent() {
           animate="visible"
           custom={1}
           onSubmit={handleSubmit}
-          className="relative mx-auto mt-10 max-w-xl space-y-10 bg-ivory px-6 py-12 shadow-xl shadow-sage-deep/10 sm:px-12"
+          className="mx-auto mt-9 max-w-2xl space-y-8 border border-gold/25 bg-ivory px-5 py-9 shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-11"
         >
-          <CornerFrame borderColor="border-pink-deep/35" />
-
           {!guest && (
             <div>
               <label
                 htmlFor="guest-name"
-                className="mb-3 block text-center text-[0.66rem] font-medium uppercase tracking-[0.2em] text-charcoal-soft"
+                className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark"
               >
                 Your name
               </label>
@@ -224,16 +220,16 @@ function InviteContent() {
                 placeholder="First and last name"
                 value={formData.name}
                 onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                className="w-full border-b border-gold/40 bg-transparent py-3 text-center font-display text-xl outline-none transition-colors placeholder:text-charcoal-soft/45 focus:border-pink-deep"
+                className="w-full border-b border-sage-dark/35 bg-transparent py-3 text-center font-display text-2xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-pink-deep"
               />
             </div>
           )}
 
           <fieldset>
-            <legend className="mb-6 block w-full text-center font-display text-2xl text-sage-deep">
+            <legend className="mb-5 block w-full text-center font-display text-2xl text-sage-deep sm:text-3xl">
               Will you be joining us?
             </legend>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
               {[
                 { value: 'accepted', label: 'Joyfully accept' },
                 { value: 'declined', label: 'Regretfully decline' },
@@ -245,10 +241,10 @@ function InviteContent() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                    className={`min-h-14 border px-3 font-display text-base transition-all sm:text-lg ${
+                    className={`min-h-14 border px-4 font-display text-lg transition-all ${
                       selected
                         ? 'border-sage-deep bg-sage-deep text-ivory shadow-md shadow-sage-deep/25'
-                        : 'border-gold/40 bg-transparent text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                        : 'border-gold/45 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                     }`}
                   >
                     {option.label}
@@ -266,7 +262,7 @@ function InviteContent() {
             >
               <label
                 htmlFor="party-size"
-                className="mb-3 block text-center text-[0.66rem] font-medium uppercase tracking-[0.2em] text-charcoal-soft"
+                className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark"
               >
                 Number of guests
               </label>
@@ -274,7 +270,7 @@ function InviteContent() {
                 id="party-size"
                 value={formData.partySize}
                 onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
-                className="w-full border-b border-gold/40 bg-transparent py-3 text-center font-display text-lg outline-none transition-colors focus:border-pink-deep"
+                className="w-full border-b border-sage-dark/35 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors focus:border-pink-deep"
               >
                 {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
                   <option key={number} value={number}>
@@ -288,17 +284,11 @@ function InviteContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full bg-sage-deep px-6 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep disabled:cursor-not-allowed disabled:opacity-50"
+            className="min-h-12 w-full bg-sage-deep px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? 'Sending response...' : 'Send response'}
           </button>
         </motion.form>
-
-        <div className="mx-auto mt-9 max-w-xl text-center">
-          <Link href="/" className="text-sm text-charcoal-soft underline decoration-gold/40 underline-offset-4 transition-colors hover:text-pink-deep">
-            Back to Hira &amp; Ali
-          </Link>
-        </div>
       </section>
     </main>
   );
