@@ -30,9 +30,13 @@ export function createSessionToken() {
 export function isValidSessionToken(token: string | undefined) {
   if (!token) return false;
 
-  const expected = Buffer.from(sign('authenticated'));
-  const received = Buffer.from(token);
-  if (received.length !== expected.length) return false;
+  try {
+    const expected = Buffer.from(sign('authenticated'));
+    const received = Buffer.from(token);
+    if (received.length !== expected.length) return false;
 
-  return timingSafeEqual(received, expected);
+    return timingSafeEqual(received, expected);
+  } catch {
+    return false;
+  }
 }
