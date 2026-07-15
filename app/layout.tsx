@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Cormorant_Garamond, Amiri, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
@@ -28,6 +28,18 @@ const pinyonScript = Pinyon_Script({
 export const metadata: Metadata = {
   title: "Hira & Ali",
   description: "Join us as we celebrate our engagement",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", sizes: "256x256", type: "image/png" },
+    ],
+    shortcut: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#4f6f5b",
 };
 
 export default function RootLayout({
