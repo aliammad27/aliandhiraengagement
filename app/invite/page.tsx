@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
-import { addGuest, generateInvitationToken, getGuestByToken, recordRSVP } from '@/lib/database';
+import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import InvitationHero from '@/components/InvitationHero';
 import { CornerFrame, StarDivider, creamGoldWash, sageBlushRadial } from '@/components/ornaments';
@@ -80,20 +80,10 @@ function InviteContent() {
 
     setSubmitting(true);
     try {
-      let guestId = guest?.id;
-
-      if (!guestId) {
-        guestId = await addGuest({
-          name,
-          email: '',
-          phone: '',
-          partySize: Number(formData.partySize),
-          invitationToken: generateInvitationToken(),
-        });
-      }
-
       await recordRSVP({
-        guestId,
+        guestId: guest?.id,
+        invitationToken: token,
+        guestName: name,
         eventId: 'main',
         status: formData.rsvpStatus as 'accepted' | 'declined',
         partySize: Number(formData.partySize),
