@@ -30,29 +30,29 @@ const toasterStyle = {
 function LoadingScreen() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-cream">
-      <div className="h-8 w-8 animate-spin rounded-full border border-sage-light/40 border-t-gold" />
+      <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/50 border-t-gold" />
     </div>
   );
 }
 
 function InviteMessage({ title, message }: { title: string; message: string }) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-sage-deep px-5 text-center text-ivory">
+    <main className="flex min-h-screen items-center justify-center bg-sage-dark px-5 text-center text-ivory">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         animate="visible"
         className="relative w-full max-w-lg px-7 py-14 sm:px-12 sm:py-16"
       >
-        <CornerFrame borderColor="border-blush/60" />
+        <CornerFrame borderColor="border-gold-soft" />
         <StarDivider />
         <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">{title}</h1>
-        <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/70">
+        <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory">
           {message}
         </p>
         <Link
           href="/"
-          className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold/55 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold-soft transition-colors hover:bg-gold hover:text-sage-dark"
+          className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
         >
           Return home
         </Link>
@@ -188,10 +188,10 @@ function InviteContent() {
           className="mx-auto max-w-2xl text-center"
         >
           <p className="font-script text-3xl text-pink-deep sm:text-4xl">Kindly respond</p>
-          <h2 className="mt-3 font-display text-4xl text-sage-deep sm:text-5xl">
+          <h2 className="mt-3 font-display text-4xl text-sage-dark sm:text-5xl">
             {guest ? `Dear ${guest.name},` : 'Will you join us?'}
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-base leading-7 text-charcoal-soft">
+          <p className="mx-auto mt-4 max-w-md text-base font-medium leading-7 text-charcoal">
             Please let us know whether you will be able to join us.
           </p>
         </motion.div>
@@ -202,7 +202,7 @@ function InviteContent() {
           animate="visible"
           custom={1}
           onSubmit={handleSubmit}
-          className="mx-auto mt-9 max-w-2xl space-y-8 border border-gold/25 bg-ivory px-5 py-9 shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-11"
+          className="mx-auto mt-9 max-w-2xl space-y-8 border border-gold/40 bg-ivory px-5 py-9 shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-11"
         >
           {!guest && (
             <div>
@@ -220,13 +220,13 @@ function InviteContent() {
                 placeholder="First and last name"
                 value={formData.name}
                 onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                className="w-full border-b border-sage-dark/35 bg-transparent py-3 text-center font-display text-2xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-pink-deep"
+                className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-2xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
               />
             </div>
           )}
 
           <fieldset>
-            <legend className="mb-5 block w-full text-center font-display text-2xl text-sage-deep sm:text-3xl">
+            <legend className="mb-5 block w-full text-center font-display text-2xl text-sage-dark sm:text-3xl">
               Will you be joining us?
             </legend>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
@@ -243,8 +243,8 @@ function InviteContent() {
                     onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
                     className={`min-h-14 border px-4 font-display text-lg transition-all ${
                       selected
-                        ? 'border-sage-deep bg-sage-deep text-ivory shadow-md shadow-sage-deep/25'
-                        : 'border-gold/45 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                        ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
+                        : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                     }`}
                   >
                     {option.label}
@@ -270,7 +270,7 @@ function InviteContent() {
                 id="party-size"
                 value={formData.partySize}
                 onChange={(event) => setFormData({ ...formData, partySize: Number(event.target.value) })}
-                className="w-full border-b border-sage-dark/35 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors focus:border-pink-deep"
+                className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors focus:border-pink-deep"
               >
                 {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => (
                   <option key={number} value={number}>
@@ -284,7 +284,7 @@ function InviteContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full bg-sage-deep px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep disabled:cursor-not-allowed disabled:opacity-50"
+            className="min-h-12 w-full bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? 'Sending response...' : 'Send response'}
           </button>
