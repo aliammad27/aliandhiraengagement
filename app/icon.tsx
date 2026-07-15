@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
+export const alt = "Hira and Ali";
 export const size = { width: 256, height: 256 };
 export const contentType = "image/png";
 
@@ -13,7 +14,6 @@ export default function Icon() {
           height: "100%",
           alignItems: "center",
           background: "#4f6f5b",
-          borderRadius: 56,
           display: "flex",
           justifyContent: "center",
           position: "relative",
@@ -21,41 +21,39 @@ export default function Icon() {
       >
         <div
           style={{
-            border: "9px solid #c9a75d",
-            borderRadius: 42,
-            bottom: 19,
-            left: 19,
+            border: "8px solid rgba(255, 250, 242, 0.18)",
+            borderRadius: 999,
+            height: 218,
             position: "absolute",
-            right: 19,
-            top: 19,
+            width: 218,
           }}
         />
         <div
           style={{
-            alignItems: "baseline",
-            color: "#fffaf2",
+            alignItems: "center",
+            background: "#d88f9c",
+            border: "10px solid #d8b86a",
+            borderRadius: 999,
             display: "flex",
-            fontFamily: "Georgia, serif",
-            fontSize: 92,
-            fontWeight: 700,
+            height: 184,
             justifyContent: "center",
-            letterSpacing: 0,
-            lineHeight: 1,
+            width: 184,
           }}
         >
-          <span>H</span>
-          <span
+          <div
             style={{
-              color: "#f0b7c0",
-              fontSize: 76,
-              fontWeight: 600,
-              marginLeft: 5,
-              marginRight: 5,
+              color: "#fffaf2",
+              display: "flex",
+              fontFamily: "Georgia, serif",
+              fontSize: 72,
+              fontWeight: 700,
+              letterSpacing: 0,
+              lineHeight: 1,
+              marginTop: 2,
             }}
           >
-            &amp;
-          </span>
-          <span>A</span>
+            H&amp;A
+          </div>
         </div>
       </div>
     ),
