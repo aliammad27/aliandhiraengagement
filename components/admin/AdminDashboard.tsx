@@ -48,7 +48,8 @@ export default function AdminDashboard() {
 
   const acceptedCount = rsvps.filter(r => r.status === 'accepted').length;
   const declinedCount = rsvps.filter(r => r.status === 'declined').length;
-  const pendingCount = guests.length - rsvps.length;
+  const respondedGuestIds = new Set(rsvps.map((r) => r.guestId));
+  const pendingCount = guests.filter((guest) => !respondedGuestIds.has(guest.id)).length;
 
   const handleLogout = async () => {
     await fetch('/api/admin/logout', { method: 'POST' });
