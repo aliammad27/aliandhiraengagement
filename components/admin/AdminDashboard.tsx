@@ -58,7 +58,7 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-cream">
+      <div className="flex min-h-[100svh] items-center justify-center bg-cream">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
@@ -69,7 +69,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-cream text-charcoal">
+    <div className="min-h-[100svh] w-full overflow-x-hidden bg-cream text-charcoal">
       <Toaster toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
 
       <motion.header
@@ -77,34 +77,34 @@ export default function AdminDashboard() {
         animate={{ y: 0, opacity: 1 }}
         className="border-b border-gold/30 bg-sage-dark text-ivory"
       >
-        <div className="mx-auto flex max-w-6xl items-start justify-between gap-4 px-5 py-8 sm:px-8">
-          <div>
+        <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-5 px-4 py-6 sm:flex-row sm:items-start sm:justify-between sm:px-8 sm:py-8">
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase text-gold-soft">Engagement management</p>
-            <h1 className="mt-3 font-display text-3xl sm:text-4xl">
+            <h1 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
               {config?.coupleNames?.bride || 'Hira'} <span className="text-pink-light">&amp;</span>{' '}
               {config?.coupleNames?.groom || 'Ali'}
             </h1>
           </div>
           <button
             onClick={handleLogout}
-            className="mt-1 min-h-9 whitespace-nowrap border border-gold-soft px-4 text-xs font-semibold uppercase text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
+            className="min-h-11 w-full whitespace-nowrap border border-gold-soft px-4 text-xs font-semibold uppercase text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:mt-1 sm:w-auto"
           >
             Log out
           </button>
         </div>
       </motion.header>
 
-      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-7 sm:px-8 sm:py-8">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="mb-8 flex gap-2 overflow-x-auto pb-1"
+          className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0"
         >
           {(['overview', 'guests', 'events', 'rsvps', 'settings'] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`min-h-10 whitespace-nowrap px-5 py-2 text-xs font-semibold uppercase transition-colors ${
+              className={`min-h-11 shrink-0 whitespace-nowrap px-5 py-2 text-xs font-semibold uppercase transition-colors ${
                 activeTab === tab
                   ? 'bg-sage-dark text-ivory shadow-sm shadow-sage-deep/20'
                   : 'border border-sage-dark/35 text-sage-dark hover:border-pink-deep hover:text-pink-deep'
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
               exit={{ opacity: 0 }}
               className="space-y-6"
             >
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
                 {[
                   { label: 'Total guests', value: guests.length },
                   { label: 'Accepted', value: acceptedCount },
@@ -140,15 +140,15 @@ export default function AdminDashboard() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="border border-gold/30 bg-ivory px-5 py-6 shadow-sm shadow-sage-deep/5"
+                    className="border border-gold/30 bg-ivory px-4 py-5 shadow-sm shadow-sage-deep/5 sm:px-5 sm:py-6"
                   >
-                    <p className="text-xs font-semibold uppercase text-sage-dark">{stat.label}</p>
-                    <p className="mt-2 font-display text-4xl text-charcoal">{stat.value}</p>
+                    <p className="text-xs font-semibold uppercase leading-4 text-sage-dark">{stat.label}</p>
+                    <p className="mt-2 font-display text-3xl text-charcoal sm:text-4xl">{stat.value}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="border border-gold/30 bg-ivory p-6 shadow-sm shadow-sage-deep/5 sm:p-8">
+              <div className="border border-gold/30 bg-ivory p-5 shadow-sm shadow-sage-deep/5 sm:p-8">
                 <h2 className="font-display text-2xl text-sage-dark">Quick actions</h2>
                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <button
