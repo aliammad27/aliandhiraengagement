@@ -11,6 +11,15 @@ interface Props {
   onRefresh: () => Promise<void>;
 }
 
+const DEFAULT_PRIMARY_COLOR = '#7d9b76';
+const DEFAULT_SECONDARY_COLOR = '#d4878a';
+
+function dateInputToDate(value: string) {
+  if (!value) return null;
+  const date = new Date(`${value}T12:00:00`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 export default function ProfileSettings({ config, onRefresh }: Props) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,8 +27,8 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
     brideName: '',
     story: '',
     engagementDate: '',
-    primaryColor: '#f43f5e',
-    secondaryColor: '#ec4899',
+    primaryColor: DEFAULT_PRIMARY_COLOR,
+    secondaryColor: DEFAULT_SECONDARY_COLOR,
   });
 
   useEffect(() => {
@@ -31,8 +40,8 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
         engagementDate: config.engagementDate
           ? new Date(config.engagementDate).toISOString().split('T')[0]
           : '',
-        primaryColor: config.primaryColor || '#f43f5e',
-        secondaryColor: config.secondaryColor || '#ec4899',
+        primaryColor: config.primaryColor || DEFAULT_PRIMARY_COLOR,
+        secondaryColor: config.secondaryColor || DEFAULT_SECONDARY_COLOR,
       });
     }
   }, [config]);
@@ -44,6 +53,8 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
       return;
     }
 
+    const engagementDate = dateInputToDate(formData.engagementDate);
+
     setLoading(true);
     try {
       await updateEngagementConfig({
@@ -52,7 +63,7 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
           bride: formData.brideName,
         },
         story: formData.story,
-        engagementDate: new Date(formData.engagementDate),
+        ...(engagementDate ? { engagementDate } : {}),
         primaryColor: formData.primaryColor,
         secondaryColor: formData.secondaryColor,
       });
@@ -65,6 +76,8 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
       setLoading(false);
     }
   };
+
+  const previewDate = dateInputToDate(formData.engagementDate);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -176,8 +189,8 @@ export default function ProfileSettings({ config, onRefresh }: Props) {
                 {formData.brideName || 'Bride'} <span className="text-gold">&amp;</span> {formData.groomName || 'Groom'}
               </p>
               <p className="text-sm text-charcoal-soft">
-                {formData.engagementDate
-                  ? new Date(formData.engagementDate).toLocaleDateString('en-US', {
+                {previewDate
+                  ? previewDate.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
