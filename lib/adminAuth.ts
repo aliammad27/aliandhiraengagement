@@ -1,16 +1,26 @@
 import { createHmac, timingSafeEqual } from 'crypto';
 
-const ADMIN_PASSWORD = 'icecreamsandwich';
-const SESSION_SECRET = 'ali-and-hira-engagement-admin-2025';
-
 export const ADMIN_SESSION_COOKIE = 'admin_session';
 
+function getAdminPassword() {
+  return process.env.ADMIN_PASSWORD || '';
+}
+
+function getSessionSecret() {
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret) {
+    throw new Error('ADMIN_SESSION_SECRET is required');
+  }
+  return secret;
+}
+
 function sign(value: string) {
-  return createHmac('sha256', SESSION_SECRET).update(value).digest('hex');
+  return createHmac('sha256', getSessionSecret()).update(value).digest('hex');
 }
 
 export function checkPassword(password: string) {
-  return password === ADMIN_PASSWORD;
+  const expected = getAdminPassword();
+  return Boolean(expected) && password === expected;
 }
 
 export function createSessionToken() {
