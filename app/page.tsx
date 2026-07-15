@@ -66,12 +66,12 @@ export default function Home() {
             H<span className="text-pink-light">&amp;</span>A
           </a>
           <nav className="flex items-center gap-6 text-sm" aria-label="Main navigation">
-            <a href="#details" className="hidden text-ivory/85 transition-colors hover:text-gold-soft sm:inline">
+            <a href="#details" className="hidden text-ivory transition-colors hover:text-gold-soft sm:inline">
               The date
             </a>
             <Link
               href="/invite"
-              className="inline-flex min-h-10 items-center border border-ivory/55 px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
+              className="inline-flex min-h-10 items-center border border-ivory px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
             >
               RSVP
             </Link>
@@ -117,7 +117,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             custom={3}
-            className="mt-6 w-full max-w-[360px] font-display italic text-xl leading-8 text-ivory/90 sm:max-w-lg sm:text-3xl sm:leading-relaxed"
+            className="mt-6 w-full max-w-[360px] font-display italic text-xl leading-8 text-ivory sm:max-w-lg sm:text-3xl sm:leading-relaxed"
           >
             With love and gratitude, we invite you to celebrate our engagement.
           </motion.p>
@@ -131,12 +131,12 @@ export default function Home() {
             aria-label={eventDate}
             className="mt-9 block w-full max-w-[360px]"
           >
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold-soft/55 py-4">
+            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold-soft/70 py-4">
               <span className="flex flex-col gap-1">
                 <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">Day</span>
                 <span className="font-display text-xl text-ivory sm:text-2xl">{eventWeekday}</span>
               </span>
-              <span className="flex flex-col border-x border-gold-soft/35">
+              <span className="flex flex-col border-x border-gold-soft/50">
                 <span className="font-display text-5xl leading-none text-pink-light">{eventDay}</span>
               </span>
               <span className="flex flex-col gap-1">
@@ -144,20 +144,20 @@ export default function Home() {
                 <span className="font-display text-xl text-ivory sm:text-2xl">{eventMonth}</span>
               </span>
             </span>
-            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-ivory/85">
+            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-ivory">
               {eventYear} · Insha&apos;Allah
             </span>
           </motion.time>
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 text-center">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory/90">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory">
               1204 Middle Ave, Waterford Works, NJ
             </p>
             <a
               href="https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-11 items-center border border-gold-soft/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
+              className="mt-4 inline-flex min-h-11 items-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
             >
               Get directions
             </a>
@@ -195,9 +195,9 @@ export default function Home() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative mx-auto max-w-2xl border border-gold/25 bg-ivory px-6 py-14 shadow-xl shadow-sage-deep/10 sm:px-14 sm:py-16"
+          className="relative mx-auto max-w-2xl border border-gold/35 bg-ivory px-6 py-14 shadow-xl shadow-sage-deep/10 sm:px-14 sm:py-16"
         >
-          <CornerFrame borderColor="border-pink-deep/40" />
+          <CornerFrame borderColor="border-pink-deep/60" />
 
           <p className="font-script text-3xl text-pink-deep sm:text-4xl">Save the date</p>
 
@@ -209,12 +209,12 @@ export default function Home() {
             <StarDivider tone="sage" />
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-gold/40 py-5">
+          <div className="mx-auto mt-8 grid max-w-md grid-cols-3 border-y border-gold/50 py-5">
             <div>
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-charcoal-soft">Day</p>
               <p className="mt-2 font-display text-xl text-sage-dark sm:text-2xl">{eventWeekday}</p>
             </div>
-            <div className="border-x border-gold/25">
+            <div className="border-x border-gold/35">
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-charcoal-soft">Date</p>
               <p className="mt-2 font-display text-xl text-pink-deep sm:text-2xl">{eventDay}</p>
             </div>
@@ -245,7 +245,7 @@ export default function Home() {
         <p className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold-soft">
           {eventDate} · Insha&apos;Allah
         </p>
-        <Link href="/admin" className="mt-8 inline-block text-xs text-ivory/60 transition-colors hover:text-ivory">
+        <Link href="/admin" className="mt-8 inline-block text-xs font-medium text-ivory transition-colors hover:text-gold-soft">
           Manage invitations
         </Link>
       </footer>
