@@ -99,15 +99,15 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
       {/* Add Guest Section */}
-      <div className="border border-charcoal/15 bg-white p-6 sm:p-8">
-        <h2 className="font-display text-2xl text-charcoal">Add guests</h2>
+      <div className="border border-gold/30 bg-ivory p-6 shadow-sm shadow-sage-deep/5 sm:p-8">
+        <h2 className="font-display text-2xl text-sage-dark">Add guests</h2>
 
         <div className="mt-5 space-y-4">
           {/* Single Guest Form */}
           <div>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
-              className="min-h-11 border border-navy bg-navy px-5 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-navy-soft"
+              className="min-h-11 border border-sage-dark bg-sage-dark px-5 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep"
             >
               {showAddForm ? 'Cancel' : 'Add single guest'}
             </button>
@@ -117,33 +117,33 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 onSubmit={handleAddGuest}
-                className="mt-4 space-y-4 border border-charcoal/15 bg-cream p-4"
+                className="mt-4 space-y-4 border border-sage-dark/20 bg-cream p-4"
               >
                 <input
                   type="text"
                   placeholder="Guest name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <input
                   type="email"
                   placeholder="Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <input
                   type="tel"
                   placeholder="Phone (optional)"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <select
                   value={formData.partySize}
                   onChange={(e) => setFormData({ ...formData, partySize: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors focus:border-pink-deep"
                 >
                   {[1, 2, 3, 4, 5, 6].map(n => (
                     <option key={n} value={n}>{n} guest{n > 1 ? 's' : ''}</option>
@@ -152,7 +152,7 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="min-h-11 w-full bg-navy text-xs font-semibold uppercase text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-60"
+                  className="min-h-11 w-full bg-sage-dark text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? 'Adding...' : 'Add guest'}
                 </button>
@@ -162,19 +162,19 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
 
           {/* Bulk Add */}
           <div>
-            <h3 className="text-xs font-semibold uppercase text-charcoal">Bulk add guests</h3>
+            <h3 className="text-xs font-semibold uppercase text-sage-dark">Bulk add guests</h3>
             <p className="mt-2 text-sm font-medium text-charcoal">Format: Name,Email,Phone,PartySize (one per line)</p>
             <textarea
               value={csvInput}
               onChange={(e) => setCsvInput(e.target.value)}
               placeholder="John Doe,john@example.com,555-1234,1&#10;Jane Smith,jane@example.com,,2"
-              className="mt-3 w-full resize-none border border-charcoal/30 bg-transparent p-3 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
+              className="mt-3 w-full resize-none border border-charcoal/30 bg-cream p-3 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
               rows={4}
             />
             <button
               onClick={handleBulkAdd}
               disabled={loading}
-              className="mt-3 min-h-11 w-full border border-navy text-xs font-semibold uppercase text-navy transition-colors hover:bg-navy hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 min-h-11 w-full border border-sage-dark text-xs font-semibold uppercase text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? 'Adding...' : 'Add multiple guests'}
             </button>
@@ -183,19 +183,19 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
       </div>
 
       {/* Guests List */}
-      <div className="overflow-hidden border border-charcoal/15 bg-white">
+      <div className="overflow-hidden border border-gold/30 bg-ivory shadow-sm shadow-sage-deep/5">
         <div className="p-6 sm:p-8">
-          <h2 className="font-display text-2xl text-charcoal">Guest list ({guests.length})</h2>
+          <h2 className="font-display text-2xl text-sage-dark">Guest list ({guests.length})</h2>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="border-y border-charcoal/15">
+            <thead className="border-y border-gold/25 bg-cream">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Party size</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-charcoal">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Party size</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -205,7 +205,7 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="border-b border-charcoal/10 hover:bg-cream/40"
+                  className="border-b border-charcoal/10 hover:bg-pink-pale/35"
                 >
                   <td className="px-6 py-4 text-sm text-charcoal">{guest.name}</td>
                   <td className="px-6 py-4 text-sm text-charcoal">{guest.email}</td>
@@ -213,13 +213,13 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                   <td className="space-x-4 px-6 py-4 text-sm">
                     <button
                       onClick={() => copyInviteLink(guest.invitationToken)}
-                      className="font-semibold text-navy hover:text-gold"
+                      className="font-semibold text-sage-dark hover:text-gold"
                     >
                       Invite
                     </button>
                     <button
                       onClick={() => handleDeleteGuest(guest.id)}
-                      className="font-semibold text-charcoal hover:text-red-700"
+                      className="font-semibold text-charcoal hover:text-pink-deep"
                     >
                       Delete
                     </button>
