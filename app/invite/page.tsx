@@ -38,12 +38,40 @@ function LoadingScreen() {
   );
 }
 
+function InviteMessage({ title, message }: { title: string; message: string }) {
+  return (
+    <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={sageBlushRadial}>
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="relative w-full max-w-lg px-7 py-14 sm:px-12 sm:py-16"
+      >
+        <CornerFrame borderColor="border-blush/60" />
+        <StarDivider />
+        <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">{title}</h1>
+        <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/70">
+          {message}
+        </p>
+        <Link
+          href="/"
+          className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold/55 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold-soft transition-colors hover:bg-gold hover:text-sage-dark"
+        >
+          Return home
+        </Link>
+      </motion.div>
+    </main>
+  );
+}
+
 function InviteContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
   const [guest, setGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
+  const [invalidInvitation, setInvalidInvitation] = useState(false);
+  const [lookupError, setLookupError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,14 +81,28 @@ function InviteContent() {
   });
 
   useEffect(() => {
+    setGuest(null);
+    setInvalidInvitation(false);
+    setLookupError(false);
+    setLoading(true);
+
     if (!token) {
       setLoading(false);
       return;
     }
 
     getGuestByToken(token)
-      .then((data) => setGuest(data || null))
-      .catch((error) => console.error('Error fetching guest:', error))
+      .then((data) => {
+        if (data) {
+          setGuest(data);
+        } else {
+          setInvalidInvitation(true);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching guest:', error);
+        setLookupError(true);
+      })
       .finally(() => setLoading(false));
   }, [token]);
 
@@ -100,35 +142,36 @@ function InviteContent() {
 
   if (loading) return <LoadingScreen />;
 
+  if (token && invalidInvitation) {
+    return (
+      <InviteMessage
+        title="Invitation link not found."
+        message="Please check that the link was copied completely, or ask Hira and Ali to send a fresh invitation."
+      />
+    );
+  }
+
+  if (token && lookupError) {
+    return (
+      <InviteMessage
+        title="Invitation could not be loaded."
+        message="Please try again in a moment. If it still does not load, ask Hira and Ali to send a fresh invitation."
+      />
+    );
+  }
+
   if (submitted) {
     const accepted = formData.rsvpStatus === 'accepted';
 
     return (
-      <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={sageBlushRadial}>
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="relative w-full max-w-lg px-7 py-14 sm:px-12 sm:py-16"
-        >
-          <CornerFrame borderColor="border-blush/60" />
-          <StarDivider />
-          <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">
-            {accepted ? 'We look forward to celebrating with you.' : 'You will be missed.'}
-          </h1>
-          <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory/70">
-            {accepted
-              ? 'Your response has been received. We will share any final details with you directly.'
-              : 'Thank you for letting us know. You will be in our thoughts on the day.'}
-          </p>
-          <Link
-            href="/"
-            className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold/55 px-6 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gold-soft transition-colors hover:bg-gold hover:text-sage-dark"
-          >
-            Return home
-          </Link>
-        </motion.div>
-      </main>
+      <InviteMessage
+        title={accepted ? 'We look forward to celebrating with you.' : 'You will be missed.'}
+        message={
+          accepted
+            ? 'Your response has been received. We will share any final details with you directly.'
+            : 'Thank you for letting us know. You will be in our thoughts on the day.'
+        }
+      />
     );
   }
 
