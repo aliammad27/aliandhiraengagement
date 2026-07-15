@@ -21,7 +21,16 @@ export default function AdminLoginPage() {
       });
 
       if (!response.ok) {
-        toast.error('Incorrect password');
+        let message = 'Incorrect password';
+
+        try {
+          const data = (await response.json()) as { error?: string };
+          if (response.status >= 500 && data.error) message = data.error;
+        } catch {
+          // Keep the default error when the response is not JSON.
+        }
+
+        toast.error(message);
         return;
       }
 
