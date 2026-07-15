@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getGuestByToken, recordRSVP } from '@/lib/database';
 import { Guest } from '@/lib/types';
 import InvitationHero from '@/components/InvitationHero';
-import { CornerFrame, StarDivider, creamGoldWash, sageBlushRadial } from '@/components/ornaments';
+import { CornerFrame, StarDivider } from '@/components/ornaments';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
@@ -29,18 +29,15 @@ const toasterStyle = {
 
 function LoadingScreen() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={sageBlushRadial}
-    >
-      <div className="h-8 w-8 animate-spin rounded-full border border-blush/40 border-t-gold" />
+    <div className="flex min-h-screen items-center justify-center bg-cream">
+      <div className="h-8 w-8 animate-spin rounded-full border border-sage-light/40 border-t-gold" />
     </div>
   );
 }
 
 function InviteMessage({ title, message }: { title: string; message: string }) {
   return (
-    <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={sageBlushRadial}>
+    <main className="flex min-h-screen items-center justify-center bg-sage-deep px-5 text-center text-ivory">
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -178,14 +175,14 @@ function InviteContent() {
   const maximumPartySize = guest ? Math.max(1, guest.partySize || 1) : 6;
 
   return (
-    <main className="min-h-screen text-charcoal" style={creamGoldWash}>
+    <main className="min-h-screen bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
 
       <div className="mx-auto max-w-2xl">
         <InvitationHero groom="Ali" bride="Hira" />
       </div>
 
-      <section className="px-5 py-16 sm:px-8 sm:py-20">
+      <section className="border-t border-sage-deep/10 px-5 py-16 sm:px-8 sm:py-20">
         <motion.div
           variants={fadeUp}
           initial="hidden"
