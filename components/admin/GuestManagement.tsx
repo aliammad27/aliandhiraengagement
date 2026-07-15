@@ -97,9 +97,9 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-full space-y-6">
       {/* Add Guest Section */}
-      <div className="border border-gold/30 bg-ivory p-6 shadow-sm shadow-sage-deep/5 sm:p-8">
+      <div className="border border-gold/30 bg-ivory p-5 shadow-sm shadow-sage-deep/5 sm:p-8">
         <h2 className="font-display text-2xl text-sage-dark">Add guests</h2>
 
         <div className="mt-5 space-y-4">
@@ -107,7 +107,7 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
           <div>
             <button
               onClick={() => setShowAddForm(!showAddForm)}
-              className="min-h-11 border border-sage-dark bg-sage-dark px-5 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep"
+              className="min-h-11 w-full border border-sage-dark bg-sage-dark px-5 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep sm:w-auto"
             >
               {showAddForm ? 'Cancel' : 'Add single guest'}
             </button>
@@ -117,33 +117,33 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 onSubmit={handleAddGuest}
-                className="mt-4 space-y-4 border border-sage-dark/20 bg-cream p-4"
+                className="mt-4 space-y-4 border border-sage-dark/20 bg-cream p-4 sm:p-5"
               >
                 <input
                   type="text"
                   placeholder="Guest name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-3 text-base text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <input
                   type="email"
                   placeholder="Email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-3 text-base text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <input
                   type="tel"
                   placeholder="Phone (optional)"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-3 text-base text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                 />
                 <select
                   value={formData.partySize}
                   onChange={(e) => setFormData({ ...formData, partySize: e.target.value })}
-                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors focus:border-pink-deep"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-3 text-base text-charcoal outline-none transition-colors focus:border-pink-deep"
                 >
                   {[1, 2, 3, 4, 5, 6].map(n => (
                     <option key={n} value={n}>{n} guest{n > 1 ? 's' : ''}</option>
@@ -152,7 +152,7 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="min-h-11 w-full bg-sage-dark text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep disabled:cursor-not-allowed disabled:opacity-60"
+                  className="min-h-11 w-full bg-sage-dark px-4 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-sage-deep disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? 'Adding...' : 'Add guest'}
                 </button>
@@ -163,18 +163,18 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
           {/* Bulk Add */}
           <div>
             <h3 className="text-xs font-semibold uppercase text-sage-dark">Bulk add guests</h3>
-            <p className="mt-2 text-sm font-medium text-charcoal">Format: Name,Email,Phone,PartySize (one per line)</p>
+            <p className="mt-2 text-sm font-medium leading-6 text-charcoal">Format: Name,Email,Phone,PartySize (one per line)</p>
             <textarea
               value={csvInput}
               onChange={(e) => setCsvInput(e.target.value)}
               placeholder="John Doe,john@example.com,555-1234,1&#10;Jane Smith,jane@example.com,,2"
-              className="mt-3 w-full resize-none border border-charcoal/30 bg-cream p-3 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
+              className="mt-3 w-full resize-none border border-charcoal/30 bg-cream p-3 text-base text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
               rows={4}
             />
             <button
               onClick={handleBulkAdd}
               disabled={loading}
-              className="mt-3 min-h-11 w-full border border-sage-dark text-xs font-semibold uppercase text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 min-h-11 w-full border border-sage-dark px-4 text-xs font-semibold uppercase text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? 'Adding...' : 'Add multiple guests'}
             </button>
@@ -184,18 +184,18 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
 
       {/* Guests List */}
       <div className="overflow-hidden border border-gold/30 bg-ivory shadow-sm shadow-sage-deep/5">
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8">
           <h2 className="font-display text-2xl text-sage-dark">Guest list ({guests.length})</h2>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[680px]">
             <thead className="border-y border-gold/25 bg-cream">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Party size</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-sage-dark">Actions</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-sage-dark sm:px-6">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-sage-dark sm:px-6">Email</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-sage-dark sm:px-6">Party size</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-sage-dark sm:px-6">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -207,22 +207,24 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                   transition={{ delay: idx * 0.05 }}
                   className="border-b border-charcoal/10 hover:bg-pink-pale/35"
                 >
-                  <td className="px-6 py-4 text-sm text-charcoal">{guest.name}</td>
-                  <td className="px-6 py-4 text-sm text-charcoal">{guest.email}</td>
-                  <td className="px-6 py-4 text-sm text-charcoal">{guest.partySize}</td>
-                  <td className="space-x-4 px-6 py-4 text-sm">
-                    <button
-                      onClick={() => copyInviteLink(guest.invitationToken)}
-                      className="font-semibold text-sage-dark hover:text-gold"
-                    >
-                      Invite
-                    </button>
-                    <button
-                      onClick={() => handleDeleteGuest(guest.id)}
-                      className="font-semibold text-charcoal hover:text-pink-deep"
-                    >
-                      Delete
-                    </button>
+                  <td className="px-4 py-4 text-sm font-medium text-charcoal sm:px-6">{guest.name}</td>
+                  <td className="break-all px-4 py-4 text-sm text-charcoal sm:px-6">{guest.email}</td>
+                  <td className="px-4 py-4 text-sm text-charcoal sm:px-6">{guest.partySize}</td>
+                  <td className="px-4 py-4 text-sm sm:px-6">
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => copyInviteLink(guest.invitationToken)}
+                        className="font-semibold text-sage-dark hover:text-gold"
+                      >
+                        Invite
+                      </button>
+                      <button
+                        onClick={() => handleDeleteGuest(guest.id)}
+                        className="font-semibold text-charcoal hover:text-pink-deep"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </motion.tr>
               ))}
