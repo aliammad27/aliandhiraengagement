@@ -5,24 +5,24 @@
   --cream: #faf8f4;
   --warm-white: #f7f4ef;
   --charcoal: #2c2c2c;
-  --charcoal-soft: #888888;
-  --soft-gray: #888888;
+  --charcoal-soft: #555555;
+  --soft-gray: #555555;
   --line: #ddd8d0;
   --sage: #7d9b76;
   --sage-light: #a8c4a2;
   --sage-pale: #d4e6d1;
-  --sage-deep: #7d9b76;
-  --sage-dark: #5f7d62;
-  --gold: #c3a060;
+  --sage-deep: #5f7d62;
+  --sage-dark: #4f6f5b;
+  --gold: #a77f32;
   --gold-soft: #ead7a6;
   --blush: #e8b4b6;
-  --pink: #d4878a;
+  --pink: #b85f68;
   --pink-light: #e8b4b6;
   --pink-pale: #f5e0e1;
-  --pink-deep: #d4878a;
-  --navy: #7d9b76;
-  --navy-soft: #a8c4a2;
-  --midnight: #5f7d62;
+  --pink-deep: #b85f68;
+  --navy: #5f7d62;
+  --navy-soft: #4f6f5b;
+  --midnight: #4f6f5b;
 
   --background: var(--cream);
   --foreground: var(--charcoal);
@@ -103,12 +103,12 @@ textarea {
 }
 
 .invitation-arch {
-  border: 1px solid rgba(195, 160, 96, 0.58);
+  border: 1px solid rgba(167, 127, 50, 0.65);
   border-radius: 999px 999px 0 0;
 }
 
 .navy-vellum {
-  background: var(--sage);
+  background: var(--sage-deep);
 }
 
 .parchment-vellum {
