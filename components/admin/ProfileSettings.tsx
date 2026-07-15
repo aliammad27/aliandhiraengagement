@@ -16,7 +16,7 @@ const DEFAULT_SECONDARY_COLOR = '#d4878a';
 
 function dateInputToDate(value: string) {
   if (!value) return null;
-  const date = new Date(`${value}T12:00:00`);
+  const date = new Date(`${value}T12:00:00Z`);
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
