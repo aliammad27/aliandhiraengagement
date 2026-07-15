@@ -180,7 +180,7 @@ function InviteContent() {
 
       <InvitationHero groom="Ali" bride="Hira" />
 
-      <section className="px-5 py-14 sm:px-8 sm:py-16">
+      <section className="px-5 py-14 sm:px-8 sm:py-[4.5rem]">
         <motion.div
           variants={fadeUp}
           initial="hidden"
