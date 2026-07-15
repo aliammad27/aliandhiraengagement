@@ -69,12 +69,12 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
       {/* Add Event Form */}
-      <div className="border border-charcoal/10 bg-white p-6 sm:p-8">
+      <div className="border border-charcoal/15 bg-white p-6 sm:p-8">
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-2xl">Events</h2>
+          <h2 className="font-display text-2xl text-charcoal">Events</h2>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="min-h-11 border border-navy bg-navy px-5 text-xs font-medium uppercase text-ivory transition-colors hover:bg-navy-soft"
+            className="min-h-11 border border-navy bg-navy px-5 text-xs font-semibold uppercase text-ivory transition-colors hover:bg-navy-soft"
           >
             {showForm ? 'Cancel' : 'Create event'}
           </button>
@@ -85,15 +85,15 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             onSubmit={handleSubmit}
-            className="mt-5 space-y-4 border border-charcoal/10 bg-cream/50 p-4"
+            className="mt-5 space-y-4 border border-charcoal/15 bg-cream p-4"
           >
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-2 block text-xs font-medium uppercase text-charcoal-soft">Event type</label>
+                <label className="mb-2 block text-xs font-semibold uppercase text-charcoal">Event type</label>
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors focus:border-navy"
                 >
                   {EVENT_TYPES.map(type => (
                     <option key={type.value} value={type.value}>{type.label}</option>
@@ -102,45 +102,45 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
               </div>
 
               <div>
-                <label className="mb-2 block text-xs font-medium uppercase text-charcoal-soft">Event title</label>
+                <label className="mb-2 block text-xs font-semibold uppercase text-charcoal">Event title</label>
                 <input
                   type="text"
                   placeholder="e.g., Engagement Ceremony"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-xs font-medium uppercase text-charcoal-soft">Date &amp; time</label>
+                <label className="mb-2 block text-xs font-semibold uppercase text-charcoal">Date &amp; time</label>
                 <input
                   type="datetime-local"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors focus:border-navy"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-xs font-medium uppercase text-charcoal-soft">Location</label>
+                <label className="mb-2 block text-xs font-semibold uppercase text-charcoal">Location</label>
                 <input
                   type="text"
                   placeholder="Venue address"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full border-b border-charcoal/25 bg-transparent py-2 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
+                  className="w-full border-b border-charcoal/40 bg-transparent py-2 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
                 />
               </div>
             </div>
 
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase text-charcoal-soft">Description</label>
+              <label className="mb-2 block text-xs font-semibold uppercase text-charcoal">Description</label>
               <textarea
                 placeholder="Add event details..."
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full resize-none border border-charcoal/20 bg-transparent p-3 outline-none transition-colors placeholder:text-charcoal-soft/55 focus:border-navy"
+                className="w-full resize-none border border-charcoal/30 bg-transparent p-3 text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-navy"
                 rows={3}
               />
             </div>
@@ -148,7 +148,7 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
             <button
               type="submit"
               disabled={loading}
-              className="min-h-11 w-full bg-navy text-xs font-medium uppercase text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-11 w-full bg-navy text-xs font-semibold uppercase text-ivory transition-colors hover:bg-navy-soft disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? 'Creating...' : 'Create event'}
             </button>
@@ -159,8 +159,8 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
       {/* Events List */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {events.length === 0 ? (
-          <div className="col-span-full border border-charcoal/10 bg-white py-12 text-center">
-            <p className="text-charcoal-soft">No events created yet. Create your first event!</p>
+          <div className="col-span-full border border-charcoal/15 bg-white py-12 text-center">
+            <p className="font-medium text-charcoal">No events created yet. Create your first event!</p>
           </div>
         ) : (
           events.map((event, idx) => (
@@ -169,18 +169,18 @@ export default function EventManagement({ events, guests, onRefresh }: Props) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="border border-charcoal/10 border-l-4 border-l-gold bg-white p-6"
+              className="border border-charcoal/15 border-l-4 border-l-gold bg-white p-6"
             >
               <div className="mb-3 flex items-start justify-between gap-3">
-                <h3 className="font-display text-xl">{event.title}</h3>
-                <span className="whitespace-nowrap border border-gold/40 px-3 py-1 text-xs uppercase text-sage-deep">
+                <h3 className="font-display text-xl text-charcoal">{event.title}</h3>
+                <span className="whitespace-nowrap border border-gold/50 px-3 py-1 text-xs font-semibold uppercase text-sage-dark">
                   {EVENT_TYPES.find(t => t.value === event.type)?.label}
                 </span>
               </div>
 
-              <p className="mb-4 text-charcoal-soft">{event.description}</p>
+              <p className="mb-4 text-charcoal">{event.description}</p>
 
-              <div className="space-y-2 text-sm text-charcoal-soft">
+              <div className="space-y-2 text-sm font-medium text-charcoal">
                 <p>{new Date(event.date).toLocaleDateString('en-US', {
                   year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
                 })}</p>
