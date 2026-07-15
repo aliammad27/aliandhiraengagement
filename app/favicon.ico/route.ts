@@ -1,0 +1,16 @@
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hira and Ali">
+  <rect width="64" height="64" rx="14" fill="#4f6f5b"/>
+  <rect x="5" y="5" width="54" height="54" rx="10" fill="none" stroke="#c9a75d" stroke-width="2"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="700" fill="#fffaf2">H<tspan fill="#f0b7c0" font-size="15">&amp;</tspan>A</text>
+</svg>`;
+
+export const dynamic = "force-static";
+
+export function GET() {
+  return new Response(favicon, {
+    headers: {
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  });
+}
