@@ -49,7 +49,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
           initial={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-cream px-5 py-7"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-cream px-4 py-5 sm:px-5 sm:py-7"
         >
           <motion.button
             type="button"
@@ -58,7 +58,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
             initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="group flex w-[min(88vw,430px)] flex-col items-center bg-transparent outline-none disabled:cursor-default"
+            className="group flex w-[min(90vw,calc((100svh-2.5rem)*0.8),430px)] max-w-full flex-col items-center bg-transparent outline-none disabled:cursor-default"
             aria-label="Open Hira and Ali's engagement invitation"
           >
             <div className="relative aspect-[4/5] w-full [perspective:1400px]">
@@ -66,20 +66,20 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 initial={false}
                 animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.96 }}
                 transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-8 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
+                className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
               >
                 <CornerFrame borderColor="border-pink-deep/35" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
-                  <p className="font-arabic text-2xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-                  <p className="mt-7 text-xs font-semibold uppercase text-pink-deep">You are invited</p>
-                  <p className="mt-4 font-display text-5xl leading-none sm:text-6xl">
+                  <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                  <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited</p>
+                  <p className="mt-4 font-display text-[clamp(2.6rem,12vw,3.75rem)] leading-none">
                     {bride} <span className="text-pink-deep">&amp;</span> {groom}
                   </p>
-                  <p className="mt-5 max-w-[260px] font-display text-2xl leading-7 text-charcoal">
+                  <p className="mt-4 max-w-[240px] font-display text-xl leading-6 text-charcoal sm:mt-5 sm:text-2xl sm:leading-7">
                     to celebrate their engagement
                   </p>
-                  <span className="my-6 h-px w-20 bg-gold/70" aria-hidden="true" />
-                  <p className="font-display text-2xl text-sage-dark">October 17, 2026</p>
+                  <span className="my-5 h-px w-20 bg-gold/70 sm:my-6" aria-hidden="true" />
+                  <p className="font-display text-xl text-sage-dark sm:text-2xl">October 17, 2026</p>
                   <p className="mt-2 text-xs font-medium uppercase text-charcoal-soft">Insha'Allah</p>
                 </div>
               </motion.div>
@@ -109,23 +109,23 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
 
                 <span
                   aria-hidden="true"
-                  className="font-script pointer-events-none absolute inset-x-0 top-[47%] z-0 flex select-none items-center justify-center text-[12rem] leading-none text-sage-pale"
+                  className="font-script pointer-events-none absolute inset-x-0 top-[47%] z-0 flex select-none items-center justify-center text-[clamp(7rem,42vw,12rem)] leading-none text-sage-pale"
                   style={{ transform: 'translateY(-50%) rotate(-12deg)' }}
                 >
                   &amp;
                 </span>
 
-                <div className="relative z-10 flex w-full flex-col items-center px-8 pt-12 sm:px-10 sm:pt-14">
-                  <p className="font-arabic text-2xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                <div className="relative z-10 flex w-full flex-col items-center px-6 pt-9 sm:px-10 sm:pt-14">
+                  <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
 
-                  <div className="mt-8 w-full max-w-[240px]">
+                  <div className="mt-6 w-full max-w-[220px] sm:mt-8 sm:max-w-[240px]">
                     <StarDivider tone="pink" />
                   </div>
 
-                  <p className="mt-7 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-sage-dark">
+                  <p className="mt-6 text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.18em] text-sage-dark sm:mt-7 sm:text-[0.72rem] sm:tracking-[0.2em]">
                     An invitation from
                   </p>
-                  <p className="mt-4 font-display text-6xl leading-none text-sage-deep sm:text-7xl">
+                  <p className="mt-3 max-w-full font-display text-[clamp(3rem,14vw,4.5rem)] leading-none text-sage-deep sm:mt-4">
                     {bride} <span className="text-pink-deep">&amp;</span> {groom}
                   </p>
                 </div>
@@ -138,8 +138,8 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                       : { scale: 1, opacity: 1 }
                   }
                   transition={{ duration: reduceMotion ? 0.05 : 0.34, ease: 'easeIn' }}
-                  className="absolute left-1/2 z-20 h-20 w-20 -translate-x-1/2 -translate-y-1/2"
-                  style={{ top: '61%' }}
+                  className="absolute left-1/2 z-20 h-16 w-16 -translate-x-1/2 -translate-y-1/2 sm:h-20 sm:w-20"
+                  style={{ top: '62%' }}
                 >
                   <motion.span
                     aria-hidden="true"
@@ -152,19 +152,19 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                     transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
                   />
                   <span className="relative flex h-full w-full flex-col items-center justify-center gap-1 rounded-full bg-pink-deep text-ivory shadow-lg shadow-sage-dark/25">
-                    <span className="font-display text-xl">H&amp;A</span>
+                    <span className="font-display text-lg sm:text-xl">H&amp;A</span>
                     <span className="h-px w-7 bg-ivory/55" aria-hidden="true" />
                   </span>
                 </motion.div>
 
-                <p className="absolute inset-x-0 bottom-[5.2rem] font-display text-base italic text-charcoal-soft">
+                <p className="absolute inset-x-0 bottom-[4.7rem] px-5 font-display text-sm italic text-charcoal-soft sm:bottom-[5.2rem] sm:text-base">
                   Saturday, October 17, 2026
                 </p>
 
                 <motion.p
                   animate={reduceMotion ? { opacity: 1 } : { opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute inset-x-0 bottom-10 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-gold"
+                  className="absolute inset-x-0 bottom-8 px-5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold sm:bottom-10 sm:text-[0.72rem] sm:tracking-[0.2em]"
                 >
                   Open the invitation
                 </motion.p>
