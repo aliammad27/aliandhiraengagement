@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
-import { CornerFrame, navyRadial } from '@/components/ornaments';
+import { CornerFrame } from '@/components/ornaments';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -45,10 +45,10 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-5 text-center text-ivory" style={navyRadial}>
-      <Toaster position="top-center" toastOptions={{ style: { background: '#0a2038', borderRadius: '4px', color: '#f8f5ef' } }} />
+    <main className="flex min-h-screen items-center justify-center bg-sage-dark px-5 text-center text-ivory">
+      <Toaster position="top-center" toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
 
-      <div className="relative w-full max-w-sm px-7 py-14 sm:px-10">
+      <div className="relative w-full max-w-sm border border-gold-soft/70 px-7 py-14 shadow-xl shadow-sage-deep/20 sm:px-10">
         <CornerFrame borderColor="border-gold-soft" />
         <p className="font-arabic text-xl text-gold-soft">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
         <h1 className="mt-8 font-display text-4xl text-ivory">Admin access</h1>
@@ -66,7 +66,7 @@ export default function AdminLoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
               autoFocus
-              className="w-full border-b border-ivory/70 bg-transparent py-2 text-ivory outline-none transition-colors focus:border-gold-soft"
+              className="w-full border-b border-ivory/80 bg-transparent py-2 text-ivory outline-none transition-colors focus:border-gold-soft"
             />
           </div>
 
