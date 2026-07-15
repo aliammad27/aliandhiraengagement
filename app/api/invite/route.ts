@@ -28,6 +28,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ guest: guests[0] ? publicGuest(guests[0]) : null });
   } catch (error) {
     console.error('Invitation lookup failed:', error);
-    return NextResponse.json({ guest: null }, { status: 200 });
+    return NextResponse.json({ error: 'Unable to load invitation' }, { status: 500 });
   }
 }
