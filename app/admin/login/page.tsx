@@ -45,18 +45,20 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-sage-dark px-5 text-center text-ivory">
+    <main className="flex min-h-screen items-center justify-center bg-sage-dark px-5 py-10 text-center text-charcoal">
       <Toaster position="top-center" toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
 
-      <div className="relative w-full max-w-sm border border-gold-soft/70 px-7 py-14 shadow-xl shadow-sage-deep/20 sm:px-10">
-        <CornerFrame borderColor="border-gold-soft" />
-        <p className="font-arabic text-xl text-gold-soft">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-        <h1 className="mt-8 font-display text-4xl text-ivory">Admin access</h1>
-        <p className="mt-4 font-medium leading-7 text-ivory">Enter the password to manage invitations.</p>
+      <div className="relative w-full max-w-sm border border-gold/50 bg-ivory px-7 py-12 shadow-2xl shadow-sage-deep/30 sm:px-10 sm:py-14">
+        <CornerFrame borderColor="border-pink-deep/60" />
+        <p className="font-arabic text-2xl text-gold">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+        <h1 className="mt-8 font-display text-4xl text-sage-dark">Admin access</h1>
+        <p className="mx-auto mt-4 max-w-xs font-medium leading-7 text-charcoal">
+          Enter the password to manage invitations.
+        </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6 text-left">
           <div>
-            <label htmlFor="password" className="mb-2 block text-xs font-semibold uppercase text-gold-soft">
+            <label htmlFor="password" className="mb-2 block text-xs font-semibold uppercase text-sage-dark">
               Password
             </label>
             <input
@@ -66,14 +68,14 @@ export default function AdminLoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
               autoFocus
-              className="w-full border-b border-ivory/80 bg-transparent py-2 text-ivory outline-none transition-colors focus:border-gold-soft"
+              className="w-full border-b border-sage-dark/80 bg-transparent py-3 text-lg text-charcoal outline-none transition-colors focus:border-pink-deep"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="min-h-12 w-full bg-gold-soft text-sm font-semibold uppercase text-sage-dark transition-colors hover:bg-ivory disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-12 w-full bg-sage-dark text-sm font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? 'Checking...' : 'Enter'}
           </button>
