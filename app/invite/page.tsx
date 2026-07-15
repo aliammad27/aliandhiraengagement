@@ -29,7 +29,7 @@ const toasterStyle = {
 
 function LoadingScreen() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-cream">
+    <div className="flex min-h-[100svh] items-center justify-center bg-cream">
       <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/50 border-t-gold" />
     </div>
   );
@@ -37,22 +37,22 @@ function LoadingScreen() {
 
 function InviteMessage({ title, message }: { title: string; message: string }) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-sage-dark px-5 text-center text-ivory">
+    <main className="flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-sage-dark px-4 py-8 text-center text-ivory">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        className="relative w-full max-w-lg px-7 py-14 sm:px-12 sm:py-16"
+        className="relative w-full max-w-lg px-5 py-12 sm:px-12 sm:py-16"
       >
         <CornerFrame borderColor="border-gold-soft" />
         <StarDivider />
-        <h1 className="mt-7 font-display text-4xl leading-tight sm:text-5xl">{title}</h1>
+        <h1 className="mt-7 font-display text-[clamp(2.5rem,11vw,3.75rem)] leading-tight">{title}</h1>
         <p className="mx-auto mt-6 max-w-sm font-display text-lg italic leading-8 text-ivory">
           {message}
         </p>
         <Link
           href="/"
-          className="mt-9 inline-flex min-h-11 items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark"
+          className="mt-9 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:w-auto sm:tracking-[0.18em]"
         >
           Return home
         </Link>
@@ -175,12 +175,12 @@ function InviteContent() {
   const maximumPartySize = guest ? Math.max(1, guest.partySize || 1) : 6;
 
   return (
-    <main className="min-h-screen bg-cream text-charcoal">
+    <main className="min-h-[100svh] w-full overflow-hidden bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
 
       <InvitationHero groom="Ali" bride="Hira" />
 
-      <section className="px-5 py-14 sm:px-8 sm:py-[4.5rem]">
+      <section className="px-4 py-12 sm:px-8 sm:py-[4.5rem]">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -188,7 +188,7 @@ function InviteContent() {
           className="mx-auto max-w-2xl text-center"
         >
           <p className="font-script text-3xl text-pink-deep sm:text-4xl">Kindly respond</p>
-          <h2 className="mt-3 font-display text-4xl text-sage-dark sm:text-5xl">
+          <h2 className="mt-3 font-display text-[clamp(2.35rem,10vw,3.75rem)] leading-tight text-sage-dark">
             {guest ? `Dear ${guest.name},` : 'Will you join us?'}
           </h2>
           <p className="mx-auto mt-4 max-w-md text-base font-medium leading-7 text-charcoal">
@@ -202,13 +202,13 @@ function InviteContent() {
           animate="visible"
           custom={1}
           onSubmit={handleSubmit}
-          className="mx-auto mt-9 max-w-2xl space-y-8 border border-gold/40 bg-ivory px-5 py-9 shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-11"
+          className="mx-auto mt-9 max-w-2xl space-y-8 border border-gold/40 bg-ivory px-4 py-8 shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-11"
         >
           {!guest && (
             <div>
               <label
                 htmlFor="guest-name"
-                className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark"
+                className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]"
               >
                 Your name
               </label>
@@ -220,13 +220,13 @@ function InviteContent() {
                 placeholder="First and last name"
                 value={formData.name}
                 onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-2xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
+                className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep sm:text-2xl"
               />
             </div>
           )}
 
           <fieldset>
-            <legend className="mb-5 block w-full text-center font-display text-2xl text-sage-dark sm:text-3xl">
+            <legend className="mb-5 block w-full text-center font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
               Will you be joining us?
             </legend>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
@@ -241,7 +241,7 @@ function InviteContent() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                    className={`min-h-14 border px-4 font-display text-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep ${
+                    className={`min-h-14 w-full border px-4 font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
                       selected
                         ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
                         : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
@@ -260,10 +260,10 @@ function InviteContent() {
               animate={{ opacity: 1, height: 'auto' }}
               className="overflow-hidden"
             >
-              <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-sage-dark">
+              <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
                 Number of guests
               </legend>
-              <div className="mx-auto grid max-w-md grid-cols-2 gap-3 sm:grid-cols-3">
+              <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
                 {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
                   const selected = formData.partySize === number;
 
@@ -273,7 +273,7 @@ function InviteContent() {
                       type="button"
                       aria-pressed={selected}
                       onClick={() => setFormData({ ...formData, partySize: number })}
-                      className={`min-h-12 border px-3 text-center font-display text-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep ${
+                      className={`min-h-12 w-full border px-2 text-center font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
                         selected
                           ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
                           : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
@@ -290,7 +290,7 @@ function InviteContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="min-h-12 w-full bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
           >
             {submitting ? 'Sending response...' : 'Send response'}
           </button>
