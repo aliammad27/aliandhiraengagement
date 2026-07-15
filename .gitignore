@@ -32,10 +32,10 @@ yarn-error.log*
 
 # env files
 .env
+.env.local
 .env.production.local
 .env.development.local
 .env.test.local
-# .env.local is committed intentionally (public Firebase client keys only)
 
 # vercel
 .vercel
