@@ -30,11 +30,11 @@ export const metadata: Metadata = {
   description: "Join us as we celebrate our engagement",
   icons: {
     icon: [
-      { url: "/favicon.svg?v=2", type: "image/svg+xml" },
-      { url: "/icon?v=2", sizes: "256x256", type: "image/png" },
+      { url: "/favicon.svg?v=3", type: "image/svg+xml" },
+      { url: "/icon?v=3", sizes: "256x256", type: "image/png" },
     ],
-    shortcut: [{ url: "/favicon.ico?v=2", type: "image/x-icon" }],
-    apple: [{ url: "/apple-icon?v=2", sizes: "180x180", type: "image/png" }],
+    shortcut: [{ url: "/favicon.svg?v=3", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon?v=3", sizes: "180x180", type: "image/png" }],
   },
 };
 
