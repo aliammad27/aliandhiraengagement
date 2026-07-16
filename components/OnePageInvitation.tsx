@@ -5,15 +5,13 @@ import { motion, Variants } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { getEngagementConfig, getGuestByToken, recordRSVP } from '@/lib/database';
 import { EngagementConfig, Guest } from '@/lib/types';
-import InvitationCardIntro from '@/components/InvitationCardIntro';
-import { CornerFrame, StarDivider } from '@/components/ornaments';
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 14 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -46,7 +44,7 @@ function formatEngagementDate(date: Date, options: Intl.DateTimeFormatOptions) {
 
 function InlineNotice({ title, message }: { title: string; message: string }) {
   return (
-    <div className="border border-gold/50 bg-cream px-4 py-4 text-center text-charcoal sm:px-5">
+    <div className="border border-gold/40 bg-cream px-4 py-4 text-center text-charcoal sm:px-5">
       <p className="font-display text-xl leading-tight text-sage-dark">{title}</p>
       <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-charcoal-soft">{message}</p>
     </div>
@@ -194,20 +192,19 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   return (
     <main className="w-full overflow-hidden bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
-      <InvitationCardIntro bride={bride} groom={groom} />
 
-      <header className="absolute inset-x-0 top-0 z-50 text-ivory">
+      <header className="sticky top-0 z-50 border-b border-sage-dark/10 bg-cream/95 text-sage-dark backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-8">
-          <a href="#top" className="font-display text-2xl font-semibold text-ivory">
-            H<span className="text-pink-light">&amp;</span>A
+          <a href="#top" className="font-display text-2xl font-semibold">
+            H<span className="text-pink-deep">&amp;</span>A
           </a>
-          <nav className="flex items-center gap-4 text-sm sm:gap-6" aria-label="Main navigation">
-            <a href="#details" className="hidden text-ivory transition-colors hover:text-gold-soft sm:inline">
+          <nav className="flex items-center gap-4 text-sm" aria-label="Main navigation">
+            <a href="#details" className="hidden text-charcoal-soft transition-colors hover:text-sage-dark sm:inline">
               Details
             </a>
             <a
               href="#rsvp"
-              className="inline-flex min-h-10 items-center justify-center border border-ivory px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
+              className="inline-flex min-h-10 items-center justify-center border border-sage-dark/30 px-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory"
             >
               RSVP
             </a>
@@ -215,27 +212,25 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </div>
       </header>
 
-      <section
-        id="top"
-        className="relative flex min-h-[100svh] items-center justify-center bg-sage-dark px-4 pb-12 pt-20 text-center text-ivory sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
-      >
-        <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-          <motion.p variants={fadeUp} initial="hidden" animate="visible" className="font-arabic text-xl text-gold-soft sm:text-3xl">
+      <section id="top" className="flex min-h-[calc(100svh-3.5rem)] items-center px-4 py-14 text-center sm:min-h-[calc(92svh-4rem)] sm:px-8 sm:py-20">
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="font-arabic text-xl leading-none text-gold sm:text-2xl"
+          >
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </motion.p>
-
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1} className="my-5">
-            <StarDivider />
-          </motion.div>
 
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={1}
-            className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-gold-soft sm:max-w-none sm:tracking-[0.22em]"
+            className="mt-8 text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.18em] text-pink-deep sm:tracking-[0.22em]"
           >
-            With the blessings of their families
+            An invitation to celebrate the engagement of
           </motion.p>
 
           <motion.h1
@@ -243,9 +238,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             initial="hidden"
             animate="visible"
             custom={2}
-            className="mt-6 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-ivory [text-wrap:balance] sm:text-8xl"
+            className="mt-5 max-w-full font-display text-[clamp(4.25rem,18vw,8rem)] font-normal leading-none text-sage-dark [text-wrap:balance]"
           >
-            {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-light">&amp;</span> {groom}
+            {bride} <span className="text-pink-deep">&amp;</span> {groom}
           </motion.h1>
 
           <motion.p
@@ -253,81 +248,75 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             initial="hidden"
             animate="visible"
             custom={3}
-            className="mt-6 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-ivory sm:max-w-xl sm:text-3xl sm:leading-relaxed"
+            className="mt-6 max-w-2xl font-display text-2xl leading-9 text-charcoal sm:text-3xl sm:leading-10"
           >
             {story}
           </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={4}
+            className="mt-9 h-px w-full max-w-md bg-gold/60"
+            aria-hidden="true"
+          />
 
           <motion.time
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={4}
+            custom={5}
             dateTime={eventIsoDate}
-            aria-label={eventDate}
-            className="mt-9 block w-full max-w-[360px]"
+            className="mt-8 font-display text-[clamp(2rem,8vw,3rem)] leading-tight text-sage-dark"
           >
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold-soft/70 py-4">
-              <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Day</span>
-                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventWeekday}</span>
-              </span>
-              <span className="flex min-w-0 flex-col border-x border-gold-soft/50 px-1">
-                <span className="font-display text-5xl leading-none text-pink-light">{eventDay}</span>
-              </span>
-              <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Month</span>
-                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventMonth}</span>
-              </span>
-            </span>
-            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-ivory">
-              {eventYear} · Insha&apos;Allah
-            </span>
+            {eventWeekday}, {eventDate}
           </motion.time>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 w-full text-center">
-            <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-ivory sm:max-w-none sm:tracking-[0.18em]">
-              {EVENT_ADDRESS}
-            </p>
-            <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
-              <a
-                href="#rsvp"
-                className="inline-flex min-h-11 items-center justify-center bg-ivory px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark shadow-md shadow-sage-dark/20 transition-colors hover:bg-pink-light hover:text-sage-dark sm:tracking-[0.18em]"
-              >
-                RSVP below
-              </a>
-              <a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:tracking-[0.18em]"
-              >
-                Get directions
-              </a>
-            </div>
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={6}
+            className="mt-4 text-sm font-semibold uppercase leading-6 tracking-[0.14em] text-charcoal-soft sm:tracking-[0.18em]"
+          >
+            {EVENT_ADDRESS}
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={7}
+            className="mt-8 grid w-full max-w-sm grid-cols-1 gap-3 sm:max-w-md sm:grid-cols-2"
+          >
+            <a
+              href="#rsvp"
+              className="inline-flex min-h-12 items-center justify-center bg-sage-dark px-6 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-sm shadow-sage-dark/20 transition-colors hover:bg-pink-deep"
+            >
+              RSVP
+            </a>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center border border-gold/70 px-6 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep"
+            >
+              Directions
+            </a>
           </motion.div>
         </div>
       </section>
 
-      <section id="details" className="border-t border-sage-deep/10 bg-cream px-4 py-14 sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="relative border border-gold/40 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
-          >
-            <CornerFrame borderColor="border-pink-deep/55" />
-            <p className="font-script text-3xl text-pink-deep sm:text-4xl">The invitation</p>
-            <h2 className="mt-5 font-display text-[clamp(2.35rem,11vw,4rem)] font-normal leading-tight text-sage-dark">
-              {eventDate}
+      <section id="details" className="border-y border-sage-dark/10 bg-ivory px-4 py-14 sm:px-8 sm:py-20">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-pink-deep">Details</p>
+            <h2 className="mt-4 font-display text-[clamp(2.75rem,11vw,4.6rem)] font-normal leading-none text-sage-dark">
+              A simple evening with family and friends.
             </h2>
-            <div className="mx-auto mt-5 max-w-[240px]">
-              <StarDivider tone="sage" />
-            </div>
-            <p className="mx-auto mt-7 max-w-sm font-display text-xl italic leading-8 text-charcoal sm:text-2xl sm:leading-9">
-              We would be honored to celebrate with you, insha&apos;Allah.
+            <p className="mt-6 max-w-xl text-base leading-8 text-charcoal-soft sm:text-lg">
+              We would be honored to celebrate with you, insha&apos;Allah. Please RSVP below so we can plan the evening clearly.
             </p>
           </motion.div>
 
@@ -335,49 +324,48 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.25 }}
             custom={1}
-            className="flex flex-col justify-center gap-4"
+            className="divide-y divide-sage-dark/15 border-y border-sage-dark/15"
           >
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">When</p>
-                <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">{eventWeekday}</p>
-                <p className="mt-1 text-sm leading-6 text-charcoal-soft">{eventMonth} {eventDay}, {eventYear}</p>
-              </div>
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Where</p>
-                <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Waterford Works</p>
-                <p className="mt-1 text-sm leading-6 text-charcoal-soft">{EVENT_ADDRESS}</p>
-              </div>
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Respond</p>
-                <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Kindly RSVP</p>
-                <p className="mt-1 text-sm leading-6 text-charcoal-soft">Use the form below so we can plan for you.</p>
+            <div className="grid gap-2 py-6 sm:grid-cols-[9rem_1fr] sm:gap-6">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">When</p>
+              <p className="font-display text-3xl leading-tight text-sage-dark">
+                {eventWeekday}, {eventMonth} {eventDay}, {eventYear}
+              </p>
+            </div>
+            <div className="grid gap-2 py-6 sm:grid-cols-[9rem_1fr] sm:gap-6">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Where</p>
+              <div>
+                <p className="font-display text-3xl leading-tight text-sage-dark">Waterford Works, NJ</p>
+                <p className="mt-2 text-base leading-7 text-charcoal-soft">{EVENT_ADDRESS}</p>
               </div>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#rsvp"
-                className="inline-flex min-h-12 flex-1 items-center justify-center bg-sage-dark px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep sm:tracking-[0.18em]"
-              >
-                RSVP now
-              </a>
-              <a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 flex-1 items-center justify-center border border-gold/70 px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:tracking-[0.18em]"
-              >
-                Directions
-              </a>
+            <div className="grid gap-2 py-6 sm:grid-cols-[9rem_1fr] sm:gap-6">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Respond</p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#rsvp"
+                  className="inline-flex min-h-12 items-center justify-center bg-sage-dark px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory transition-colors hover:bg-pink-deep"
+                >
+                  RSVP now
+                </a>
+                <a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center border border-gold/70 px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep"
+                >
+                  Get directions
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {photos.length > 0 && (
-        <section className="border-y border-sage-deep/10 bg-ivory px-4 py-12 sm:px-8 sm:py-16">
+        <section className="bg-cream px-4 py-12 sm:px-8 sm:py-16">
           <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
             {photos.slice(0, 3).map((photo, index) => (
               <motion.figure
@@ -387,7 +375,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 custom={index}
-                className="aspect-[4/5] overflow-hidden border border-gold/30 bg-sage-deep/5"
+                className="aspect-[4/5] overflow-hidden bg-sage-deep/5"
               >
                 <img src={photo} alt={`${bride} and ${groom}`} className="h-full w-full object-cover" />
               </motion.figure>
@@ -396,20 +384,20 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </section>
       )}
 
-      <section id="rsvp" className="bg-sage-dark px-4 py-14 text-ivory sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
+      <section id="rsvp" className="bg-cream px-4 py-14 sm:px-8 sm:py-24">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-12">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-center lg:sticky lg:top-8 lg:text-left"
+            className="text-center lg:sticky lg:top-24 lg:text-left"
           >
-            <p className="font-script text-4xl text-pink-light sm:text-5xl">Kindly respond</p>
-            <h2 className="mt-4 font-display text-[clamp(2.6rem,12vw,4.6rem)] font-normal leading-none text-ivory">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-pink-deep">RSVP</p>
+            <h2 className="mt-4 font-display text-[clamp(2.75rem,12vw,4.8rem)] font-normal leading-none text-sage-dark">
               {guest ? `Dear ${guest.name},` : 'Will you join us?'}
             </h2>
-            <p className="mt-6 max-w-xl font-display text-xl italic leading-8 text-ivory/90 sm:text-2xl sm:leading-9 lg:max-w-md">
+            <p className="mt-6 max-w-xl text-base leading-8 text-charcoal-soft sm:text-lg lg:max-w-md">
               Please let us know whether you will be able to join us for {bride} and {groom}&apos;s engagement.
             </p>
           </motion.div>
@@ -420,14 +408,11 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={1}
-            className="relative border border-gold-soft/50 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
+            className="border border-sage-dark/15 bg-ivory px-4 py-8 text-charcoal shadow-sm shadow-sage-deep/5 sm:px-8 sm:py-10"
           >
-            <CornerFrame borderColor="border-pink-deep/55" />
-
             {submitted ? (
               <div className="mx-auto max-w-xl py-8 text-center">
-                <StarDivider tone="pink" />
-                <h3 className="mt-7 font-display text-[clamp(2.4rem,10vw,3.75rem)] leading-tight text-sage-dark">
+                <h3 className="font-display text-[clamp(2.35rem,10vw,3.6rem)] leading-tight text-sage-dark">
                   {formData.rsvpStatus === 'accepted' ? 'We look forward to celebrating with you.' : 'You will be missed.'}
                 </h3>
                 <p className="mx-auto mt-5 max-w-md text-base leading-7 text-charcoal-soft">
@@ -437,14 +422,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 </p>
                 <a
                   href="#top"
-                  className="mt-8 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:w-auto sm:tracking-[0.18em]"
+                  className="mt-8 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:w-auto"
                 >
-                  Back to invitation
+                  Back to top
                 </a>
               </div>
             ) : rsvpLoading ? (
-              <div className="flex min-h-[360px] items-center justify-center">
-                <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/40 border-t-gold" />
+              <div className="flex min-h-[320px] items-center justify-center">
+                <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/30 border-t-pink-deep" />
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-8">
@@ -454,7 +439,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                   <div>
                     <label
                       htmlFor="guest-name"
-                      className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]"
+                      className="mb-3 block text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark"
                     >
                       Your name
                     </label>
@@ -466,16 +451,16 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                       placeholder="First and last name"
                       value={formData.name}
                       onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                      className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep sm:text-2xl"
+                      className="w-full border-b border-sage-dark/45 bg-transparent py-3 font-display text-2xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep"
                     />
                   </div>
                 )}
 
                 <fieldset>
-                  <legend className="mb-5 block w-full text-center font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
+                  <legend className="mb-4 block w-full font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
                     Will you be joining us?
                   </legend>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {[
                       { value: 'accepted' as const, label: 'Joyfully accept' },
                       { value: 'declined' as const, label: 'Regretfully decline' },
@@ -487,10 +472,10 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                           type="button"
                           aria-pressed={selected}
                           onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                          className={`min-h-14 w-full border px-4 font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
+                          className={`min-h-14 w-full border px-4 font-display text-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep ${
                             selected
-                              ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
-                              : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                              ? 'border-sage-dark bg-sage-dark text-ivory shadow-sm shadow-sage-deep/20'
+                              : 'border-sage-dark/20 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                           }`}
                         >
                           {option.label}
@@ -502,10 +487,10 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
                 {formData.rsvpStatus === 'accepted' && (
                   <motion.fieldset initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden">
-                    <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
+                    <legend className="mb-3 block w-full text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark">
                       Number of guests
                     </legend>
-                    <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
+                    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                       {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
                         const selected = formData.partySize === number;
 
@@ -515,10 +500,10 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                             type="button"
                             aria-pressed={selected}
                             onClick={() => setFormData({ ...formData, partySize: number })}
-                            className={`min-h-12 w-full border px-2 text-center font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
+                            className={`min-h-12 w-full border px-2 text-center font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
                               selected
-                                ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
-                                : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                                ? 'border-sage-dark bg-sage-dark text-ivory shadow-sm shadow-sage-deep/20'
+                                : 'border-sage-dark/20 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                             }`}
                           >
                             {number} {number === 1 ? 'guest' : 'guests'}
@@ -532,7 +517,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
+                  className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-sm shadow-sage-deep/20 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {submitting ? 'Sending response...' : 'Send response'}
                 </button>
@@ -542,15 +527,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </div>
       </section>
 
-      <footer className="relative bg-cream px-4 py-12 text-center text-sage-dark sm:py-16">
-        <StarDivider tone="sage" />
-        <p className="font-script mt-7 text-[clamp(3rem,14vw,4.5rem)] leading-tight text-sage-dark">
+      <footer className="border-t border-sage-dark/10 bg-ivory px-4 py-10 text-center text-sage-dark sm:py-12">
+        <p className="font-display text-[clamp(2.75rem,12vw,4rem)] leading-tight">
           {bride} <span className="text-pink-deep">&amp;</span> {groom}
         </p>
-        <p className="mx-auto mt-4 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.18em] text-charcoal-soft sm:max-w-none sm:tracking-[0.22em]">
+        <p className="mx-auto mt-3 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.16em] text-charcoal-soft sm:max-w-none">
           {eventDate} · Insha&apos;Allah
         </p>
-        <a href="/admin" className="mt-8 inline-block text-xs font-medium text-charcoal-soft transition-colors hover:text-pink-deep">
+        <a href="/admin" className="mt-7 inline-block text-xs font-medium text-charcoal-soft transition-colors hover:text-pink-deep">
           Manage invitations
         </a>
       </footer>
