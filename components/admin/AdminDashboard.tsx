@@ -46,8 +46,8 @@ export default function AdminDashboard() {
     loadData();
   }, []);
 
-  const acceptedCount = rsvps.filter(r => r.status === 'accepted').length;
-  const declinedCount = rsvps.filter(r => r.status === 'declined').length;
+  const acceptedCount = rsvps.filter((r) => r.status === 'accepted').length;
+  const declinedCount = rsvps.filter((r) => r.status === 'declined').length;
   const respondedGuestIds = new Set(rsvps.map((r) => r.guestId));
   const pendingCount = guests.filter((guest) => !respondedGuestIds.has(guest.id)).length;
 
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
-          className="h-8 w-8 rounded-full border border-gold/45 border-t-gold"
+          className="h-8 w-8 rounded-full border border-sage-dark/20 border-t-sage-dark"
         />
       </div>
     );
@@ -72,42 +72,35 @@ export default function AdminDashboard() {
     <div className="min-h-[100svh] w-full overflow-x-hidden bg-cream text-charcoal">
       <Toaster toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
 
-      <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="border-b border-gold/30 bg-sage-dark text-ivory"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-5 px-4 py-6 sm:flex-row sm:items-start sm:justify-between sm:px-8 sm:py-8">
+      <header className="border-b border-sage-dark/10 bg-ivory">
+        <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase text-gold-soft">Engagement management</p>
-            <h1 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
-              {config?.coupleNames?.bride || 'Hira'} <span className="text-pink-light">&amp;</span>{' '}
-              {config?.coupleNames?.groom || 'Ali'}
-            </h1>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sage-dark">Admin</p>
+            <h1 className="mt-2 text-2xl font-semibold leading-tight text-charcoal sm:text-3xl">Manage invitations</h1>
+            <p className="mt-1 text-sm leading-6 text-charcoal-soft">
+              Guests, RSVPs, event details, and site settings for {config?.coupleNames?.bride || 'Hira'} and{' '}
+              {config?.coupleNames?.groom || 'Ali'}.
+            </p>
           </div>
           <button
             onClick={handleLogout}
-            className="min-h-11 w-full whitespace-nowrap border border-gold-soft px-4 text-xs font-semibold uppercase text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:mt-1 sm:w-auto"
+            className="min-h-10 w-full whitespace-nowrap border border-sage-dark/25 px-4 text-xs font-semibold uppercase tracking-[0.12em] text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory sm:w-auto"
           >
             Log out
           </button>
         </div>
-      </motion.header>
+      </header>
 
       <div className="mx-auto max-w-6xl px-4 py-7 sm:px-8 sm:py-8">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0"
-        >
-          {(['overview', 'guests', 'events', 'rsvps', 'settings'] as const).map(tab => (
+        <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+          {(['overview', 'guests', 'events', 'rsvps', 'settings'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`min-h-11 shrink-0 whitespace-nowrap px-5 py-2 text-xs font-semibold uppercase transition-colors ${
+              className={`min-h-11 shrink-0 whitespace-nowrap px-5 py-2 text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${
                 activeTab === tab
-                  ? 'bg-sage-dark text-ivory shadow-sm shadow-sage-deep/20'
-                  : 'border border-sage-dark/35 text-sage-dark hover:border-pink-deep hover:text-pink-deep'
+                  ? 'bg-sage-dark text-ivory shadow-sm shadow-sage-deep/10'
+                  : 'border border-sage-dark/20 text-sage-dark hover:border-sage-dark hover:bg-ivory'
               }`}
             >
               {tab === 'overview' && 'Overview'}
@@ -117,7 +110,7 @@ export default function AdminDashboard() {
               {tab === 'settings' && 'Settings'}
             </button>
           ))}
-        </motion.div>
+        </div>
 
         <AnimatePresence mode="wait">
           {activeTab === 'overview' && (
@@ -136,69 +129,61 @@ export default function AdminDashboard() {
                   { label: 'Pending', value: pendingCount },
                 ].map((stat, idx) => (
                   <motion.div
-                    key={idx}
-                    initial={{ y: 20, opacity: 0 }}
+                    key={stat.label}
+                    initial={{ y: 12, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="border border-gold/30 bg-ivory px-4 py-5 shadow-sm shadow-sage-deep/5 sm:px-5 sm:py-6"
+                    transition={{ delay: idx * 0.05 }}
+                    className="border border-sage-dark/10 bg-ivory px-4 py-5 shadow-sm shadow-sage-deep/5 sm:px-5 sm:py-6"
                   >
-                    <p className="text-xs font-semibold uppercase leading-4 text-sage-dark">{stat.label}</p>
-                    <p className="mt-2 font-display text-3xl text-charcoal sm:text-4xl">{stat.value}</p>
+                    <p className="text-xs font-semibold uppercase leading-4 tracking-[0.12em] text-charcoal-soft">{stat.label}</p>
+                    <p className="mt-2 text-3xl font-semibold text-charcoal sm:text-4xl">{stat.value}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="border border-gold/30 bg-ivory p-5 shadow-sm shadow-sage-deep/5 sm:p-8">
-                <h2 className="font-display text-2xl text-sage-dark">Quick actions</h2>
+              <div className="border border-sage-dark/10 bg-ivory p-5 shadow-sm shadow-sage-deep/5 sm:p-8">
+                <h2 className="text-xl font-semibold text-charcoal">Quick actions</h2>
                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <button
                     onClick={() => setActiveTab('guests')}
-                    className="border border-sage-dark/25 bg-cream p-4 text-left transition-colors hover:border-pink-deep hover:bg-pink-pale/35"
+                    className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="font-display text-lg text-sage-dark">Add guests</h3>
-                    <p className="mt-1 text-sm font-medium text-charcoal">Invite more people to celebrate</p>
+                    <h3 className="text-base font-semibold text-charcoal">Add guests</h3>
+                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Create guest records and invitation links.</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('events')}
-                    className="border border-sage-dark/25 bg-cream p-4 text-left transition-colors hover:border-pink-deep hover:bg-pink-pale/35"
+                    className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="font-display text-lg text-sage-dark">Manage events</h3>
-                    <p className="mt-1 text-sm font-medium text-charcoal">Create and organize events</p>
+                    <h3 className="text-base font-semibold text-charcoal">Manage events</h3>
+                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Review event information and assignments.</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('rsvps')}
-                    className="border border-sage-dark/25 bg-cream p-4 text-left transition-colors hover:border-pink-deep hover:bg-pink-pale/35"
+                    className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="font-display text-lg text-sage-dark">View RSVPs</h3>
-                    <p className="mt-1 text-sm font-medium text-charcoal">Check responses from guests</p>
+                    <h3 className="text-base font-semibold text-charcoal">View RSVPs</h3>
+                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Track accepted, declined, and pending responses.</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('settings')}
-                    className="border border-sage-dark/25 bg-cream p-4 text-left transition-colors hover:border-pink-deep hover:bg-pink-pale/35"
+                    className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="font-display text-lg text-sage-dark">Update profile</h3>
-                    <p className="mt-1 text-sm font-medium text-charcoal">Edit engagement details</p>
+                    <h3 className="text-base font-semibold text-charcoal">Update settings</h3>
+                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Edit names, date, copy, and colors.</p>
                   </button>
                 </div>
               </div>
             </motion.div>
           )}
 
-          {activeTab === 'guests' && (
-            <GuestManagement guests={guests} onRefresh={loadData} />
-          )}
+          {activeTab === 'guests' && <GuestManagement guests={guests} onRefresh={loadData} />}
 
-          {activeTab === 'events' && (
-            <EventManagement events={events} guests={guests} onRefresh={loadData} />
-          )}
+          {activeTab === 'events' && <EventManagement events={events} guests={guests} onRefresh={loadData} />}
 
-          {activeTab === 'rsvps' && (
-            <RSVPDashboard rsvps={rsvps} guests={guests} />
-          )}
+          {activeTab === 'rsvps' && <RSVPDashboard rsvps={rsvps} guests={guests} />}
 
-          {activeTab === 'settings' && (
-            <ProfileSettings config={config} onRefresh={loadData} />
-          )}
+          {activeTab === 'settings' && <ProfileSettings config={config} onRefresh={loadData} />}
         </AnimatePresence>
       </div>
     </div>
