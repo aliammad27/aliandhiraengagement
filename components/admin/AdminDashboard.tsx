@@ -3,35 +3,31 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getGuests, getEvents, getRSVPs, getEngagementConfig } from '@/lib/database';
-import { Guest, EngagementEvent, RSVPResponse, EngagementConfig } from '@/lib/types';
+import { getGuests, getRSVPs, getEngagementConfig } from '@/lib/database';
+import { Guest, RSVPResponse, EngagementConfig } from '@/lib/types';
 import GuestManagement from '@/components/admin/GuestManagement';
-import EventManagement from '@/components/admin/EventManagement';
 import RSVPDashboard from '@/components/admin/RSVPDashboard';
 import ProfileSettings from '@/components/admin/ProfileSettings';
 import toast, { Toaster } from 'react-hot-toast';
 
-type Tab = 'overview' | 'guests' | 'events' | 'rsvps' | 'settings';
+type Tab = 'overview' | 'guests' | 'rsvps' | 'settings';
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [guests, setGuests] = useState<Guest[]>([]);
-  const [events, setEvents] = useState<EngagementEvent[]>([]);
   const [rsvps, setRsvps] = useState<RSVPResponse[]>([]);
   const [config, setConfig] = useState<EngagementConfig | null>(null);
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     try {
-      const [guestData, eventData, rsvpData, configData] = await Promise.all([
+      const [guestData, rsvpData, configData] = await Promise.all([
         getGuests(),
-        getEvents(),
         getRSVPs(),
         getEngagementConfig(),
       ]);
       setGuests(guestData);
-      setEvents(eventData);
       setRsvps(rsvpData);
       setConfig(configData || null);
     } catch (error) {
@@ -46,10 +42,10 @@ export default function AdminDashboard() {
     loadData();
   }, []);
 
-  const acceptedCount = rsvps.filter((r) => r.status === 'accepted').length;
-  const declinedCount = rsvps.filter((r) => r.status === 'declined').length;
   const respondedGuestIds = new Set(rsvps.map((r) => r.guestId));
-  const pendingCount = guests.filter((guest) => !respondedGuestIds.has(guest.id)).length;
+  const acceptedRsvps = rsvps.filter((r) => r.status === 'accepted');
+  const waitingCount = guests.filter((guest) => !respondedGuestIds.has(guest.id)).length;
+  const attendeeCount = acceptedRsvps.reduce((sum, rsvp) => sum + (Number(rsvp.partySize) || 0), 0);
 
   const handleLogout = async () => {
     await fetch('/api/admin/logout', { method: 'POST' });
@@ -78,7 +74,7 @@ export default function AdminDashboard() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sage-dark">Admin</p>
             <h1 className="mt-2 text-2xl font-semibold leading-tight text-charcoal sm:text-3xl">Manage invitations</h1>
             <p className="mt-1 text-sm leading-6 text-charcoal-soft">
-              Guests, RSVPs, event details, and site settings for {config?.coupleNames?.bride || 'Hira'} and{' '}
+              Guests, RSVP responses, and site settings for {config?.coupleNames?.bride || 'Hira'} and{' '}
               {config?.coupleNames?.groom || 'Ali'}.
             </p>
           </div>
@@ -93,7 +89,7 @@ export default function AdminDashboard() {
 
       <div className="mx-auto max-w-6xl px-4 py-7 sm:px-8 sm:py-8">
         <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
-          {(['overview', 'guests', 'events', 'rsvps', 'settings'] as const).map((tab) => (
+          {(['overview', 'guests', 'rsvps', 'settings'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -105,7 +101,6 @@ export default function AdminDashboard() {
             >
               {tab === 'overview' && 'Overview'}
               {tab === 'guests' && 'Guests'}
-              {tab === 'events' && 'Events'}
               {tab === 'rsvps' && 'RSVPs'}
               {tab === 'settings' && 'Settings'}
             </button>
@@ -124,9 +119,9 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
                 {[
                   { label: 'Total guests', value: guests.length },
-                  { label: 'Accepted', value: acceptedCount },
-                  { label: 'Declined', value: declinedCount },
-                  { label: 'Pending', value: pendingCount },
+                  { label: 'Responses', value: respondedGuestIds.size },
+                  { label: 'Waiting', value: waitingCount },
+                  { label: 'Attending', value: attendeeCount },
                 ].map((stat, idx) => (
                   <motion.div
                     key={stat.label}
@@ -143,7 +138,7 @@ export default function AdminDashboard() {
 
               <div className="border border-sage-dark/10 bg-ivory p-5 shadow-sm shadow-sage-deep/5 sm:p-8">
                 <h2 className="text-xl font-semibold text-charcoal">Quick actions</h2>
-                <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <button
                     onClick={() => setActiveTab('guests')}
                     className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
@@ -152,24 +147,17 @@ export default function AdminDashboard() {
                     <p className="mt-1 text-sm leading-6 text-charcoal-soft">Create guest records and invitation links.</p>
                   </button>
                   <button
-                    onClick={() => setActiveTab('events')}
-                    className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
-                  >
-                    <h3 className="text-base font-semibold text-charcoal">Manage events</h3>
-                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Review event information and assignments.</p>
-                  </button>
-                  <button
                     onClick={() => setActiveTab('rsvps')}
                     className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="text-base font-semibold text-charcoal">View RSVPs</h3>
-                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">Track accepted, declined, and pending responses.</p>
+                    <h3 className="text-base font-semibold text-charcoal">View responses</h3>
+                    <p className="mt-1 text-sm leading-6 text-charcoal-soft">See who filled out the RSVP form.</p>
                   </button>
                   <button
                     onClick={() => setActiveTab('settings')}
                     className="border border-sage-dark/15 bg-cream p-4 text-left transition-colors hover:border-sage-dark hover:bg-ivory"
                   >
-                    <h3 className="text-base font-semibold text-charcoal">Update settings</h3>
+                    <h3 className="text-base font-semibold text-charcoal">Update site</h3>
                     <p className="mt-1 text-sm leading-6 text-charcoal-soft">Edit names, date, copy, and colors.</p>
                   </button>
                 </div>
@@ -178,8 +166,6 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'guests' && <GuestManagement guests={guests} onRefresh={loadData} />}
-
-          {activeTab === 'events' && <EventManagement events={events} guests={guests} onRefresh={loadData} />}
 
           {activeTab === 'rsvps' && <RSVPDashboard rsvps={rsvps} guests={guests} />}
 
