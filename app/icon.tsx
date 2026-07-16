@@ -13,7 +13,9 @@ export default function Icon() {
           width: "100%",
           height: "100%",
           alignItems: "center",
-          background: "#4f6f5b",
+          background: "#fffaf2",
+          border: "8px solid #d8b86a",
+          color: "#4f6f5b",
           display: "flex",
           justifyContent: "center",
           position: "relative",
@@ -21,39 +23,55 @@ export default function Icon() {
       >
         <div
           style={{
-            border: "8px solid rgba(255, 250, 242, 0.18)",
-            borderRadius: 999,
-            height: 218,
-            position: "absolute",
-            width: 218,
-          }}
-        />
-        <div
-          style={{
             alignItems: "center",
-            background: "#d88f9c",
-            border: "10px solid #d8b86a",
-            borderRadius: 999,
             display: "flex",
-            height: 184,
             justifyContent: "center",
-            width: 184,
+            lineHeight: 1,
+            marginTop: -4,
           }}
         >
-          <div
+          <span
             style={{
-              color: "#fffaf2",
+              color: "#4f6f5b",
               display: "flex",
-              fontFamily: "Georgia, serif",
-              fontSize: 72,
-              fontWeight: 700,
-              letterSpacing: 0,
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 94,
+              fontStyle: "italic",
+              fontWeight: 500,
               lineHeight: 1,
-              marginTop: 2,
             }}
           >
-            H&amp;A
-          </div>
+            H
+          </span>
+          <span
+            style={{
+              color: "#b85f68",
+              display: "flex",
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 72,
+              fontStyle: "italic",
+              fontWeight: 400,
+              lineHeight: 1,
+              marginLeft: 3,
+              marginRight: 5,
+              marginTop: 12,
+            }}
+          >
+            &amp;
+          </span>
+          <span
+            style={{
+              color: "#4f6f5b",
+              display: "flex",
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 94,
+              fontStyle: "italic",
+              fontWeight: 500,
+              lineHeight: 1,
+            }}
+          >
+            A
+          </span>
         </div>
       </div>
     ),
