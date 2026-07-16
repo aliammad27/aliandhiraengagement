@@ -1,20 +1,52 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion, Variants } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { getEngagementConfig, getGuestByToken, recordRSVP } from '@/lib/database';
 import { EngagementConfig, Guest } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
 import { CornerFrame, StarDivider } from '@/components/ornaments';
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+const sectionViewport = { once: true, amount: 0.2 } as const;
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, delay: i * 0.08, ease: easeOut },
   }),
+};
+
+const heroGroup: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const heroItem: Variants = {
+  hidden: { opacity: 0, y: 18, scale: 0.99 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: easeOut },
+  },
+};
+
+const headerReveal: Variants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: 0.18, ease: easeOut },
+  },
 };
 
 const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-17T12:00:00Z');
@@ -46,16 +78,23 @@ function formatEngagementDate(date: Date, options: Intl.DateTimeFormatOptions) {
 
 function InlineNotice({ title, message }: { title: string; message: string }) {
   return (
-    <div className="border border-gold/50 bg-cream px-4 py-4 text-center text-charcoal sm:px-5">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: easeOut }}
+      className="border border-gold/50 bg-cream px-4 py-4 text-center text-charcoal sm:px-5"
+    >
       <p className="font-display text-xl leading-tight text-sage-dark">{title}</p>
       <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-charcoal-soft">{message}</p>
-    </div>
+    </motion.div>
   );
 }
 
 export default function OnePageInvitation({ initialToken }: OnePageInvitationProps) {
   const token = initialToken;
+  const reduceMotion = useReducedMotion();
 
+  const [introComplete, setIntroComplete] = useState(false);
   const [config, setConfig] = useState<EngagementConfig | null>(null);
   const [guest, setGuest] = useState<Guest | null>(null);
   const [rsvpLoading, setRsvpLoading] = useState(Boolean(token));
@@ -183,6 +222,12 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
       });
       setSubmitted(true);
       window.history.replaceState(null, '', '#rsvp');
+      window.requestAnimationFrame(() => {
+        document.getElementById('rsvp')?.scrollIntoView({
+          behavior: reduceMotion ? 'auto' : 'smooth',
+          block: 'start',
+        });
+      });
     } catch (error) {
       console.error('Error submitting RSVP:', error);
       toast.error('Something went wrong. Please try again.');
@@ -191,12 +236,20 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
     }
   };
 
+  const pressAnimation = reduceMotion ? undefined : { scale: 0.98 };
+  const hoverLift = reduceMotion ? undefined : { y: -1 };
+
   return (
     <main className="w-full overflow-hidden bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
-      <InvitationCardIntro bride={bride} groom={groom} />
+      <InvitationCardIntro bride={bride} groom={groom} onOpened={() => setIntroComplete(true)} />
 
-      <header className="absolute inset-x-0 top-0 z-50 text-ivory">
+      <motion.header
+        variants={headerReveal}
+        initial="hidden"
+        animate={introComplete ? 'visible' : 'hidden'}
+        className="absolute inset-x-0 top-0 z-50 text-ivory"
+      >
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-8">
           <a href="#top" className="font-display text-2xl font-semibold text-ivory">
             H<span className="text-pink-light">&amp;</span>A
@@ -213,56 +266,49 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             </a>
           </nav>
         </div>
-      </header>
+      </motion.header>
 
       <section
         id="top"
         className="relative flex min-h-[100svh] items-center justify-center bg-sage-dark px-4 pb-12 pt-20 text-center text-ivory sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
       >
-        <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-          <motion.p variants={fadeUp} initial="hidden" animate="visible" className="font-arabic text-xl text-gold-soft sm:text-3xl">
+        <motion.div
+          variants={heroGroup}
+          initial="hidden"
+          animate={introComplete ? 'visible' : 'hidden'}
+          className="mx-auto flex w-full max-w-3xl flex-col items-center"
+        >
+          <motion.p variants={heroItem} className="font-arabic text-xl text-gold-soft sm:text-3xl">
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </motion.p>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1} className="my-5">
+          <motion.div variants={heroItem} className="my-5">
             <StarDivider />
           </motion.div>
 
           <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1}
+            variants={heroItem}
             className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-gold-soft sm:max-w-none sm:tracking-[0.22em]"
           >
             With the blessings of their families
           </motion.p>
 
           <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
+            variants={heroItem}
             className="mt-6 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-ivory [text-wrap:balance] sm:text-8xl"
           >
             {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-light">&amp;</span> {groom}
           </motion.h1>
 
           <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={3}
+            variants={heroItem}
             className="mt-6 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-ivory sm:max-w-xl sm:text-3xl sm:leading-relaxed"
           >
             {story}
           </motion.p>
 
           <motion.time
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={4}
+            variants={heroItem}
             dateTime={eventIsoDate}
             aria-label={eventDate}
             className="mt-9 block w-full max-w-[360px]"
@@ -285,28 +331,32 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             </span>
           </motion.time>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={5} className="mt-8 w-full text-center">
+          <motion.div variants={heroItem} className="mt-8 w-full text-center">
             <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-ivory sm:max-w-none sm:tracking-[0.18em]">
               {EVENT_ADDRESS}
             </p>
             <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
-              <a
+              <motion.a
                 href="#rsvp"
+                whileTap={pressAnimation}
+                whileHover={hoverLift}
                 className="inline-flex min-h-11 items-center justify-center bg-ivory px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark shadow-md shadow-sage-dark/20 transition-colors hover:bg-pink-light hover:text-sage-dark sm:tracking-[0.18em]"
               >
                 RSVP below
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileTap={pressAnimation}
+                whileHover={hoverLift}
                 className="inline-flex min-h-11 items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:tracking-[0.18em]"
               >
                 Get directions
-              </a>
+              </motion.a>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       <section id="details" className="border-t border-sage-deep/10 bg-cream px-4 py-14 sm:px-8 sm:py-24">
@@ -315,7 +365,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={sectionViewport}
             className="relative border border-gold/40 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
@@ -335,7 +385,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={sectionViewport}
             custom={1}
             className="flex flex-col justify-center gap-4"
           >
@@ -357,20 +407,24 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <a
+              <motion.a
                 href="#rsvp"
+                whileTap={pressAnimation}
+                whileHover={hoverLift}
                 className="inline-flex min-h-12 flex-1 items-center justify-center bg-sage-dark px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep sm:tracking-[0.18em]"
               >
                 RSVP now
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileTap={pressAnimation}
+                whileHover={hoverLift}
                 className="inline-flex min-h-12 flex-1 items-center justify-center border border-gold/70 px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:tracking-[0.18em]"
               >
                 Directions
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         </div>
@@ -385,7 +439,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={sectionViewport}
                 custom={index}
                 className="aspect-[4/5] overflow-hidden border border-gold/30 bg-sage-deep/5"
               >
@@ -402,7 +456,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={sectionViewport}
             className="text-center lg:sticky lg:top-8 lg:text-left"
           >
             <p className="font-script text-4xl text-pink-light sm:text-5xl">Kindly respond</p>
@@ -418,126 +472,176 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={sectionViewport}
             custom={1}
             className="relative border border-gold-soft/50 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
 
-            {submitted ? (
-              <div className="mx-auto max-w-xl py-8 text-center">
-                <StarDivider tone="pink" />
-                <h3 className="mt-7 font-display text-[clamp(2.4rem,10vw,3.75rem)] leading-tight text-sage-dark">
-                  {formData.rsvpStatus === 'accepted' ? 'We look forward to celebrating with you.' : 'You will be missed.'}
-                </h3>
-                <p className="mx-auto mt-5 max-w-md text-base leading-7 text-charcoal-soft">
-                  {formData.rsvpStatus === 'accepted'
-                    ? 'Your response has been received. We will share any final details with you directly.'
-                    : 'Thank you for letting us know. You will be in our thoughts on the day.'}
-                </p>
-                <a
-                  href="#top"
-                  className="mt-8 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:w-auto sm:tracking-[0.18em]"
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.45, ease: easeOut }}
+                  className="mx-auto max-w-xl py-8 text-center"
                 >
-                  Back to invitation
-                </a>
-              </div>
-            ) : rsvpLoading ? (
-              <div className="flex min-h-[360px] items-center justify-center">
-                <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/40 border-t-gold" />
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-8">
-                {lookupNotice && <InlineNotice title={lookupNotice.title} message={lookupNotice.message} />}
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.35, delay: 0.08, ease: easeOut }}
+                    className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage-dark text-2xl text-ivory shadow-lg shadow-sage-deep/25"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </motion.div>
+                  <h3 className="mt-7 font-display text-[clamp(2.4rem,10vw,3.75rem)] leading-tight text-sage-dark">
+                    {formData.rsvpStatus === 'accepted' ? 'We look forward to celebrating with you.' : 'You will be missed.'}
+                  </h3>
+                  <p className="mx-auto mt-5 max-w-md text-base font-semibold leading-7 text-charcoal">
+                    Thank you, your RSVP has been received.
+                  </p>
+                  <p className="mx-auto mt-3 max-w-md text-base leading-7 text-charcoal-soft">
+                    {formData.rsvpStatus === 'accepted'
+                      ? 'We will share any final details with you directly.'
+                      : 'Thank you for letting us know. You will be in our thoughts on the day.'}
+                  </p>
+                  <motion.a
+                    href="#top"
+                    whileTap={pressAnimation}
+                    whileHover={hoverLift}
+                    className="mt-8 inline-flex min-h-11 w-full max-w-xs items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:w-auto sm:tracking-[0.18em]"
+                  >
+                    Back to invitation
+                  </motion.a>
+                </motion.div>
+              ) : rsvpLoading ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex min-h-[360px] items-center justify-center"
+                >
+                  <div className="h-8 w-8 animate-spin rounded-full border border-sage-dark/40 border-t-gold" />
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.35, ease: easeOut }}
+                  onSubmit={handleSubmit}
+                  className="mx-auto max-w-2xl space-y-8"
+                >
+                  {lookupNotice && <InlineNotice title={lookupNotice.title} message={lookupNotice.message} />}
 
-                {!guest && (
-                  <div>
-                    <label
-                      htmlFor="guest-name"
-                      className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]"
-                    >
-                      Your name
-                    </label>
-                    <input
-                      id="guest-name"
-                      type="text"
-                      required
-                      autoComplete="name"
-                      placeholder="First and last name"
-                      value={formData.name}
-                      onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                      className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep sm:text-2xl"
-                    />
-                  </div>
-                )}
+                  {!guest && (
+                    <div>
+                      <label
+                        htmlFor="guest-name"
+                        className="mb-3 block text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]"
+                      >
+                        Your name
+                      </label>
+                      <input
+                        id="guest-name"
+                        type="text"
+                        required
+                        autoComplete="name"
+                        placeholder="First and last name"
+                        value={formData.name}
+                        onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                        className="w-full border-b border-sage-dark/60 bg-transparent py-3 text-center font-display text-xl text-charcoal outline-none transition-colors placeholder:text-charcoal-soft focus:border-pink-deep sm:text-2xl"
+                      />
+                    </div>
+                  )}
 
-                <fieldset>
-                  <legend className="mb-5 block w-full text-center font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
-                    Will you be joining us?
-                  </legend>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-                    {[
-                      { value: 'accepted' as const, label: 'Joyfully accept' },
-                      { value: 'declined' as const, label: 'Regretfully decline' },
-                    ].map((option) => {
-                      const selected = formData.rsvpStatus === option.value;
-                      return (
-                        <button
-                          key={option.value}
-                          type="button"
-                          aria-pressed={selected}
-                          onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
-                          className={`min-h-14 w-full border px-4 font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
-                            selected
-                              ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
-                              : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
-                          }`}
-                        >
-                          {option.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-
-                {formData.rsvpStatus === 'accepted' && (
-                  <motion.fieldset initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="overflow-hidden">
-                    <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
-                      Number of guests
+                  <fieldset>
+                    <legend className="mb-5 block w-full text-center font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
+                      Will you be joining us?
                     </legend>
-                    <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
-                      {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
-                        const selected = formData.partySize === number;
-
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                      {[
+                        { value: 'accepted' as const, label: 'Joyfully accept' },
+                        { value: 'declined' as const, label: 'Regretfully decline' },
+                      ].map((option) => {
+                        const selected = formData.rsvpStatus === option.value;
                         return (
-                          <button
-                            key={number}
+                          <motion.button
+                            key={option.value}
                             type="button"
                             aria-pressed={selected}
-                            onClick={() => setFormData({ ...formData, partySize: number })}
-                            className={`min-h-12 w-full border px-2 text-center font-display text-base transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
+                            whileTap={pressAnimation}
+                            whileHover={hoverLift}
+                            onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
+                            className={`min-h-14 w-full border px-4 font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
                               selected
                                 ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
                                 : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                             }`}
                           >
-                            {number} {number === 1 ? 'guest' : 'guests'}
-                          </button>
+                            {option.label}
+                          </motion.button>
                         );
                       })}
                     </div>
-                  </motion.fieldset>
-                )}
+                  </fieldset>
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
-                >
-                  {submitting ? 'Sending response...' : 'Send response'}
-                </button>
-              </form>
-            )}
+                  <AnimatePresence initial={false}>
+                    {formData.rsvpStatus === 'accepted' && (
+                      <motion.fieldset
+                        key="party-size"
+                        initial={{ opacity: 0, height: 0, y: -8 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -8 }}
+                        transition={{ duration: reduceMotion ? 0.01 : 0.34, ease: easeOut }}
+                        className="overflow-hidden"
+                      >
+                        <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
+                          Number of guests
+                        </legend>
+                        <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
+                          {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
+                            const selected = formData.partySize === number;
+
+                            return (
+                              <motion.button
+                                key={number}
+                                type="button"
+                                aria-pressed={selected}
+                                whileTap={pressAnimation}
+                                whileHover={hoverLift}
+                                onClick={() => setFormData({ ...formData, partySize: number })}
+                                className={`min-h-12 w-full border px-2 text-center font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
+                                  selected
+                                    ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
+                                    : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
+                                }`}
+                              >
+                                {number} {number === 1 ? 'guest' : 'guests'}
+                              </motion.button>
+                            );
+                          })}
+                        </div>
+                      </motion.fieldset>
+                    )}
+                  </AnimatePresence>
+
+                  <motion.button
+                    type="submit"
+                    disabled={submitting}
+                    whileTap={submitting ? undefined : pressAnimation}
+                    className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
+                  >
+                    {submitting ? 'Sending response...' : 'Send response'}
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </section>
