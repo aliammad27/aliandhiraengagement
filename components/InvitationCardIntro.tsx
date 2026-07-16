@@ -7,11 +7,12 @@ import { CornerFrame, StarDivider } from '@/components/ornaments';
 interface Props {
   bride: string;
   groom: string;
+  onOpened?: () => void;
 }
 
 type Phase = 'closed' | 'opening' | 'done';
 
-export default function InvitationCardIntro({ bride, groom }: Props) {
+export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
   const [phase, setPhase] = useState<Phase>('closed');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
@@ -29,16 +30,27 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
     if (timerRef.current) clearTimeout(timerRef.current);
   }, []);
 
+  const finishOpening = useCallback(() => {
+    setPhase('done');
+    onOpened?.();
+    window.requestAnimationFrame(() => {
+      document.getElementById('top')?.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  }, [onOpened, reduceMotion]);
+
   const openCard = useCallback(() => {
     if (phase !== 'closed') return;
 
     window.scrollTo({ top: 0, behavior: 'auto' });
     setPhase('opening');
     timerRef.current = setTimeout(
-      () => setPhase('done'),
-      reduceMotion ? 450 : 2000,
+      finishOpening,
+      reduceMotion ? 450 : 1850,
     );
-  }, [phase, reduceMotion]);
+  }, [finishOpening, phase, reduceMotion]);
 
   const opening = phase === 'opening';
 
@@ -47,7 +59,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
       {phase !== 'done' && (
         <motion.div
           initial={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
+          exit={{ opacity: 0, scale: 1.015 }}
           transition={{ duration: reduceMotion ? 0.1 : 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-cream px-4 py-5 sm:px-5 sm:py-7"
         >
@@ -57,6 +69,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
             disabled={opening}
             initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
+            whileTap={reduceMotion || opening ? undefined : { scale: 0.985 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="group flex w-[min(90vw,calc((100svh-2.5rem)*0.8),430px)] max-w-full flex-col items-center bg-transparent outline-none disabled:cursor-default"
             aria-label="Open Hira and Ali's engagement invitation"
@@ -65,7 +78,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
               <motion.div
                 initial={false}
                 animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.96 }}
-                transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
               >
                 <CornerFrame borderColor="border-pink-deep/35" />
@@ -86,15 +99,15 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
 
               <motion.div
                 initial={false}
-                animate={{ rotateY: opening ? -116 : 0 }}
-                transition={{ duration: reduceMotion ? 0.1 : 1.05, delay: opening && !reduceMotion ? 0.32 : 0, ease: [0.65, 0, 0.35, 1] }}
+                animate={{ rotateY: opening ? -108 : 0 }}
+                transition={{ duration: reduceMotion ? 0.1 : 1, delay: opening && !reduceMotion ? 0.28 : 0, ease: [0.65, 0, 0.35, 1] }}
                 className="absolute inset-y-0 left-0 z-20 w-1/2 origin-left border-y border-l border-gold/70 bg-ivory [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
               <motion.div
                 initial={false}
-                animate={{ rotateY: opening ? 116 : 0 }}
-                transition={{ duration: reduceMotion ? 0.1 : 1.05, delay: opening && !reduceMotion ? 0.32 : 0, ease: [0.65, 0, 0.35, 1] }}
+                animate={{ rotateY: opening ? 108 : 0 }}
+                transition={{ duration: reduceMotion ? 0.1 : 1, delay: opening && !reduceMotion ? 0.28 : 0, ease: [0.65, 0, 0.35, 1] }}
                 className="absolute inset-y-0 right-0 z-20 w-1/2 origin-right border-y border-r border-gold/70 bg-ivory [transform-style:preserve-3d]"
                 style={{ backfaceVisibility: 'hidden' }}
               />
@@ -102,7 +115,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
               <motion.div
                 initial={false}
                 animate={{ opacity: opening ? 0 : 1 }}
-                transition={{ duration: reduceMotion ? 0.05 : 0.35, delay: opening && !reduceMotion ? 0.2 : 0 }}
+                transition={{ duration: reduceMotion ? 0.05 : 0.35, delay: opening && !reduceMotion ? 0.18 : 0 }}
                 className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center overflow-hidden border border-gold/70 bg-ivory text-center text-sage-deep shadow-2xl shadow-sage-dark/20"
               >
                 <CornerFrame borderColor="border-gold/65" />
@@ -134,7 +147,7 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                   initial={false}
                   animate={
                     opening
-                      ? { scale: reduceMotion ? 1 : 1.18, opacity: 0 }
+                      ? { scale: reduceMotion ? 1 : 1.14, opacity: 0 }
                       : { scale: 1, opacity: 1 }
                   }
                   transition={{ duration: reduceMotion ? 0.05 : 0.34, ease: 'easeIn' }}
@@ -147,9 +160,9 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                     animate={
                       reduceMotion || opening
                         ? { opacity: 0.25 }
-                        : { opacity: [0.2, 0.4, 0.2], scale: [1, 1.08, 1] }
+                        : { opacity: [0.2, 0.36, 0.2], scale: [1, 1.06, 1] }
                     }
-                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                    transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
                   />
                   <span className="relative flex h-full w-full flex-col items-center justify-center gap-1 rounded-full bg-pink-deep text-ivory shadow-lg shadow-sage-dark/25">
                     <span className="font-display text-lg sm:text-xl">H&amp;A</span>
@@ -162,8 +175,8 @@ export default function InvitationCardIntro({ bride, groom }: Props) {
                 </p>
 
                 <motion.p
-                  animate={reduceMotion ? { opacity: 1 } : { opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                  animate={reduceMotion ? { opacity: 1 } : { opacity: [0.72, 1, 0.72] }}
+                  transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
                   className="absolute inset-x-0 bottom-8 px-5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold sm:bottom-10 sm:text-[0.72rem] sm:tracking-[0.2em]"
                 >
                   Open the invitation
