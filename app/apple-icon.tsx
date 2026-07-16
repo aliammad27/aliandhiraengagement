@@ -13,7 +13,9 @@ export default function AppleIcon() {
           width: "100%",
           height: "100%",
           alignItems: "center",
-          background: "#4f6f5b",
+          background: "#fffaf2",
+          border: "6px solid #d8b86a",
+          color: "#4f6f5b",
           display: "flex",
           justifyContent: "center",
           position: "relative",
@@ -21,39 +23,55 @@ export default function AppleIcon() {
       >
         <div
           style={{
-            border: "6px solid rgba(255, 250, 242, 0.18)",
-            borderRadius: 999,
-            height: 154,
-            position: "absolute",
-            width: 154,
-          }}
-        />
-        <div
-          style={{
             alignItems: "center",
-            background: "#d88f9c",
-            border: "7px solid #d8b86a",
-            borderRadius: 999,
             display: "flex",
-            height: 130,
             justifyContent: "center",
-            width: 130,
+            lineHeight: 1,
+            marginTop: -3,
           }}
         >
-          <div
+          <span
             style={{
-              color: "#fffaf2",
+              color: "#4f6f5b",
               display: "flex",
-              fontFamily: "Georgia, serif",
-              fontSize: 50,
-              fontWeight: 700,
-              letterSpacing: 0,
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 66,
+              fontStyle: "italic",
+              fontWeight: 500,
               lineHeight: 1,
-              marginTop: 2,
             }}
           >
-            H&amp;A
-          </div>
+            H
+          </span>
+          <span
+            style={{
+              color: "#b85f68",
+              display: "flex",
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 50,
+              fontStyle: "italic",
+              fontWeight: 400,
+              lineHeight: 1,
+              marginLeft: 2,
+              marginRight: 3,
+              marginTop: 8,
+            }}
+          >
+            &amp;
+          </span>
+          <span
+            style={{
+              color: "#4f6f5b",
+              display: "flex",
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: 66,
+              fontStyle: "italic",
+              fontWeight: 500,
+              lineHeight: 1,
+            }}
+          >
+            A
+          </span>
         </div>
       </div>
     ),
