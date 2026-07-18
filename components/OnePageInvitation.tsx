@@ -49,7 +49,7 @@ const headerReveal: Variants = {
   },
 };
 
-const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-17T12:00:00Z');
+const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-10T12:00:00Z');
 const EVENT_ADDRESS = '1204 Middle Ave, Waterford Works, NJ';
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ';
 
