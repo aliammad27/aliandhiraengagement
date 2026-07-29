@@ -49,7 +49,8 @@ const headerReveal: Variants = {
   },
 };
 
-const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-17T12:00:00Z');
+const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-10T12:00:00Z');
+const RSVP_BY_DATE = 'September 12, 2026';
 const EVENT_ADDRESS = '1204 Middle Ave, Waterford Works, NJ';
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ';
 
@@ -465,6 +466,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             </h2>
             <p className="mt-6 max-w-xl font-display text-xl italic leading-8 text-ivory/90 sm:text-2xl sm:leading-9 lg:max-w-md">
               Please let us know whether you will be able to join us for {bride} and {groom}&apos;s engagement.
+            </p>
+            <p className="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-pink-light">
+              Please RSVP by {RSVP_BY_DATE}
             </p>
           </motion.div>
 
