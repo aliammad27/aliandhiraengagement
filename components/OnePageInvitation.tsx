@@ -183,7 +183,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const story =
     config?.story?.trim() ||
     'With love and gratitude, we invite you to join us for an intimate engagement celebration with our family and friends.';
-  const maximumPartySize = guest ? Math.max(1, Number(guest.partySize) || 1) : 2;
+  const maximumPartySize = guest ? Math.max(1, Number(guest.partySize) || 1) : 1;
+  const allowsPlusOne = maximumPartySize > 1;
   const lookupNotice = invalidInvitation
     ? {
         title: 'This link was not found.',
@@ -596,7 +597,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                   </fieldset>
 
                   <AnimatePresence initial={false}>
-                    {formData.rsvpStatus === 'accepted' && (
+                    {formData.rsvpStatus === 'accepted' && allowsPlusOne && (
                       <motion.fieldset
                         key="party-size"
                         initial={{ opacity: 0, height: 0, y: -8 }}
@@ -606,27 +607,30 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                         className="overflow-hidden"
                       >
                         <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
-                          Number of guests
+                          Bringing a plus one?
                         </legend>
-                        <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
-                          {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((number) => {
-                            const selected = formData.partySize === number;
+                        <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:gap-3">
+                          {[
+                            { value: 1, label: 'Just me' },
+                            { value: 2, label: 'I’ll bring a plus one' },
+                          ].map((option) => {
+                            const selected = formData.partySize === option.value;
 
                             return (
                               <motion.button
-                                key={number}
+                                key={option.value}
                                 type="button"
                                 aria-pressed={selected}
                                 whileTap={pressAnimation}
                                 whileHover={hoverLift}
-                                onClick={() => setFormData({ ...formData, partySize: number })}
+                                onClick={() => setFormData({ ...formData, partySize: option.value })}
                                 className={`min-h-12 w-full border px-2 text-center font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
                                   selected
                                     ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
                                     : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                                 }`}
                               >
-                                {number} {number === 1 ? 'guest' : 'guests'}
+                                {option.label}
                               </motion.button>
                             );
                           })}
