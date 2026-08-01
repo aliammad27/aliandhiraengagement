@@ -68,7 +68,7 @@ function sanitizeGuest(input: unknown) {
     name: requiredString(guest.name, 'Guest name', 120),
     email: cleanString(guest.email, 200),
     phone: cleanString(guest.phone, 40),
-    partySize: clampInteger(guest.partySize, 1, 20, 1),
+    partySize: clampInteger(guest.partySize, 1, 2, 1),
     dietaryRestrictions: cleanString(guest.dietaryRestrictions, 300) || undefined,
     invitationToken: cleanString(guest.invitationToken, 120) || createInvitationToken(),
   };
@@ -81,7 +81,7 @@ function sanitizeGuestUpdates(input: unknown) {
   if ('name' in guest) updates.name = requiredString(guest.name, 'Guest name', 120);
   if ('email' in guest) updates.email = cleanString(guest.email, 200);
   if ('phone' in guest) updates.phone = cleanString(guest.phone, 40);
-  if ('partySize' in guest) updates.partySize = clampInteger(guest.partySize, 1, 20, 1);
+  if ('partySize' in guest) updates.partySize = clampInteger(guest.partySize, 1, 2, 1);
   if ('dietaryRestrictions' in guest) updates.dietaryRestrictions = cleanString(guest.dietaryRestrictions, 300);
   if ('invitationToken' in guest) updates.invitationToken = cleanString(guest.invitationToken, 120) || createInvitationToken();
 

@@ -183,7 +183,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const story =
     config?.story?.trim() ||
     'With love and gratitude, we invite you to join us for an intimate engagement celebration with our family and friends.';
-  const maximumPartySize = guest ? Math.max(1, Number(guest.partySize) || 1) : 6;
+  const maximumPartySize = guest ? Math.max(1, Number(guest.partySize) || 1) : 2;
   const lookupNotice = invalidInvitation
     ? {
         title: 'This link was not found.',

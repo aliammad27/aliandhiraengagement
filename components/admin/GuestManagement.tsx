@@ -145,9 +145,8 @@ export default function GuestManagement({ guests, onRefresh }: Props) {
                   onChange={(e) => setFormData({ ...formData, partySize: e.target.value })}
                   className="w-full border-b border-charcoal/40 bg-transparent py-3 text-base text-charcoal outline-none transition-colors focus:border-pink-deep"
                 >
-                  {[1, 2, 3, 4, 5, 6].map(n => (
-                    <option key={n} value={n}>{n} guest{n > 1 ? 's' : ''}</option>
-                  ))}
+                  <option value="1">Just them</option>
+                  <option value="2">Plus one</option>
                 </select>
                 <button
                   type="submit"
