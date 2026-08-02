@@ -13,9 +13,9 @@ export default function Icon() {
           width: "100%",
           height: "100%",
           alignItems: "center",
-          background: "#fffaf2",
-          border: "8px solid #d8b86a",
-          color: "#4f6f5b",
+          background: "#fffcf6",
+          border: "8px solid #cdb78a",
+          color: "#6f699e",
           display: "flex",
           justifyContent: "center",
           position: "relative",
@@ -32,7 +32,7 @@ export default function Icon() {
         >
           <span
             style={{
-              color: "#4f6f5b",
+              color: "#6f699e",
               display: "flex",
               fontFamily: "Georgia, 'Times New Roman', serif",
               fontSize: 94,
@@ -45,7 +45,7 @@ export default function Icon() {
           </span>
           <span
             style={{
-              color: "#b85f68",
+              color: "#9c8d7b",
               display: "flex",
               fontFamily: "Georgia, 'Times New Roman', serif",
               fontSize: 72,
@@ -61,7 +61,7 @@ export default function Icon() {
           </span>
           <span
             style={{
-              color: "#4f6f5b",
+              color: "#6f699e",
               display: "flex",
               fontFamily: "Georgia, 'Times New Roman', serif",
               fontSize: 94,

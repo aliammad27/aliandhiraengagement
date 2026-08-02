@@ -26,11 +26,11 @@ export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink'
 }
 
 export const sageBlushRadial = {
-  background: '#4f6f5b',
+  background: '#6f699e',
 };
 
 export const creamGoldWash = {
-  background: '#faf8f4',
+  background: '#faf6ef',
 };
 
 export const navyRadial = sageBlushRadial;

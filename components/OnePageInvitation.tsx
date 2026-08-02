@@ -56,9 +56,9 @@ const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=1204+Middle+Av
 
 const toasterStyle = {
   style: {
-    background: '#4f6f5b',
+    background: '#6f699e',
     borderRadius: '4px',
-    color: '#fffaf2',
+    color: '#fffcf6',
   },
 };
 

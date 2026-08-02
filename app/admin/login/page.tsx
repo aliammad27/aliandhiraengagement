@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
 
   return (
     <main className="flex min-h-[100svh] w-full items-center justify-center bg-cream px-4 py-8 text-charcoal">
-      <Toaster position="top-center" toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
+      <Toaster position="top-center" toastOptions={{ style: { background: '#6f699e', borderRadius: '4px', color: '#fffcf6' } }} />
 
       <section className="w-full max-w-sm border border-sage-dark/15 bg-ivory p-6 shadow-sm shadow-sage-deep/5 sm:p-8">
         <div className="mb-8">

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hira and Ali">
-  <rect width="64" height="64" rx="14" fill="#fffaf2"/>
-  <rect x="3" y="3" width="58" height="58" rx="12" fill="none" stroke="#d8b86a" stroke-opacity="0.75" stroke-width="1.5"/>
-  <text x="14" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, 'Times New Roman', serif" font-size="28" font-style="italic" font-weight="500" fill="#4f6f5b">H</text>
-  <text x="32" y="38" text-anchor="middle" font-family="Pinyon Script, Snell Roundhand, 'Brush Script MT', cursive" font-size="26" fill="#b85f68">&amp;</text>
-  <text x="50" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, 'Times New Roman', serif" font-size="28" font-style="italic" font-weight="500" fill="#4f6f5b">A</text>
+  <rect width="64" height="64" rx="14" fill="#fffcf6"/>
+  <rect x="3" y="3" width="58" height="58" rx="12" fill="none" stroke="#cdb78a" stroke-opacity="0.75" stroke-width="1.5"/>
+  <text x="14" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, 'Times New Roman', serif" font-size="28" font-style="italic" font-weight="500" fill="#6f699e">H</text>
+  <text x="32" y="38" text-anchor="middle" font-family="Pinyon Script, Snell Roundhand, 'Brush Script MT', cursive" font-size="26" fill="#9c8d7b">&amp;</text>
+  <text x="50" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, 'Times New Roman', serif" font-size="28" font-style="italic" font-weight="500" fill="#6f699e">A</text>
 </svg>

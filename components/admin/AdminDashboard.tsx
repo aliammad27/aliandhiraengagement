@@ -66,7 +66,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-[100svh] w-full overflow-x-hidden bg-cream text-charcoal">
-      <Toaster toastOptions={{ style: { background: '#4f6f5b', borderRadius: '4px', color: '#fffaf2' } }} />
+      <Toaster toastOptions={{ style: { background: '#6f699e', borderRadius: '4px', color: '#fffcf6' } }} />
 
       <header className="border-b border-sage-dark/10 bg-ivory">
         <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">

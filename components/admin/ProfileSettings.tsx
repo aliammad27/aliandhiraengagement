@@ -11,8 +11,8 @@ interface Props {
   onRefresh: () => Promise<void>;
 }
 
-const DEFAULT_PRIMARY_COLOR = '#7d9b76';
-const DEFAULT_SECONDARY_COLOR = '#b85f68';
+const DEFAULT_PRIMARY_COLOR = '#8e88c4';
+const DEFAULT_SECONDARY_COLOR = '#cdb78a';
 
 function dateInputToDate(value: string) {
   if (!value) return null;
