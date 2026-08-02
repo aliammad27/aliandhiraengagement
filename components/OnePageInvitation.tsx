@@ -611,8 +611,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                         </legend>
                         <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:gap-3">
                           {[
-                            { value: 1, label: 'Just me' },
-                            { value: 2, label: 'I’ll bring a plus one' },
+                            { value: 1, label: 'Nah, just me' },
+                            { value: 2, label: 'Yeah, bringing someone!' },
                           ].map((option) => {
                             const selected = formData.partySize === option.value;
 
