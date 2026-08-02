@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       const name = cleanString(body.guestName || body.name, 120);
       if (!name) return jsonError('Please tell us your name');
 
-      const partySize = clampPartySize(body.partySize, 1);
+      const partySize = clampPartySize(body.partySize, 2);
       guest = await createDocument<Guest>('guests', {
         name,
         email: '',
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const maxPartySize = invitationToken ? Math.max(1, Number(guest.partySize) || 1) : 1;
+    const maxPartySize = invitationToken ? Math.max(2, Number(guest.partySize) || 1) : 2;
     const requestedPartySize = clampPartySize(body.partySize, maxPartySize);
 
     if (status === 'accepted' && Number(body.partySize) > maxPartySize) {

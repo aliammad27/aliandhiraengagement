@@ -183,8 +183,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const story =
     config?.story?.trim() ||
     'With love and gratitude, we invite you to join us for an intimate engagement celebration with our family and friends.';
-  const maximumPartySize = guest ? Math.max(1, Number(guest.partySize) || 1) : 1;
-  const allowsPlusOne = maximumPartySize > 1;
+  const maximumPartySize = guest ? Math.max(2, Number(guest.partySize) || 1) : 2;
   const lookupNotice = invalidInvitation
     ? {
         title: 'This link was not found.',
@@ -597,7 +596,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                   </fieldset>
 
                   <AnimatePresence initial={false}>
-                    {formData.rsvpStatus === 'accepted' && allowsPlusOne && (
+                    {formData.rsvpStatus === 'accepted' && (
                       <motion.fieldset
                         key="party-size"
                         initial={{ opacity: 0, height: 0, y: -8 }}
