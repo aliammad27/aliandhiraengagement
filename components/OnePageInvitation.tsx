@@ -606,12 +606,12 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                         className="overflow-hidden"
                       >
                         <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
-                          Bringing a plus one?
+                          Will you be bringing a guest?
                         </legend>
                         <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:gap-3">
                           {[
-                            { value: 1, label: 'Nah, just me' },
-                            { value: 2, label: 'Yeah, bringing someone!' },
+                            { value: 1, label: 'Just myself' },
+                            { value: 2, label: 'I will bring a guest' },
                           ].map((option) => {
                             const selected = formData.partySize === option.value;
 
