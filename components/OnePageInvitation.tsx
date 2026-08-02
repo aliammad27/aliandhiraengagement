@@ -261,7 +261,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             </a>
             <a
               href="#rsvp"
-              className="inline-flex min-h-10 items-center justify-center border border-sage-dark px-3 text-[0.7rem] font-semibold uppercase text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory sm:px-4"
+              className="inline-flex min-h-10 items-center justify-center border border-sage-dark px-3 text-[0.7rem] font-semibold uppercase text-sage-dark transition-colors hover:border-sage-light hover:bg-sage-light hover:text-charcoal sm:px-4"
             >
               RSVP
             </a>
@@ -341,7 +341,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 href="#rsvp"
                 whileTap={pressAnimation}
                 whileHover={hoverLift}
-                className="inline-flex min-h-11 items-center justify-center bg-sage-dark px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep sm:tracking-[0.18em]"
+                className="inline-flex min-h-11 items-center justify-center bg-sage-light px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-charcoal shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep hover:text-ivory sm:tracking-[0.18em]"
               >
                 RSVP below
               </motion.a>
@@ -412,7 +412,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 href="#rsvp"
                 whileTap={pressAnimation}
                 whileHover={hoverLift}
-                className="inline-flex min-h-12 flex-1 items-center justify-center bg-sage-dark px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep sm:tracking-[0.18em]"
+                className="inline-flex min-h-12 flex-1 items-center justify-center bg-sage-light px-6 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-charcoal shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep hover:text-ivory sm:tracking-[0.18em]"
               >
                 RSVP now
               </motion.a>
@@ -496,7 +496,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                     initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.35, delay: 0.08, ease: easeOut }}
-                    className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage-dark text-2xl text-ivory shadow-lg shadow-sage-deep/25"
+                    className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage-light text-2xl text-charcoal shadow-lg shadow-sage-deep/25"
                     aria-hidden="true"
                   >
                     ✓
@@ -584,7 +584,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                             onClick={() => setFormData({ ...formData, rsvpStatus: option.value })}
                             className={`min-h-14 w-full border px-4 font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-lg ${
                               selected
-                                ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
+                                ? 'border-sage-light bg-sage-light text-charcoal shadow-md shadow-sage-deep/25'
                                 : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                             }`}
                           >
@@ -625,7 +625,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                                 onClick={() => setFormData({ ...formData, partySize: option.value })}
                                 className={`min-h-12 w-full border px-2 text-center font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
                                   selected
-                                    ? 'border-sage-dark bg-sage-dark text-ivory shadow-md shadow-sage-deep/25'
+                                    ? 'border-sage-light bg-sage-light text-charcoal shadow-md shadow-sage-deep/25'
                                     : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                                 }`}
                               >
@@ -642,7 +642,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                     type="submit"
                     disabled={submitting}
                     whileTap={submitting ? undefined : pressAnimation}
-                    className="min-h-12 w-full bg-sage-dark px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ivory shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
+                    className="min-h-12 w-full bg-sage-light px-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-charcoal shadow-md shadow-sage-deep/25 transition-colors hover:bg-pink-deep hover:text-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:tracking-[0.18em]"
                   >
                     {submitting ? 'Sending response...' : 'Send response'}
                   </motion.button>
