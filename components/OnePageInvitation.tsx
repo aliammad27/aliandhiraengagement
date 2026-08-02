@@ -249,19 +249,19 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         variants={headerReveal}
         initial="hidden"
         animate={introComplete ? 'visible' : 'hidden'}
-        className="absolute inset-x-0 top-0 z-50 text-ivory"
+        className="absolute inset-x-0 top-0 z-50 text-sage-dark"
       >
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-8">
-          <a href="#top" className="font-display text-2xl font-semibold text-ivory">
-            H<span className="text-pink-light">&amp;</span>A
+          <a href="#top" className="font-display text-2xl font-semibold text-sage-dark">
+            H<span className="text-pink-deep">&amp;</span>A
           </a>
           <nav className="flex items-center gap-4 text-sm sm:gap-6" aria-label="Main navigation">
-            <a href="#details" className="hidden text-ivory transition-colors hover:text-gold-soft sm:inline">
+            <a href="#details" className="hidden text-sage-dark transition-colors hover:text-pink-deep sm:inline">
               Details
             </a>
             <a
               href="#rsvp"
-              className="inline-flex min-h-10 items-center justify-center border border-ivory px-3 text-[0.7rem] font-semibold uppercase text-ivory transition-colors hover:bg-ivory hover:text-sage-dark sm:px-4"
+              className="inline-flex min-h-10 items-center justify-center border border-sage-dark px-3 text-[0.7rem] font-semibold uppercase text-sage-dark transition-colors hover:bg-sage-dark hover:text-ivory sm:px-4"
             >
               RSVP
             </a>
@@ -271,7 +271,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
       <section
         id="top"
-        className="relative flex min-h-[100svh] items-center justify-center bg-sage-dark px-4 pb-12 pt-20 text-center text-ivory sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
+        className="relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-12 pt-20 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
       >
         <motion.div
           variants={heroGroup}
@@ -279,7 +279,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
           animate={introComplete ? 'visible' : 'hidden'}
           className="mx-auto flex w-full max-w-3xl flex-col items-center"
         >
-          <motion.p variants={heroItem} className="font-arabic text-xl text-gold-soft sm:text-3xl">
+          <motion.p variants={heroItem} className="font-arabic text-xl text-gold sm:text-3xl">
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </motion.p>
 
@@ -289,21 +289,21 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
           <motion.p
             variants={heroItem}
-            className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-gold-soft sm:max-w-none sm:tracking-[0.22em]"
+            className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-pink-deep sm:max-w-none sm:tracking-[0.22em]"
           >
             With the blessings of their families
           </motion.p>
 
           <motion.h1
             variants={heroItem}
-            className="mt-6 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-ivory [text-wrap:balance] sm:text-8xl"
+            className="mt-6 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
           >
-            {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-light">&amp;</span> {groom}
+            {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-deep">&amp;</span> {groom}
           </motion.h1>
 
           <motion.p
             variants={heroItem}
-            className="mt-6 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-ivory sm:max-w-xl sm:text-3xl sm:leading-relaxed"
+            className="mt-6 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-charcoal sm:max-w-xl sm:text-3xl sm:leading-relaxed"
           >
             {story}
           </motion.p>
@@ -314,26 +314,26 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             aria-label={eventDate}
             className="mt-9 block w-full max-w-[360px]"
           >
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold-soft/70 py-4">
+            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-4">
               <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Day</span>
-                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventWeekday}</span>
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Day</span>
+                <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventWeekday}</span>
               </span>
-              <span className="flex min-w-0 flex-col border-x border-gold-soft/50 px-1">
-                <span className="font-display text-5xl leading-none text-pink-light">{eventDay}</span>
+              <span className="flex min-w-0 flex-col border-x border-gold/40 px-1">
+                <span className="font-display text-5xl leading-none text-sage-dark">{eventDay}</span>
               </span>
               <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-gold-soft sm:tracking-[0.2em]">Month</span>
-                <span className="truncate font-display text-lg text-ivory sm:text-2xl">{eventMonth}</span>
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Month</span>
+                <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventMonth}</span>
               </span>
             </span>
-            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-ivory">
+            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-charcoal-soft">
               {eventYear} · Insha&apos;Allah
             </span>
           </motion.time>
 
           <motion.div variants={heroItem} className="mt-8 w-full text-center">
-            <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-ivory sm:max-w-none sm:tracking-[0.18em]">
+            <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-charcoal-soft sm:max-w-none sm:tracking-[0.18em]">
               {EVENT_ADDRESS}
             </p>
             <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
@@ -341,7 +341,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 href="#rsvp"
                 whileTap={pressAnimation}
                 whileHover={hoverLift}
-                className="inline-flex min-h-11 items-center justify-center bg-ivory px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark shadow-md shadow-sage-dark/20 transition-colors hover:bg-pink-light hover:text-sage-dark sm:tracking-[0.18em]"
+                className="inline-flex min-h-11 items-center justify-center bg-sage-dark px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ivory shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep sm:tracking-[0.18em]"
               >
                 RSVP below
               </motion.a>
@@ -351,7 +351,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 rel="noopener noreferrer"
                 whileTap={pressAnimation}
                 whileHover={hoverLift}
-                className="inline-flex min-h-11 items-center justify-center border border-gold-soft px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-soft transition-colors hover:bg-gold-soft hover:text-sage-dark sm:tracking-[0.18em]"
+                className="inline-flex min-h-11 items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:tracking-[0.18em]"
               >
                 Get directions
               </motion.a>
@@ -451,7 +451,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </section>
       )}
 
-      <section id="rsvp" className="bg-sage-dark px-4 py-14 text-ivory sm:px-8 sm:py-24">
+      <section id="rsvp" className="bg-cream px-4 py-14 text-charcoal sm:px-8 sm:py-24">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
           <motion.div
             variants={fadeUp}
@@ -460,14 +460,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             viewport={sectionViewport}
             className="text-center lg:sticky lg:top-8 lg:text-left"
           >
-            <p className="font-script text-4xl text-pink-light sm:text-5xl">Kindly respond</p>
-            <h2 className="mt-4 font-display text-[clamp(2.6rem,12vw,4.6rem)] font-normal leading-none text-ivory">
+            <p className="font-script text-4xl text-pink-deep sm:text-5xl">Kindly respond</p>
+            <h2 className="mt-4 font-display text-[clamp(2.6rem,12vw,4.6rem)] font-normal leading-none text-sage-dark">
               {guest ? `Dear ${guest.name},` : 'Will you join us?'}
             </h2>
-            <p className="mt-6 max-w-xl font-display text-xl italic leading-8 text-ivory/90 sm:text-2xl sm:leading-9 lg:max-w-md">
+            <p className="mt-6 max-w-xl font-display text-xl italic leading-8 text-charcoal sm:text-2xl sm:leading-9 lg:max-w-md">
               Please let us know whether you will be able to join us for {bride} and {groom}&apos;s engagement.
             </p>
-            <p className="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-pink-light">
+            <p className="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-pink-deep">
               Please RSVP by {RSVP_BY_DATE}
             </p>
           </motion.div>
