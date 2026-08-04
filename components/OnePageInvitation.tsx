@@ -54,6 +54,7 @@ const RSVP_BY_DATE = 'September 12, 2026';
 const EVENT_TIME = '2:00 PM';
 const EVENT_ADDRESS = '1204 Middle Ave, Waterford Works, NJ';
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ';
+const MAX_PARTY_SIZE = 6;
 
 const toasterStyle = {
   style: {
@@ -152,7 +153,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
           setFormData({
             name: data.name,
             rsvpStatus: savedStatus,
-            partySize: Math.max(1, Number(data.partySize) || 1),
+            partySize: Math.min(MAX_PARTY_SIZE, Math.max(1, Number(data.partySize) || 1)),
           });
         } else {
           setInvalidInvitation(true);
@@ -184,7 +185,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const story =
     config?.story?.trim() ||
     'Joyfully invite you to an intimate celebration of their engagement with family and friends.';
-  const maximumPartySize = guest ? Math.max(2, Number(guest.partySize) || 1) : 2;
+  const maximumPartySize = guest
+    ? Math.min(MAX_PARTY_SIZE, Math.max(2, Number(guest.partySize) || 1))
+    : MAX_PARTY_SIZE;
   const lookupNotice = invalidInvitation
     ? {
         title: 'This link was not found.',
@@ -635,30 +638,27 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                         className="overflow-hidden"
                       >
                         <legend className="mb-3 block w-full text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sage-dark sm:tracking-[0.18em]">
-                          Will you be bringing a guest?
+                          How many in your party, including yourself?
                         </legend>
-                        <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5 sm:gap-3">
-                          {[
-                            { value: 1, label: 'Just myself' },
-                            { value: 2, label: 'I will bring a guest' },
-                          ].map((option) => {
-                            const selected = formData.partySize === option.value;
+                        <div className="mx-auto grid max-w-md grid-cols-3 gap-2.5 sm:gap-3">
+                          {Array.from({ length: maximumPartySize }, (_, index) => index + 1).map((value) => {
+                            const selected = formData.partySize === value;
 
                             return (
                               <motion.button
-                                key={option.value}
+                                key={value}
                                 type="button"
                                 aria-pressed={selected}
                                 whileTap={pressAnimation}
                                 whileHover={hoverLift}
-                                onClick={() => setFormData({ ...formData, partySize: option.value })}
-                                className={`min-h-12 w-full border px-2 text-center font-display text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:px-3 sm:text-lg ${
+                                onClick={() => setFormData({ ...formData, partySize: value })}
+                                className={`min-h-12 w-full border px-2 text-center font-display text-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-deep sm:text-xl ${
                                   selected
                                     ? 'border-sage-light bg-sage-light text-charcoal shadow-md shadow-sage-deep/25'
                                     : 'border-gold/60 bg-cream text-charcoal hover:border-pink-deep hover:text-pink-deep'
                                 }`}
                               >
-                                {option.label}
+                                {value}
                               </motion.button>
                             );
                           })}

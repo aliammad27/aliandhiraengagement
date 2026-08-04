@@ -10,6 +10,8 @@ import { Guest, RSVPResponse } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
+const MAX_PARTY_SIZE = 6;
+
 type JsonRecord = Record<string, unknown>;
 
 function cleanString(value: unknown, maxLength = 500) {
@@ -57,7 +59,7 @@ export async function POST(request: NextRequest) {
       const name = cleanString(body.guestName || body.name, 120);
       if (!name) return jsonError('Please tell us your name');
 
-      const partySize = clampPartySize(body.partySize, 2);
+      const partySize = clampPartySize(body.partySize, MAX_PARTY_SIZE);
       guest = await createDocument<Guest>('guests', {
         name,
         email: '',
@@ -69,7 +71,9 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const maxPartySize = invitationToken ? Math.max(2, Number(guest.partySize) || 1) : 2;
+    const maxPartySize = invitationToken
+      ? Math.min(MAX_PARTY_SIZE, Math.max(2, Number(guest.partySize) || 1))
+      : MAX_PARTY_SIZE;
     const requestedPartySize = clampPartySize(body.partySize, maxPartySize);
 
     if (status === 'accepted' && Number(body.partySize) > maxPartySize) {
