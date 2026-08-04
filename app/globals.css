@@ -164,7 +164,7 @@ textarea {
   border: 1px solid rgba(205, 183, 138, 0.28);
 }
 
-.section-frame > * {
+.section-frame > :not(.absolute) {
   position: relative;
   z-index: 1;
 }
@@ -184,7 +184,7 @@ textarea {
   z-index: 0;
 }
 
-.panel-frame > * {
+.panel-frame > :not(.absolute) {
   position: relative;
   z-index: 1;
 }
