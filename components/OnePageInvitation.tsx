@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getEngagementConfig, getGuestByToken, recordRSVP } from '@/lib/database';
 import { EngagementConfig, Guest } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
-import { CornerFrame, StarDivider } from '@/components/ornaments';
+import { CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const sectionViewport = { once: true, amount: 0.2 } as const;
@@ -370,6 +370,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             className="relative border border-gold/40 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
+            <InsetRule borderColor="border-pink-deep/20" />
+            <FloralCorners tone="text-pink-deep/45" />
             <p className="font-script text-3xl text-pink-deep sm:text-4xl">The invitation</p>
             <h2 className="mt-5 font-display text-[clamp(2.35rem,11vw,4rem)] font-normal leading-tight text-sage-dark">
               {eventDate}
@@ -481,6 +483,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             className="relative border border-gold-soft/50 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
+            <InsetRule borderColor="border-pink-deep/20" />
+            <FloralCorners tone="text-pink-deep/45" />
 
             <AnimatePresence mode="wait">
               {submitted ? (
