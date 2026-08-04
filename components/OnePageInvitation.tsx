@@ -282,9 +282,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
       <section
         id="top"
-        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-8 pt-14 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-14 sm:pt-20"
+        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-6 pt-20 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-12 sm:pt-24"
       >
-        <div className="panel-frame relative w-full max-w-3xl border border-gold/30 bg-ivory/40 px-5 py-6 shadow-lg shadow-sage-deep/5 sm:px-14 sm:py-14">
+        <div className="panel-frame relative w-full max-w-3xl border border-gold/30 bg-ivory/40 px-5 py-5 shadow-lg shadow-sage-deep/5 sm:px-14 sm:py-12">
           <CornerFrame borderColor="border-gold/45" topCorners={false} />
           <InsetRule borderColor="border-gold/20" />
           <ArchApex tone="text-gold" />
