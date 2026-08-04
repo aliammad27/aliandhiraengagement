@@ -30,6 +30,29 @@ export function ArchApex({ tone = 'text-gold' }: { tone?: string }) {
   );
 }
 
+function Blossom({ x, y, size = 1 }: { x: number; y: number; size?: number }) {
+  const petalCount = 6;
+  const petalLength = 4.2 * size;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      {Array.from({ length: petalCount }, (_, i) => (360 / petalCount) * i).map((angle) => (
+        <ellipse
+          key={angle}
+          cx="0"
+          cy={-petalLength * 0.62}
+          rx={1.5 * size}
+          ry={petalLength}
+          transform={`rotate(${angle})`}
+          stroke="currentColor"
+          strokeWidth="0.5"
+          fill="none"
+        />
+      ))}
+      <circle r={0.9 * size} fill="currentColor" opacity="0.75" />
+    </g>
+  );
+}
+
 export function FloralCorner({
   className = '',
   tone = 'text-gold/70',
@@ -41,26 +64,35 @@ export function FloralCorner({
     <svg
       aria-hidden="true"
       viewBox="0 0 120 120"
-      className={`pointer-events-none absolute h-14 w-14 sm:h-20 sm:w-20 ${tone} ${className}`}
+      className={`pointer-events-none absolute h-16 w-16 sm:h-24 sm:w-24 ${tone} ${className}`}
       fill="none"
     >
       <path
-        d="M6 6 C 34 8, 46 20, 48 48 C 49 62, 56 70, 70 72"
+        d="M8 112 C 22 98, 29 80, 33 60 C 37 40, 48 27, 68 15"
         stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="0.85"
         strokeLinecap="round"
       />
-      <path d="M20 12 C 26 20, 24 28, 16 32" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" />
-      <path d="M12 20 C 20 24, 26 22, 32 16" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" />
-      <ellipse cx="34" cy="34" rx="6" ry="3.2" transform="rotate(40 34 34)" fill="currentColor" opacity="0.55" />
-      <ellipse cx="44" cy="46" rx="5" ry="2.6" transform="rotate(35 44 46)" fill="currentColor" opacity="0.45" />
-      <g transform="translate(70 72)">
-        <circle r="2.6" fill="currentColor" />
-        <circle cx="6" r="1.6" fill="currentColor" opacity="0.7" />
-        <circle cx="-6" r="1.6" fill="currentColor" opacity="0.7" />
-        <circle cy="6" r="1.6" fill="currentColor" opacity="0.7" />
-        <circle cy="-6" r="1.6" fill="currentColor" opacity="0.7" />
-      </g>
+      <path d="M33 60 C 40 58, 46 54, 50 47" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+      <path d="M48 33 C 54 31, 58 27, 60 21" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+
+      <path
+        d="M19 90 C 25 88, 29 83, 29 76 C 24 79, 19 82, 14 85 C 15 88, 17 90, 19 90 Z"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        opacity="0.85"
+      />
+      <path
+        d="M39 51 C 45 49, 49 45, 49 39 C 44 42, 40 45, 35 48 C 36 50, 38 51, 39 51 Z"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        opacity="0.85"
+      />
+
+      <Blossom x={50} y={47} size={0.62} />
+      <Blossom x={68} y={15} size={0.9} />
+      <circle cx="60" cy="21" r="1.3" fill="currentColor" opacity="0.6" />
+      <circle cx="24" cy="72" r="1" fill="currentColor" opacity="0.4" />
     </svg>
   );
 }
