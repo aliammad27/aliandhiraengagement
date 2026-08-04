@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
+import { ArchApex, CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
 
 interface Props {
   bride: string;
@@ -82,16 +82,17 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                 initial={false}
                 animate={{ opacity: opening ? 1 : 0, scale: opening ? 1 : 0.96 }}
                 transition={{ duration: reduceMotion ? 0.1 : 0.7, delay: reduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
+                className="arch-card absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
               >
-                <CornerFrame borderColor="border-pink-deep/35" />
+                <CornerFrame borderColor="border-pink-deep/35" topCorners={false} />
                 <InsetRule borderColor="border-pink-deep/20" />
+                <ArchApex tone="text-pink-deep" />
                 <FloralCorners tone="text-pink-deep/50" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
                   <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited by</p>
                   <p className="mt-4 font-display text-[clamp(2.6rem,12vw,3.75rem)] leading-none">
-                    {bride} <span className="text-pink-deep">&amp;</span> {groom}
+                    {bride} <span className="foil-text">&amp;</span> {groom}
                   </p>
                   <p className="mt-4 max-w-[240px] font-display text-xl leading-6 text-charcoal sm:mt-5 sm:text-2xl sm:leading-7">
                     to celebrate their engagement
@@ -122,10 +123,11 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                 initial={false}
                 animate={{ opacity: opening ? 0 : 1 }}
                 transition={{ duration: reduceMotion ? 0.05 : 0.35, delay: opening && !reduceMotion ? 0.18 : 0 }}
-                className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center overflow-hidden border border-gold/70 bg-ivory text-center text-sage-deep shadow-2xl shadow-sage-dark/20"
+                className="arch-card pointer-events-none absolute inset-0 z-30 flex flex-col items-center overflow-hidden border border-gold/70 bg-ivory text-center text-sage-deep shadow-2xl shadow-sage-dark/20"
               >
-                <CornerFrame borderColor="border-gold/65" />
+                <CornerFrame borderColor="border-gold/65" topCorners={false} />
                 <InsetRule borderColor="border-gold/25" />
+                <ArchApex tone="text-gold" />
                 <FloralCorners tone="text-gold/55" />
 
                 <span
@@ -147,7 +149,7 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                     An invitation from
                   </p>
                   <p className="mt-3 max-w-full font-display text-[clamp(3rem,14vw,4.5rem)] leading-none text-sage-deep sm:mt-4">
-                    {bride} <span className="text-pink-deep">&amp;</span> {groom}
+                    {bride} <span className="foil-text">&amp;</span> {groom}
                   </p>
                 </div>
 

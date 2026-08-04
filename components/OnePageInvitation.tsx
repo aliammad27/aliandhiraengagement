@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getEngagementConfig, getGuestByToken, recordRSVP } from '@/lib/database';
 import { EngagementConfig, Guest } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
-import { CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
+import { ArchApex, CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const sectionViewport = { once: true, amount: 0.2 } as const;
@@ -242,7 +242,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const hoverLift = reduceMotion ? undefined : { y: -1 };
 
   return (
-    <main className="w-full overflow-hidden bg-cream text-charcoal">
+    <main className="invitation-canvas w-full overflow-hidden bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
       <InvitationCardIntro
         bride={bride}
@@ -261,7 +261,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
       >
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-8">
           <a href="#top" className="font-display text-2xl font-semibold text-sage-dark">
-            H<span className="text-pink-deep">&amp;</span>A
+            H<span className="foil-text">&amp;</span>A
           </a>
           <nav className="flex items-center gap-4 text-sm sm:gap-6" aria-label="Main navigation">
             <a href="#details" className="hidden text-sage-dark transition-colors hover:text-pink-deep sm:inline">
@@ -279,117 +279,125 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
       <section
         id="top"
-        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-12 pt-20 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
+        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-14 pt-24 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-20 sm:pt-28"
       >
-        <motion.div
-          variants={heroGroup}
-          initial="hidden"
-          animate={introComplete ? 'visible' : 'hidden'}
-          className="mx-auto flex w-full max-w-3xl flex-col items-center"
-        >
-          <motion.p variants={heroItem} className="font-arabic text-xl text-gold sm:text-3xl">
-            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-          </motion.p>
+        <div className="panel-frame relative w-full max-w-3xl border border-gold/30 bg-ivory/40 px-6 py-14 shadow-lg shadow-sage-deep/5 sm:px-16 sm:py-20">
+          <CornerFrame borderColor="border-gold/45" topCorners={false} />
+          <InsetRule borderColor="border-gold/20" />
+          <ArchApex tone="text-gold" />
+          <FloralCorners tone="text-pink-deep/35" />
 
-          <motion.div variants={heroItem} className="my-5">
-            <StarDivider />
+          <motion.div
+            variants={heroGroup}
+            initial="hidden"
+            animate={introComplete ? 'visible' : 'hidden'}
+            className="mx-auto flex w-full flex-col items-center"
+          >
+            <motion.p variants={heroItem} className="font-arabic text-xl text-gold sm:text-3xl">
+              بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+            </motion.p>
+
+            <motion.div variants={heroItem} className="my-6">
+              <StarDivider />
+            </motion.div>
+
+            <motion.p
+              variants={heroItem}
+              className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.2em] text-pink-deep sm:max-w-none sm:tracking-[0.26em]"
+            >
+              With the blessings of their families
+            </motion.p>
+
+            <motion.h1
+              variants={heroItem}
+              className="mt-8 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
+            >
+              {bride} <span className="font-script foil-text mx-1 align-middle text-[0.68em]">&amp;</span> {groom}
+            </motion.h1>
+
+            <motion.p
+              variants={heroItem}
+              className="mt-8 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-charcoal sm:max-w-xl sm:text-3xl sm:leading-relaxed"
+            >
+              {story}
+            </motion.p>
+
+            <motion.time
+              variants={heroItem}
+              dateTime={`${eventIsoDate}T14:00`}
+              aria-label={`${eventDate} at ${EVENT_TIME}`}
+              className="mt-11 block w-full max-w-[360px]"
+            >
+              <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-5">
+                <span className="flex min-w-0 flex-col gap-1 px-1">
+                  <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Day</span>
+                  <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventWeekday}</span>
+                </span>
+                <span className="flex min-w-0 flex-col border-x border-gold/40 px-1">
+                  <span className="font-display text-5xl leading-none text-sage-dark">{eventDay}</span>
+                </span>
+                <span className="flex min-w-0 flex-col gap-1 px-1">
+                  <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Month</span>
+                  <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventMonth}</span>
+                </span>
+              </span>
+              <span aria-hidden="true" className="mt-4 flex items-center justify-center gap-3 font-display text-lg italic text-charcoal-soft">
+                <span className="divider-line w-8 text-gold" />
+                <span>{eventYear} · {EVENT_TIME} · Insha&apos;Allah</span>
+                <span className="divider-line w-8 text-gold" />
+              </span>
+            </motion.time>
+
+            <motion.div variants={heroItem} className="mt-10 w-full text-center">
+              <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.15em] text-charcoal-soft sm:max-w-none sm:tracking-[0.2em]">
+                {EVENT_ADDRESS}
+              </p>
+              <div className="mx-auto mt-6 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
+                <motion.a
+                  href="#rsvp"
+                  whileTap={pressAnimation}
+                  whileHover={hoverLift}
+                  className="inline-flex min-h-11 items-center justify-center bg-sage-light px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-charcoal shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep hover:text-ivory sm:tracking-[0.18em]"
+                >
+                  RSVP below
+                </motion.a>
+                <motion.a
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileTap={pressAnimation}
+                  whileHover={hoverLift}
+                  className="inline-flex min-h-11 items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:tracking-[0.18em]"
+                >
+                  Get directions
+                </motion.a>
+              </div>
+            </motion.div>
           </motion.div>
-
-          <motion.p
-            variants={heroItem}
-            className="max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.18em] text-pink-deep sm:max-w-none sm:tracking-[0.22em]"
-          >
-            With the blessings of their families
-          </motion.p>
-
-          <motion.h1
-            variants={heroItem}
-            className="mt-6 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
-          >
-            {bride} <span className="font-script mx-1 align-middle text-[0.68em] text-pink-deep">&amp;</span> {groom}
-          </motion.h1>
-
-          <motion.p
-            variants={heroItem}
-            className="mt-6 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-charcoal sm:max-w-xl sm:text-3xl sm:leading-relaxed"
-          >
-            {story}
-          </motion.p>
-
-          <motion.time
-            variants={heroItem}
-            dateTime={`${eventIsoDate}T14:00`}
-            aria-label={`${eventDate} at ${EVENT_TIME}`}
-            className="mt-9 block w-full max-w-[360px]"
-          >
-            <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-4">
-              <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Day</span>
-                <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventWeekday}</span>
-              </span>
-              <span className="flex min-w-0 flex-col border-x border-gold/40 px-1">
-                <span className="font-display text-5xl leading-none text-sage-dark">{eventDay}</span>
-              </span>
-              <span className="flex min-w-0 flex-col gap-1 px-1">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Month</span>
-                <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventMonth}</span>
-              </span>
-            </span>
-            <span aria-hidden="true" className="mt-3 flex items-center justify-center gap-3 font-display text-lg italic text-charcoal-soft">
-              <span className="h-px w-8 bg-gold/35" />
-              <span>{eventYear} · {EVENT_TIME} · Insha&apos;Allah</span>
-              <span className="h-px w-8 bg-gold/35" />
-            </span>
-          </motion.time>
-
-          <motion.div variants={heroItem} className="mt-8 w-full text-center">
-            <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.13em] text-charcoal-soft sm:max-w-none sm:tracking-[0.18em]">
-              {EVENT_ADDRESS}
-            </p>
-            <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
-              <motion.a
-                href="#rsvp"
-                whileTap={pressAnimation}
-                whileHover={hoverLift}
-                className="inline-flex min-h-11 items-center justify-center bg-sage-light px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-charcoal shadow-md shadow-sage-deep/20 transition-colors hover:bg-pink-deep hover:text-ivory sm:tracking-[0.18em]"
-              >
-                RSVP below
-              </motion.a>
-              <motion.a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileTap={pressAnimation}
-                whileHover={hoverLift}
-                className="inline-flex min-h-11 items-center justify-center border border-gold/70 px-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-sage-dark transition-colors hover:border-pink-deep hover:text-pink-deep sm:tracking-[0.18em]"
-              >
-                Get directions
-              </motion.a>
-            </div>
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
 
-      <section id="details" className="section-frame border-y border-gold/25 bg-warm-white px-4 py-14 sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
+      <section id="details" className="section-frame border-y border-gold/25 bg-warm-white px-4 py-16 sm:px-8 sm:py-28">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
-            className="panel-frame relative border border-gold/50 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
+            className="panel-frame relative border border-gold/50 bg-ivory px-5 py-12 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-16"
           >
-            <CornerFrame borderColor="border-pink-deep/55" />
+            <CornerFrame borderColor="border-pink-deep/55" topCorners={false} />
             <InsetRule borderColor="border-pink-deep/20" />
+            <ArchApex tone="text-pink-deep" />
             <FloralCorners tone="text-pink-deep/45" />
             <p className="font-script text-3xl text-pink-deep sm:text-4xl">The invitation</p>
-            <h2 className="mt-5 font-display text-[clamp(2.35rem,11vw,4rem)] font-normal leading-tight text-sage-dark">
+            <h2 className="mt-6 font-display text-[clamp(2.35rem,11vw,4rem)] font-normal leading-tight text-sage-dark">
               {eventDate}
             </h2>
-            <div className="mx-auto mt-5 max-w-[240px]">
+            <div className="mx-auto mt-6 max-w-[240px]">
               <StarDivider tone="sage" />
             </div>
-            <p className="mx-auto mt-7 max-w-sm font-display text-xl italic leading-8 text-charcoal sm:text-2xl sm:leading-9">
+            <p className="mx-auto mt-8 max-w-sm font-display text-xl italic leading-8 text-charcoal sm:text-2xl sm:leading-9">
               We would be honored to celebrate with you, insha&apos;Allah.
             </p>
           </motion.div>
@@ -466,8 +474,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </section>
       )}
 
-      <section id="rsvp" className="section-frame border-y border-gold/25 bg-cream px-4 py-14 text-charcoal sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
+      <section id="rsvp" className="section-frame border-y border-gold/25 bg-cream px-4 py-16 text-charcoal sm:px-8 sm:py-28">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-12">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -496,10 +504,11 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             whileInView="visible"
             viewport={sectionViewport}
             custom={1}
-            className="panel-frame relative border border-gold-soft/60 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
+            className="panel-frame relative border border-gold-soft/60 bg-ivory px-4 py-10 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-14"
           >
-            <CornerFrame borderColor="border-pink-deep/55" />
+            <CornerFrame borderColor="border-pink-deep/55" topCorners={false} />
             <InsetRule borderColor="border-pink-deep/20" />
+            <ArchApex tone="text-pink-deep" />
             <FloralCorners tone="text-pink-deep/45" />
 
             <AnimatePresence mode="wait">
@@ -673,16 +682,16 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </div>
       </section>
 
-      <footer className="relative bg-cream px-4 py-12 text-center text-sage-dark sm:py-16">
+      <footer className="relative bg-cream px-4 py-16 text-center text-sage-dark sm:py-20">
         <StarDivider tone="sage" />
-        <p className="font-script mt-7 text-[clamp(3rem,14vw,4.5rem)] leading-tight text-sage-dark">
-          {bride} <span className="text-pink-deep">&amp;</span> {groom}
+        <p className="font-script mt-8 text-[clamp(3rem,14vw,4.5rem)] leading-tight text-sage-dark">
+          {bride} <span className="foil-text">&amp;</span> {groom}
         </p>
-        <p className="mx-auto mt-4 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.18em] text-charcoal-soft sm:max-w-none sm:tracking-[0.22em]">
+        <p className="mx-auto mt-5 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.2em] text-charcoal-soft sm:max-w-none sm:tracking-[0.24em]">
           <span className="block">{eventDate} · {EVENT_TIME}</span>
           <span className="mt-1 block">Insha&apos;Allah</span>
         </p>
-        <a href="/admin" className="mt-8 inline-block text-xs font-medium text-charcoal-soft transition-colors hover:text-pink-deep">
+        <a href="/admin" className="mt-9 inline-block text-xs font-medium text-charcoal-soft transition-colors hover:text-pink-deep">
           Manage invitations
         </a>
       </footer>

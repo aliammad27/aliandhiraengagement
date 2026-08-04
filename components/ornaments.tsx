@@ -1,11 +1,32 @@
-export function CornerFrame({ borderColor }: { borderColor: string }) {
+export function CornerFrame({
+  borderColor,
+  topCorners = true,
+}: {
+  borderColor: string;
+  topCorners?: boolean;
+}) {
   return (
     <>
-      <span className={`pointer-events-none absolute left-3 top-3 h-6 w-6 border-l border-t ${borderColor}`} />
-      <span className={`pointer-events-none absolute right-3 top-3 h-6 w-6 border-r border-t ${borderColor}`} />
+      {topCorners && (
+        <>
+          <span className={`pointer-events-none absolute left-3 top-3 h-6 w-6 border-l border-t ${borderColor}`} />
+          <span className={`pointer-events-none absolute right-3 top-3 h-6 w-6 border-r border-t ${borderColor}`} />
+        </>
+      )}
       <span className={`pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b border-l ${borderColor}`} />
       <span className={`pointer-events-none absolute bottom-3 right-3 h-6 w-6 border-b border-r ${borderColor}`} />
     </>
+  );
+}
+
+export function ArchApex({ tone = 'text-gold' }: { tone?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs ${tone} sm:top-4`}
+    >
+      ✦
+    </span>
   );
 }
 
@@ -44,9 +65,26 @@ export function FloralCorner({
   );
 }
 
+function WatercolorWash({ className = '' }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute h-28 w-28 opacity-70 blur-2xl sm:h-36 sm:w-36 ${className}`}
+      style={{
+        background:
+          'radial-gradient(circle at 32% 30%, rgba(183,177,217,0.5), transparent 60%), radial-gradient(circle at 68% 52%, rgba(230,217,188,0.4), transparent 62%), radial-gradient(circle at 45% 78%, rgba(255,252,246,0.55), transparent 68%)',
+      }}
+    />
+  );
+}
+
 export function FloralCorners({ tone = 'text-gold/70' }: { tone?: string }) {
   return (
     <>
+      <WatercolorWash className="-left-6 -top-6" />
+      <WatercolorWash className="-right-6 -top-6" />
+      <WatercolorWash className="-bottom-6 -right-6" />
+      <WatercolorWash className="-bottom-6 -left-6" />
       <FloralCorner tone={tone} className="left-0 top-0" />
       <FloralCorner tone={tone} className="right-0 top-0 rotate-90" />
       <FloralCorner tone={tone} className="bottom-0 right-0 rotate-180" />
@@ -59,23 +97,23 @@ export function InsetRule({ borderColor = 'border-gold/30' }: { borderColor?: st
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-2 border ${borderColor} sm:inset-3`}
+      className={`arch-inset pointer-events-none absolute inset-2 border ${borderColor} sm:inset-3`}
     />
   );
 }
 
 export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink' }) {
   const styles = {
-    gold: { line: 'bg-gold/55', star: 'text-gold' },
-    sage: { line: 'bg-sage-dark/40', star: 'text-sage-dark' },
-    pink: { line: 'bg-pink-deep/40', star: 'text-pink-deep' },
+    gold: { line: 'text-gold', star: 'text-gold' },
+    sage: { line: 'text-sage-dark', star: 'text-sage-dark' },
+    pink: { line: 'text-pink-deep', star: 'text-pink-deep' },
   }[tone];
 
   return (
-    <div className={`flex items-center justify-center gap-3 ${styles.star}`} aria-hidden="true">
-      <span className={`h-px w-10 ${styles.line}`} />
-      <span className="text-xs">✦</span>
-      <span className={`h-px w-10 ${styles.line}`} />
+    <div className={`flex items-center justify-center gap-4 ${styles.star}`} aria-hidden="true">
+      <span className={`divider-line w-12 ${styles.line}`} />
+      <span className="text-xs tracking-widest">✦</span>
+      <span className={`divider-line w-12 ${styles.line}`} />
     </div>
   );
 }
