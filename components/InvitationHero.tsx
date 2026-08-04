@@ -5,9 +5,12 @@ import { CornerFrame, StarDivider } from '@/components/ornaments';
 interface Props {
   groom: string;
   bride: string;
+  eventDate: string;
+  eventTime: string;
+  eventIsoDate: string;
 }
 
-export default function InvitationHero({ groom, bride }: Props) {
+export default function InvitationHero({ groom, bride, eventDate, eventTime, eventIsoDate }: Props) {
   return (
     <section className="relative overflow-hidden bg-sage-dark px-4 py-8 text-center text-ivory sm:px-8 sm:py-14">
       <div className="relative mx-auto max-w-3xl border border-gold-soft/70 px-4 py-9 sm:px-10 sm:py-14">
@@ -28,11 +31,11 @@ export default function InvitationHero({ groom, bride }: Props) {
         </div>
 
         <time
-          dateTime="2026-10-10"
-          aria-label="Saturday, October 10, 2026 at 2:00 PM"
+          dateTime={`${eventIsoDate}T14:00`}
+          aria-label={`${eventDate} at ${eventTime}`}
           className="mx-auto mt-8 block max-w-xs font-display text-[1.65rem] leading-tight text-ivory sm:max-w-none sm:text-3xl"
         >
-          Saturday, October 10, 2026 · 2:00 PM
+          {eventDate} · {eventTime}
         </time>
         <p className="mt-2 font-display text-lg italic text-ivory">Insha&apos;Allah</p>
 

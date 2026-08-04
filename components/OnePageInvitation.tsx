@@ -244,7 +244,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   return (
     <main className="w-full overflow-hidden bg-cream text-charcoal">
       <Toaster position="top-center" toastOptions={toasterStyle} />
-      <InvitationCardIntro bride={bride} groom={groom} onOpened={() => setIntroComplete(true)} />
+      <InvitationCardIntro
+        bride={bride}
+        groom={groom}
+        eventDate={eventDate}
+        eventWeekday={eventWeekday}
+        eventTime={EVENT_TIME}
+        onOpened={() => setIntroComplete(true)}
+      />
 
       <motion.header
         variants={headerReveal}
@@ -311,7 +318,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
           <motion.time
             variants={heroItem}
-            dateTime={eventIsoDate}
+            dateTime={`${eventIsoDate}T14:00`}
             aria-label={`${eventDate} at ${EVENT_TIME}`}
             className="mt-9 block w-full max-w-[360px]"
           >
@@ -440,7 +447,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
       </section>
 
       {photos.length > 0 && (
-        <section className="border-y border-sage-deep/10 bg-ivory px-4 py-12 sm:px-8 sm:py-16">
+        <section className="section-frame border-y border-sage-deep/10 bg-ivory px-4 py-12 sm:px-8 sm:py-16">
           <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
             {photos.slice(0, 3).map((photo, index) => (
               <motion.figure
@@ -672,7 +679,8 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
           {bride} <span className="text-pink-deep">&amp;</span> {groom}
         </p>
         <p className="mx-auto mt-4 max-w-xs text-[0.72rem] font-semibold uppercase leading-5 tracking-[0.18em] text-charcoal-soft sm:max-w-none sm:tracking-[0.22em]">
-          {eventDate} · Insha&apos;Allah
+          <span className="block">{eventDate} · {EVENT_TIME}</span>
+          <span className="mt-1 block">Insha&apos;Allah</span>
         </p>
         <a href="/admin" className="mt-8 inline-block text-xs font-medium text-charcoal-soft transition-colors hover:text-pink-deep">
           Manage invitations
