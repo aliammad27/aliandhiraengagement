@@ -598,7 +598,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
                   <fieldset>
                     <legend className="mb-5 block w-full text-center font-display text-2xl leading-tight text-sage-dark sm:text-3xl">
-                      Will you be joining us?
+                      RSVP
                     </legend>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                       {[
