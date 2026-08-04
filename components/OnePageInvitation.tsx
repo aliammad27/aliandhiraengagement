@@ -296,7 +296,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             animate={introComplete ? 'visible' : 'hidden'}
             className="mx-auto flex w-full flex-col items-center"
           >
-            <motion.p variants={heroItem} className="font-arabic text-xl text-gold sm:text-3xl">
+            <motion.p variants={heroItem} className="mt-3 font-arabic text-xl text-gold sm:mt-0 sm:text-3xl">
               بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
             </motion.p>
 
