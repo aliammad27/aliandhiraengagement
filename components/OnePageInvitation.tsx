@@ -279,9 +279,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
       <section
         id="top"
-        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-14 pt-24 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-20 sm:pt-28"
+        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-8 pt-14 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-14 sm:pt-20"
       >
-        <div className="panel-frame relative w-full max-w-3xl border border-gold/30 bg-ivory/40 px-6 py-14 shadow-lg shadow-sage-deep/5 sm:px-16 sm:py-20">
+        <div className="panel-frame relative w-full max-w-3xl border border-gold/30 bg-ivory/40 px-5 py-6 shadow-lg shadow-sage-deep/5 sm:px-14 sm:py-14">
           <CornerFrame borderColor="border-gold/45" topCorners={false} />
           <InsetRule borderColor="border-gold/20" />
           <ArchApex tone="text-gold" />
@@ -297,7 +297,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
               بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
             </motion.p>
 
-            <motion.div variants={heroItem} className="my-6">
+            <motion.div variants={heroItem} className="my-4">
               <StarDivider />
             </motion.div>
 
@@ -310,14 +310,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
             <motion.h1
               variants={heroItem}
-              className="mt-8 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
+              className="mt-5 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
             >
               {bride} <span className="font-script foil-text mx-1 align-middle text-[0.68em]">&amp;</span> {groom}
             </motion.h1>
 
             <motion.p
               variants={heroItem}
-              className="mt-8 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-charcoal sm:max-w-xl sm:text-3xl sm:leading-relaxed"
+              className="mt-5 w-full max-w-[350px] font-display italic text-[1.35rem] leading-8 text-charcoal sm:max-w-xl sm:text-3xl sm:leading-relaxed"
             >
               {story}
             </motion.p>
@@ -326,9 +326,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
               variants={heroItem}
               dateTime={`${eventIsoDate}T14:00`}
               aria-label={`${eventDate} at ${EVENT_TIME}`}
-              className="mt-11 block w-full max-w-[360px]"
+              className="mt-8 block w-full max-w-[360px]"
             >
-              <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-5">
+              <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-4">
                 <span className="flex min-w-0 flex-col gap-1 px-1">
                   <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-pink-deep sm:tracking-[0.2em]">Day</span>
                   <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventWeekday}</span>
@@ -348,11 +348,11 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
               </span>
             </motion.time>
 
-            <motion.div variants={heroItem} className="mt-10 w-full text-center">
+            <motion.div variants={heroItem} className="mt-7 w-full text-center">
               <p className="mx-auto max-w-xs text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.15em] text-charcoal-soft sm:max-w-none sm:tracking-[0.2em]">
                 {EVENT_ADDRESS}
               </p>
-              <div className="mx-auto mt-6 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
+              <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2 sm:justify-center">
                 <motion.a
                   href="#rsvp"
                   whileTap={pressAnimation}

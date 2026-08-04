@@ -20,14 +20,36 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
 
+  const locked = phase !== 'done';
+
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    if (phase !== 'done') document.body.style.overflow = 'hidden';
+    if (!locked) return;
+
+    const { body, documentElement } = document;
+    const scrollY = window.scrollY;
+    const previous = {
+      bodyOverflow: body.style.overflow,
+      htmlOverflow: documentElement.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyWidth: body.style.width,
+    };
+
+    body.style.overflow = 'hidden';
+    documentElement.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      body.style.overflow = previous.bodyOverflow;
+      documentElement.style.overflow = previous.htmlOverflow;
+      body.style.position = previous.bodyPosition;
+      body.style.top = previous.bodyTop;
+      body.style.width = previous.bodyWidth;
+      window.scrollTo(0, scrollY);
     };
-  }, [phase]);
+  }, [locked]);
 
   useEffect(() => () => {
     if (timerRef.current) clearTimeout(timerRef.current);
