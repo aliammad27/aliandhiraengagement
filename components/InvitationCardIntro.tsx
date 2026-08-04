@@ -86,7 +86,7 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
                 <FloralCorners tone="text-pink-deep/50" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-                  <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited</p>
+                  <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited by</p>
                   <p className="mt-4 font-display text-[clamp(2.6rem,12vw,3.75rem)] leading-none">
                     {bride} <span className="text-pink-deep">&amp;</span> {groom}
                   </p>
