@@ -29,10 +29,10 @@ export default function InvitationHero({ groom, bride }: Props) {
 
         <time
           dateTime="2026-10-10"
-          aria-label="Saturday, October 10, 2026"
+          aria-label="Saturday, October 10, 2026 at 2:00 PM"
           className="mx-auto mt-8 block max-w-xs font-display text-[1.65rem] leading-tight text-ivory sm:max-w-none sm:text-3xl"
         >
-          Saturday, October 10, 2026
+          Saturday, October 10, 2026 · 2:00 PM
         </time>
         <p className="mt-2 font-display text-lg italic text-ivory">Insha&apos;Allah</p>
 

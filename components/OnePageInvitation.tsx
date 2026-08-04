@@ -51,6 +51,7 @@ const headerReveal: Variants = {
 
 const FALLBACK_ENGAGEMENT_DATE = new Date('2026-10-10T12:00:00Z');
 const RSVP_BY_DATE = 'September 12, 2026';
+const EVENT_TIME = '2:00 PM';
 const EVENT_ADDRESS = '1204 Middle Ave, Waterford Works, NJ';
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=1204+Middle+Ave+Waterford+Works+NJ';
 
@@ -271,7 +272,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
       <section
         id="top"
-        className="relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-12 pt-20 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
+        className="section-frame relative flex min-h-[100svh] items-center justify-center bg-cream px-4 pb-12 pt-20 text-center text-charcoal sm:min-h-[92svh] sm:px-8 sm:pb-16 sm:pt-24"
       >
         <motion.div
           variants={heroGroup}
@@ -311,7 +312,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
           <motion.time
             variants={heroItem}
             dateTime={eventIsoDate}
-            aria-label={eventDate}
+            aria-label={`${eventDate} at ${EVENT_TIME}`}
             className="mt-9 block w-full max-w-[360px]"
           >
             <span aria-hidden="true" className="grid grid-cols-3 items-center border-y border-gold/40 py-4">
@@ -327,8 +328,10 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 <span className="truncate font-display text-lg text-sage-dark sm:text-2xl">{eventMonth}</span>
               </span>
             </span>
-            <span aria-hidden="true" className="mt-3 block font-display text-lg italic text-charcoal-soft">
-              {eventYear} · Insha&apos;Allah
+            <span aria-hidden="true" className="mt-3 flex items-center justify-center gap-3 font-display text-lg italic text-charcoal-soft">
+              <span className="h-px w-8 bg-gold/35" />
+              <span>{eventYear} · {EVENT_TIME} · Insha&apos;Allah</span>
+              <span className="h-px w-8 bg-gold/35" />
             </span>
           </motion.time>
 
@@ -360,14 +363,14 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </motion.div>
       </section>
 
-      <section id="details" className="border-t border-sage-deep/10 bg-cream px-4 py-14 sm:px-8 sm:py-24">
+      <section id="details" className="section-frame border-y border-gold/25 bg-warm-white px-4 py-14 sm:px-8 sm:py-24">
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
-            className="relative border border-gold/40 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
+            className="panel-frame relative border border-gold/50 bg-ivory px-5 py-10 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-12"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
             <InsetRule borderColor="border-pink-deep/20" />
@@ -393,17 +396,20 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             className="flex flex-col justify-center gap-4"
           >
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
+              <div className="detail-card detail-card--when bg-pink-pale/75 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">When</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">{eventWeekday}</p>
                 <p className="mt-1 text-sm leading-6 text-charcoal-soft">{eventMonth} {eventDay}, {eventYear}</p>
+                <p className="mt-3 border-t border-pink-deep/20 pt-3 text-xs font-semibold uppercase tracking-[0.14em] text-pink-deep">
+                  {EVENT_TIME}
+                </p>
               </div>
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
+              <div className="detail-card detail-card--where bg-sage-pale/75 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Where</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Waterford Works</p>
                 <p className="mt-1 text-sm leading-6 text-charcoal-soft">{EVENT_ADDRESS}</p>
               </div>
-              <div className="border border-sage-dark/20 bg-ivory p-5 shadow-sm shadow-sage-deep/5">
+              <div className="detail-card detail-card--respond bg-gold-soft/25 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Respond</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Kindly RSVP</p>
                 <p className="mt-1 text-sm leading-6 text-charcoal-soft">Use the form below so we can plan for you.</p>
@@ -453,7 +459,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
         </section>
       )}
 
-      <section id="rsvp" className="bg-cream px-4 py-14 text-charcoal sm:px-8 sm:py-24">
+      <section id="rsvp" className="section-frame border-y border-gold/25 bg-cream px-4 py-14 text-charcoal sm:px-8 sm:py-24">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
           <motion.div
             variants={fadeUp}
@@ -462,6 +468,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             viewport={sectionViewport}
             className="text-center lg:sticky lg:top-8 lg:text-left"
           >
+            <div className="mx-auto mb-6 max-w-[210px] lg:mx-0">
+              <StarDivider tone="pink" />
+            </div>
             <p className="font-script text-4xl text-pink-deep sm:text-5xl">Kindly respond</p>
             <h2 className="mt-4 font-display text-[clamp(2.6rem,12vw,4.6rem)] font-normal leading-none text-sage-dark">
               {guest ? `Dear ${guest.name},` : 'Will you join us?'}
@@ -480,7 +489,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             whileInView="visible"
             viewport={sectionViewport}
             custom={1}
-            className="relative border border-gold-soft/50 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
+            className="panel-frame relative border border-gold-soft/60 bg-ivory px-4 py-8 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-10"
           >
             <CornerFrame borderColor="border-pink-deep/55" />
             <InsetRule borderColor="border-pink-deep/20" />

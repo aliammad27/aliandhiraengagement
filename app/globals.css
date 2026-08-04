@@ -141,9 +141,118 @@ textarea {
   background: var(--warm-white);
 }
 
+.section-frame {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-frame::before,
+.section-frame::after {
+  position: absolute;
+  pointer-events: none;
+  content: '';
+  z-index: 0;
+}
+
+.section-frame::before {
+  inset: 0.7rem;
+  border: 1px solid rgba(156, 141, 123, 0.18);
+}
+
+.section-frame::after {
+  inset: 0.95rem;
+  border: 1px solid rgba(205, 183, 138, 0.28);
+}
+
+.section-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+.panel-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.panel-frame::after {
+  position: absolute;
+  inset: 0.65rem;
+  border: 1px solid rgba(205, 183, 138, 0.24);
+  pointer-events: none;
+  content: '';
+  z-index: 0;
+}
+
+.panel-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+.detail-card {
+  --detail-border: rgba(111, 105, 158, 0.22);
+  --detail-accent: var(--sage-dark);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--detail-border);
+}
+
+.detail-card::before {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.85rem;
+  color: var(--detail-accent);
+  content: '✦';
+  font-size: 0.7rem;
+  line-height: 1;
+  opacity: 0.72;
+  z-index: 0;
+}
+
+.detail-card::after {
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid var(--detail-border);
+  pointer-events: none;
+  content: '';
+  opacity: 0.72;
+  z-index: 0;
+}
+
+.detail-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.detail-card--when {
+  --detail-border: rgba(156, 141, 123, 0.38);
+  --detail-accent: var(--pink-deep);
+}
+
+.detail-card--where {
+  --detail-border: rgba(111, 105, 158, 0.28);
+  --detail-accent: var(--sage-dark);
+}
+
+.detail-card--respond {
+  --detail-border: rgba(205, 183, 138, 0.46);
+  --detail-accent: var(--gold);
+}
+
 ::selection {
   background: var(--pink-pale);
   color: var(--charcoal);
+}
+
+@media (min-width: 640px) {
+  .section-frame::before {
+    inset: 0.95rem 1.25rem;
+  }
+
+  .section-frame::after {
+    inset: 1.2rem 1.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

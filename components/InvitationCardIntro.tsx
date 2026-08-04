@@ -95,6 +95,7 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
                   </p>
                   <span className="my-5 h-px w-20 bg-gold/70 sm:my-6" aria-hidden="true" />
                   <p className="font-display text-xl text-sage-dark sm:text-2xl">October 10, 2026</p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-pink-deep">2:00 PM</p>
                   <p className="mt-2 text-xs font-medium uppercase text-charcoal-soft">Insha'Allah</p>
                 </div>
               </motion.div>
@@ -175,7 +176,7 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
                 </motion.div>
 
                 <p className="absolute inset-x-0 bottom-[4.7rem] px-5 font-display text-sm italic text-charcoal-soft sm:bottom-[5.2rem] sm:text-base">
-                  Saturday, October 10, 2026
+                  Saturday, October 10, 2026 · 2:00 PM
                 </p>
 
                 <motion.p
