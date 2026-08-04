@@ -113,7 +113,7 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
                   <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited by</p>
-                  <p className="mt-4 font-display text-[clamp(2.6rem,12vw,3.75rem)] leading-none">
+                  <p className="mt-4 font-script text-[clamp(3rem,14vw,4.25rem)] leading-tight">
                     {bride} <span className="foil-text">&amp;</span> {groom}
                   </p>
                   <p className="mt-4 max-w-[240px] font-display text-xl leading-6 text-charcoal sm:mt-5 sm:text-2xl sm:leading-7">
@@ -170,7 +170,7 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                   <p className="mt-6 text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.18em] text-sage-dark sm:mt-7 sm:text-[0.72rem] sm:tracking-[0.2em]">
                     An invitation from
                   </p>
-                  <p className="mt-3 max-w-full font-display text-[clamp(3rem,14vw,4.5rem)] leading-none text-sage-deep sm:mt-4">
+                  <p className="mt-3 max-w-full font-script text-[clamp(3.5rem,16vw,5rem)] leading-tight text-sage-deep sm:mt-4">
                     {bride} <span className="foil-text">&amp;</span> {groom}
                   </p>
                 </div>

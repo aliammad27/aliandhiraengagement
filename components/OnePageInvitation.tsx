@@ -310,9 +310,9 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
 
             <motion.h1
               variants={heroItem}
-              className="mt-5 max-w-full font-display text-[clamp(3.5rem,16vw,6rem)] font-normal leading-none text-sage-dark [text-wrap:balance] sm:text-8xl"
+              className="mt-5 max-w-full font-script text-[clamp(4rem,18vw,7rem)] font-normal leading-tight text-sage-dark [text-wrap:balance] sm:text-9xl"
             >
-              {bride} <span className="font-script foil-text mx-1 align-middle text-[0.68em]">&amp;</span> {groom}
+              {bride} <span className="foil-text mx-1 align-middle text-[0.72em]">&amp;</span> {groom}
             </motion.h1>
 
             <motion.p
