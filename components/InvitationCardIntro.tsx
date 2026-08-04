@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CornerFrame, StarDivider } from '@/components/ornaments';
+import { CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
 
 interface Props {
   bride: string;
@@ -82,6 +82,8 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
                 className="absolute inset-0 overflow-hidden border border-gold/55 bg-ivory p-6 text-sage-deep shadow-2xl shadow-sage-dark/20 sm:p-10"
               >
                 <CornerFrame borderColor="border-pink-deep/35" />
+                <InsetRule borderColor="border-pink-deep/20" />
+                <FloralCorners tone="text-pink-deep/50" />
                 <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
                   <p className="mt-5 text-xs font-semibold uppercase text-pink-deep sm:mt-7">You are invited</p>
@@ -119,6 +121,8 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
                 className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center overflow-hidden border border-gold/70 bg-ivory text-center text-sage-deep shadow-2xl shadow-sage-dark/20"
               >
                 <CornerFrame borderColor="border-gold/65" />
+                <InsetRule borderColor="border-gold/25" />
+                <FloralCorners tone="text-gold/55" />
 
                 <span
                   aria-hidden="true"
