@@ -182,7 +182,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
   const photos = config?.photos?.filter(Boolean) || [];
   const story =
     config?.story?.trim() ||
-    'With love and gratitude, we invite you to join us for an intimate engagement celebration with our family and friends.';
+    'Joyfully invite you to an intimate celebration of their engagement with family and friends.';
   const maximumPartySize = guest ? Math.max(2, Number(guest.partySize) || 1) : 2;
   const lookupNotice = invalidInvitation
     ? {
