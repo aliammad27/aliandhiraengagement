@@ -196,6 +196,9 @@ textarea {
   isolation: isolate;
   overflow: hidden;
   border: 1px solid var(--detail-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(120, 100, 60, 0.06);
 }
 
 .detail-card::before {
@@ -208,6 +211,7 @@ textarea {
   line-height: 1;
   opacity: 0.72;
   z-index: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .detail-card::after {
@@ -242,6 +246,10 @@ textarea {
 
 .arch-card {
   border-radius: 50% 50% 12px 12px / 16% 16% 12px 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px rgba(120, 100, 60, 0.08),
+    inset 0 0 0 1px rgba(205, 183, 138, 0.12);
 }
 
 .arch-inset {
@@ -250,6 +258,11 @@ textarea {
 
 .panel-frame {
   border-radius: 50% 50% 10px 10px / 12% 12% 10px 10px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px rgba(120, 100, 60, 0.07),
+    inset 0 0 0 1px rgba(205, 183, 138, 0.1),
+    0 1px 2px rgba(120, 100, 60, 0.05);
 }
 
 .panel-frame::after {
@@ -268,17 +281,43 @@ textarea {
   height: 1px;
   background-image: linear-gradient(90deg, transparent, currentColor, transparent);
   opacity: 0.65;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.gold-glyph {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 7px rgba(205, 183, 138, 0.3);
+}
+
+.geo-diamond {
+  position: relative;
+  display: inline-flex;
+  height: 1rem;
+  width: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.geo-diamond::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: rotate(45deg);
+  border: 1px solid currentColor;
+  opacity: 0.45;
 }
 
 .invitation-canvas {
   background-color: var(--cream);
   background-image:
+    linear-gradient(122deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 28%, rgba(255, 255, 255, 0) 72%, rgba(255, 255, 255, 0.22) 100%),
     radial-gradient(ellipse at center, transparent 55%, rgba(46, 42, 53, 0.1) 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, repeat;
-  background-size: 100% 100%, 240px 240px;
-  background-attachment: fixed, fixed;
-  background-blend-mode: normal, multiply;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, 240px 240px;
+  background-attachment: fixed, fixed, fixed;
+  background-blend-mode: overlay, normal, multiply;
 }
 
 ::selection {

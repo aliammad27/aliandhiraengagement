@@ -23,7 +23,7 @@ export function ArchApex({ tone = 'text-gold' }: { tone?: string }) {
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs ${tone} sm:top-4`}
+      className={`geo-diamond gold-glyph pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-[0.55rem] ${tone} sm:top-4`}
     >
       ✦
     </span>
@@ -112,7 +112,7 @@ export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink'
   return (
     <div className={`flex items-center justify-center gap-4 ${styles.star}`} aria-hidden="true">
       <span className={`divider-line w-12 ${styles.line}`} />
-      <span className="text-xs tracking-widest">✦</span>
+      <span className="geo-diamond gold-glyph text-[0.6rem] tracking-widest">✦</span>
       <span className={`divider-line w-12 ${styles.line}`} />
     </div>
   );
