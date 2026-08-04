@@ -387,7 +387,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
-            className="panel-frame relative border border-gold/50 bg-ivory px-5 py-12 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:py-16"
+            className="panel-frame relative border border-gold/50 bg-ivory px-5 pb-12 pt-14 text-center shadow-xl shadow-sage-deep/10 sm:px-10 sm:pb-16 sm:pt-20"
           >
             <CornerFrame borderColor="border-pink-deep/55" topCorners={false} />
             <InsetRule borderColor="border-pink-deep/20" />
@@ -507,7 +507,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             whileInView="visible"
             viewport={sectionViewport}
             custom={1}
-            className="panel-frame relative border border-gold-soft/60 bg-ivory px-4 py-10 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:py-14"
+            className="panel-frame relative border border-gold-soft/60 bg-ivory px-4 pb-10 pt-14 text-charcoal shadow-2xl shadow-sage-dark/30 sm:px-8 sm:pb-14 sm:pt-20"
           >
             <CornerFrame borderColor="border-pink-deep/55" topCorners={false} />
             <InsetRule borderColor="border-pink-deep/20" />

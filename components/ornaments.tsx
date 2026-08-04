@@ -23,7 +23,7 @@ export function ArchApex({ tone = 'text-gold' }: { tone?: string }) {
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 ${tone} sm:top-4`}
+      className={`pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 ${tone} sm:top-3`}
     >
       <span className="geo-diamond gold-glyph text-[0.55rem]">✦</span>
     </span>
