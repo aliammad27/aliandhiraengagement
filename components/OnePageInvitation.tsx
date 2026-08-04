@@ -430,7 +430,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
               <div className="detail-card detail-card--respond bg-gold-soft/25 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Respond</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Kindly RSVP</p>
-                <p className="mt-1 text-sm leading-6 text-charcoal-soft">Use the form below so we can plan for you.</p>
+                <p className="mt-1 text-sm leading-6 text-charcoal-soft">Use the form below so we can plan accordingly.</p>
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
