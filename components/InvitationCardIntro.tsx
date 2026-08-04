@@ -120,14 +120,6 @@ export default function InvitationCardIntro({ bride, groom, onOpened }: Props) {
               >
                 <CornerFrame borderColor="border-gold/65" />
 
-                <span
-                  aria-hidden="true"
-                  className="font-script pointer-events-none absolute inset-x-0 top-[47%] z-0 flex select-none items-center justify-center text-[clamp(7rem,42vw,12rem)] leading-none text-sage-pale"
-                  style={{ transform: 'translateY(-50%) rotate(-12deg)' }}
-                >
-                  &amp;
-                </span>
-
                 <div className="relative z-10 flex w-full flex-col items-center px-6 pt-9 sm:px-10 sm:pt-14">
                   <p className="font-arabic text-xl text-gold sm:text-2xl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
 
