@@ -491,7 +491,7 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
             </div>
             <p className="font-script text-4xl text-pink-deep sm:text-5xl">Kindly respond</p>
             <h2 className="mt-4 font-display text-[clamp(2.6rem,12vw,4.6rem)] font-normal leading-none text-sage-dark">
-              {guest ? `Dear ${guest.name},` : 'Will you join us?'}
+              {guest ? `Dear ${guest.name},` : 'RSVP'}
             </h2>
             <p className="mt-6 max-w-xl font-display text-xl italic leading-8 text-charcoal sm:text-2xl sm:leading-9 lg:max-w-md">
               Please let us know whether you will be able to join us for {bride} and {groom}&apos;s engagement.
