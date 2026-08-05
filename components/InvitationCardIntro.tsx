@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArchApex, CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
+import { ArchApex, CornerFrame, FloralCorners, InsetRule, MiniSprig, StarDivider } from '@/components/ornaments';
 
 interface Props {
   bride: string;
@@ -200,6 +200,8 @@ export default function InvitationCardIntro({ bride, groom, eventDate, eventWeek
                     <span className="font-display text-lg sm:text-xl">H&amp;A</span>
                     <span className="h-px w-7 bg-ivory/55" aria-hidden="true" />
                   </span>
+                  <MiniSprig className="absolute -left-8 top-1/2 -translate-y-1/2 text-gold/70" mirror />
+                  <MiniSprig className="absolute -right-8 top-1/2 -translate-y-1/2 text-gold/70" />
                 </motion.div>
 
                 <p className="absolute inset-x-0 bottom-[4.7rem] px-5 font-display text-sm italic text-charcoal-soft sm:bottom-[5.2rem] sm:text-base">

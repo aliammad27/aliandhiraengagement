@@ -64,35 +64,65 @@ export function FloralCorner({
     <svg
       aria-hidden="true"
       viewBox="0 0 120 120"
-      className={`pointer-events-none absolute h-16 w-16 sm:h-24 sm:w-24 ${tone} ${className}`}
+      className={`pointer-events-none absolute h-20 w-20 sm:h-28 sm:w-28 ${tone} ${className}`}
       fill="none"
     >
       <path
-        d="M8 112 C 22 98, 29 80, 33 60 C 37 40, 48 27, 68 15"
+        d="M6 116 C 20 104, 27 88, 31 68 C 35 48, 46 33, 68 15"
         stroke="currentColor"
         strokeWidth="0.85"
         strokeLinecap="round"
       />
-      <path d="M33 60 C 40 58, 46 54, 50 47" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
-      <path d="M48 33 C 54 31, 58 27, 60 21" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+      <path d="M31 68 C 38 66, 44 62, 48 55" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+      <path d="M46 39 C 52 37, 56 33, 58 27" stroke="currentColor" strokeWidth="0.65" strokeLinecap="round" />
+      <path d="M18 92 C 24 92, 29 88, 31 82" stroke="currentColor" strokeWidth="0.55" strokeLinecap="round" opacity="0.85" />
 
       <path
-        d="M19 90 C 25 88, 29 83, 29 76 C 24 79, 19 82, 14 85 C 15 88, 17 90, 19 90 Z"
+        d="M17 98 C 23 96, 27 91, 27 84 C 22 87, 17 90, 12 93 C 13 96, 15 98, 17 98 Z"
         stroke="currentColor"
         strokeWidth="0.5"
         opacity="0.85"
       />
       <path
-        d="M39 51 C 45 49, 49 45, 49 39 C 44 42, 40 45, 35 48 C 36 50, 38 51, 39 51 Z"
+        d="M37 57 C 43 55, 47 51, 47 45 C 42 48, 38 51, 33 54 C 34 56, 36 57, 37 57 Z"
         stroke="currentColor"
         strokeWidth="0.5"
         opacity="0.85"
       />
+      <path
+        d="M50 33 C 55 32, 58 28, 58 23 C 54 26, 51 28, 47 31 C 48 32, 49 33, 50 33 Z"
+        stroke="currentColor"
+        strokeWidth="0.45"
+        opacity="0.8"
+      />
 
-      <Blossom x={50} y={47} size={0.62} />
-      <Blossom x={68} y={15} size={0.9} />
-      <circle cx="60" cy="21" r="1.3" fill="currentColor" opacity="0.6" />
-      <circle cx="24" cy="72" r="1" fill="currentColor" opacity="0.4" />
+      <Blossom x={31} y={82} size={0.5} />
+      <Blossom x={48} y={55} size={0.65} />
+      <Blossom x={68} y={15} size={0.95} />
+      <circle cx="58" cy="27" r="1.3" fill="currentColor" opacity="0.6" />
+      <circle cx="22" cy="88" r="0.9" fill="currentColor" opacity="0.4" />
+      <circle cx="41" cy="63" r="0.8" fill="currentColor" opacity="0.4" />
+    </svg>
+  );
+}
+
+export function MiniSprig({ className = '', mirror = false }: { className?: string; mirror?: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={`inline-block h-5 w-5 shrink-0 ${mirror ? '-scale-x-100' : ''} ${className}`}
+      fill="none"
+    >
+      <path d="M2 21 C 6 17, 8 12, 9 7" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" opacity="0.75" />
+      <path d="M9 12 C 6 13, 4 13, 2 11" stroke="currentColor" strokeWidth="0.55" strokeLinecap="round" opacity="0.7" />
+      <path
+        d="M6 18 C 8 17.4, 9.4 16, 9.4 14.2 C 7.8 15, 6.2 15.8, 4.6 16.6 C 5 17.4, 5.6 18, 6 18 Z"
+        stroke="currentColor"
+        strokeWidth="0.45"
+        opacity="0.7"
+      />
+      <Blossom x={9} y={7} size={0.42} />
     </svg>
   );
 }
@@ -142,10 +172,12 @@ export function StarDivider({ tone = 'gold' }: { tone?: 'gold' | 'sage' | 'pink'
   }[tone];
 
   return (
-    <div className={`flex items-center justify-center gap-4 ${styles.star}`} aria-hidden="true">
-      <span className={`divider-line w-12 ${styles.line}`} />
+    <div className={`flex items-center justify-center gap-2 ${styles.star}`} aria-hidden="true">
+      <MiniSprig />
+      <span className={`divider-line w-8 ${styles.line}`} />
       <span className="geo-diamond gold-glyph text-[0.6rem] tracking-widest">✦</span>
-      <span className={`divider-line w-12 ${styles.line}`} />
+      <span className={`divider-line w-8 ${styles.line}`} />
+      <MiniSprig mirror />
     </div>
   );
 }
