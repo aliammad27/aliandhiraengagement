@@ -224,7 +224,7 @@ textarea {
   z-index: 0;
 }
 
-.detail-card > * {
+.detail-card > :not(.absolute) {
   position: relative;
   z-index: 1;
 }

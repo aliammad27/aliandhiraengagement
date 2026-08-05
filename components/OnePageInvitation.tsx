@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getEngagementConfig, getGuestByToken, recordRSVP } from '@/lib/database';
 import { EngagementConfig, Guest } from '@/lib/types';
 import InvitationCardIntro from '@/components/InvitationCardIntro';
-import { ArchApex, CornerFrame, FloralCorners, InsetRule, StarDivider } from '@/components/ornaments';
+import { ArchApex, CornerFrame, FloralCorners, InsetRule, MiniSprig, StarDivider } from '@/components/ornaments';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 const sectionViewport = { once: true, amount: 0.2 } as const;
@@ -421,16 +421,19 @@ export default function OnePageInvitation({ initialToken }: OnePageInvitationPro
                 <p className="mt-3 border-t border-pink-deep/20 pt-3 text-xs font-semibold uppercase tracking-[0.14em] text-pink-deep">
                   {EVENT_TIME}
                 </p>
+                <MiniSprig className="absolute -bottom-1 -left-1 text-pink-deep/45" mirror />
               </div>
               <div className="detail-card detail-card--where bg-sage-pale/75 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Where</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Waterford Works</p>
                 <p className="mt-1 text-sm leading-6 text-charcoal-soft">{EVENT_ADDRESS}</p>
+                <MiniSprig className="absolute -bottom-1 -left-1 text-sage-dark/45" mirror />
               </div>
               <div className="detail-card detail-card--respond bg-gold-soft/25 p-5 shadow-sm shadow-sage-deep/5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-pink-deep">Respond</p>
                 <p className="mt-3 font-display text-2xl leading-tight text-sage-dark">Kindly RSVP</p>
                 <p className="mt-1 text-sm leading-6 text-charcoal-soft">Use the form below so we can plan accordingly.</p>
+                <MiniSprig className="absolute -bottom-1 -left-1 text-gold/55" mirror />
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
